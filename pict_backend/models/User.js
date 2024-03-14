@@ -15,6 +15,8 @@ User.prototype.cleanUp = function () {
     userPassword: this.data.accountPassword,
     role: "user",
     // More fields will come later
+    eventsRegisteredIn: [],
+    certificates: [],
     taskCompleted: Number(0),
     certificateReceived: Number(0),
     reward: Number(0),
