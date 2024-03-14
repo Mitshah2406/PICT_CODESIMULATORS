@@ -1,0 +1,39 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "start nodemon db --ignore frontend-js --ignore public/ && start webpack --watch",
+    "start": "start nodemon db"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "axios": "^0.27.2",
+    "babel-loader": "^8.2.5",
+    "bcrypt": "^5.0.1",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^4.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-fileupload": "^1.4.0",
+    "express-session": "^1.17.3",
+    "md5": "^2.3.0",
+    "moment": "^2.29.4",
+    "mongodb": "^4.7.0",
+    "nodemailer": "^6.7.7",
+    "nodemon": "^2.0.18",
+    "path-browserify": "^1.0.1",
+    "sanitize-html": "^2.7.0",
+    "webpack": "^5.73.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.10.0"
+  }
+}
