@@ -1,0 +1,29 @@
+
+
+
+void sendNoti() async {
+  String token = await FirebaseApi().getFCM();
+  print("Sending notification");
+  final res = await http.post(Uri.parse("https://fcm.googleapis.com/fcm/send"),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":
+            "key=AAAAulHhALg:APA91bEPTaGltWPxDT3ImK0kWemj38GX6ZI31z03ZikzP9IlMV0MCfVZ5mMz56CIaLa-I1gvbCx5Y4_RMEcbak2DzwtHMm1JKIdPW7rj3RGZsl8wUM9mbQHklxeVDmLHXnEAagR6CgHn"
+      },
+      body: jsonEncode({
+        "to": token,
+        "notification": {
+          "title": "Kush khusssshhhh huaaa",
+          "body": "Rich Notification testing (body)",
+          "mutable_content": true,
+          "sound": "Tri-tone",
+          "url": "https://i.stack.imgur.com/lXio9.jpg?s=256&g=1",
+        },
+        "data": {"dl": "/notification-screen"}
+      }));
+  if (res.statusCode == 200) {
+    print("Notification sent");
+  } else {
+    print("Notification failed");
+  }
+}

@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const accountController = require("./controllers/accountController");
-const userController = require("./controllers/userController");
-const recyclerController = require("./controllers/recyclerController");
-const organizerController = require("./controllers/organizerController");
-const eventController = require("./controllers/eventController");
+const accountController = require("../controllers/accountController");
+const userController = require("../controllers/userController");
+const recyclerController = require("../controllers/recyclerController");
+const organizerController = require("../controllers/organizerController");
+const eventController = require("../controllers/eventController");
 
 // Create a new account, and segregating based on the roles
 router.post("/account/signUp", accountController.signUp);

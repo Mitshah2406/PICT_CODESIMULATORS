@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "128076653918",
+    "project_id": "pict-hackathon",
+    "storage_bucket": "pict-hackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128076653918:android:5d52350325001520cf1bcf",
+        "android_client_info": {
+          "package_name": "com.example.pict_frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdhYMpVL_H_PUYrfKCmwBvtmDPh2PFupU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
