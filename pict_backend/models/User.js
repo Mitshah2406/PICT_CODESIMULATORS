@@ -38,4 +38,10 @@ User.prototype.getUserByEmail = async function (email) {
   return data;
 };
 
+User.prototype.getUserById = async function (userId) {
+  let data = await usersCollection.findOne({ _id: new ObjectID(userId) });
+
+  return data;
+};
+
 module.exports = User;

@@ -157,4 +157,156 @@ Event.prototype.getAllOngoingEventsCount = async function () {
   return data;
 };
 
+Event.prototype.markPresent = async function (userId, eventId) {
+  let data = await eventsCollection.findOneAndUpdate(
+    {
+      _id: new ObjectID(eventId),
+    },
+    {
+      $push: {
+        presentParticipants: {
+          userId: new ObjectID(userId),
+          certificateReceived: false,
+          date: new Date(),
+        },
+      },
+    }
+  );
+
+  return "ok";
+};
+
+Event.prototype.getUserEventParticipationCountById = async function (userId) {
+  let data = await eventsCollection.countDocuments({
+    presentParticipants: {
+      $elemMatch: {
+        userId: new ObjectID(userId),
+      },
+    },
+  });
+
+  return data;
+};
+
+Event.prototype.getPresentParticipants = async function (eventId) {
+  let data = await eventsCollection
+    .aggregate([
+      {
+        $match: {
+          _id: new ObjectID(eventId),
+        },
+      },
+      {
+        $unwind: "$presentParticipants",
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "presentParticipants.userId",
+          foreignField: "_id",
+          as: "userData",
+        },
+      },
+      {
+        $unwind: "$userData",
+      },
+      {
+        $group: {
+          _id: new ObjectID(eventId),
+          users: {
+            $addToSet: "$userData",
+          },
+        },
+      },
+    ])
+    .toArray();
+
+  if (data.length > 0) {
+    return data;
+  }
+
+  return null;
+};
+
+Event.prototype.getRegisteredParticipants = async function (eventId) {
+  let data = await eventsCollection
+    .aggregate([
+      {
+        $match: {
+          _id: new ObjectID(eventId),
+        },
+      },
+      {
+        $unwind: "$registeredParticipants",
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "registeredParticipants.userId",
+          foreignField: "_id",
+          as: "userData",
+        },
+      },
+      {
+        $unwind: "$userData",
+      },
+      {
+        $group: {
+          _id: new ObjectID(eventId),
+          users: {
+            $addToSet: "$userData",
+          },
+        },
+      },
+    ])
+    .toArray();
+
+  if (data.length > 0) {
+    return data;
+  }
+
+  return null;
+};
+
+Event.prototype.markCertificateReceived = async function (userId, eventId) {
+  try {
+    await eventsCollection.findOneAndUpdate(
+      {
+        _id: new ObjectID(eventId),
+        "presentParticipants.userId": new ObjectID(userId),
+      },
+      {
+        $set: {
+          "presentParticipants.$.certificateReceived": true,
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+Event.prototype.checkIfAlreadyRegistered = async function (userId, eventId) {
+  let isPresent = await eventsCollection
+    .aggregate([
+      {
+        $match: {
+          _id: new ObjectID(eventId),
+        },
+      },
+      {
+        $project: {
+          isRegistered: {
+            $in: [new ObjectID(userId), "$registeredParticipants.userId"],
+          },
+        },
+      },
+    ])
+    .toArray();
+
+  console.log(isPresent);
+
+  return isPresent;
+};
+
 module.exports = Event;

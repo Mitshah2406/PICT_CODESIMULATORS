@@ -44,6 +44,18 @@ router.get(
   eventController.getAllOngoingEventsCount
 );
 
+// Get All registered participants in the specific event, which will be shown on the webApp
+router.post(
+  "/getRegisteredParticipants",
+  eventController.getRegisteredParticipants
+);
+
+// Get All present participants in the specific event, and there will be the generate certificate button when clicked the certificate will be generated for that user.
+router.post("/getPresentParticipants", eventController.getPresentParticipants);
+
+// Certificate generation
+router.post("/generateCertificate", eventController.generateCertificate);
+
 // Flutter's API
 router.get("/getAllEvents", eventController.getAllEvents);
 router.post("/getSingleEventById", eventController.getSingleEventById);
@@ -53,6 +65,8 @@ router.get("/getAllOngoingEvents", eventController.getAllOngoingEvents);
 
 // User can register in event, and then the user should be pushed in the registeredParticipants[] array
 router.post("/registerEvent", eventController.registerEvent);
+// Organizer can mark present, based on the eventId and userId.
+router.post("/markPresent", eventController.markPresent);
 
 // Get Count of user who has registered in the events
 router.post(
@@ -60,9 +74,22 @@ router.post(
   eventController.getUserEventRegistrationCountById
 );
 
-// Pending API's
-// If they registered, and they are present in the event, isCertificate field in the user will be true as well as user will be added in the presentParticipants[] array
 // Get Count of user who is present in the events
-// Certificate generation (Different for volunteer and users)
+router.post(
+  "/getUserEventParticipationCountById",
+  eventController.getUserEventParticipationCountById
+);
+
+// To check whether user has already registered or not based on userId. If already, return true and show QR scanner on app
+router.post(
+  "/checkIfAlreadyRegistered",
+  eventController.checkIfAlreadyRegistered
+);
+
+// ! Pending API's
+// Based on userId, get all the certificates of the user of any events and display in the app
+// Add some fields and one array of volunteers,
+// Volunteers module and their api's
+// Certificate generation (pending volunteer)
 
 module.exports = router;
