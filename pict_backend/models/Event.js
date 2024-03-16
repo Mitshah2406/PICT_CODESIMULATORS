@@ -15,32 +15,38 @@ Event.prototype.cleanUp = function () {
     eventName: this.data.eventName,
     eventDescription: this.data.eventDescription,
     eventPoster: this.data.eventPoster,
-    eventLikeCount: 0,
     eventStartDate: new Date(this.data.startDate),
     eventStartTime: this.data.startTime,
     eventEndDate: new Date(this.data.endDate),
     eventEndTime: this.data.endTime,
+    // isInCollabaration: Boolean(this.data.isInCollabaration),  take this to conditionally show the collab fields on fronted (FOR TAHER)
+    collabOrganizationName: this.data.collabOrganizationName,
+    collabOrgEmail: this.data.collabOrgEmail,
     eventAttachment: this.data.eventAttachment,
-    contactName1: this.data.contactName1,
-    contactNo1: this.data.contactNo1,
-    contactName2: this.data.contactName2,
-    contactNo2: this.data.contactNo2,
-    workSubmissionMail: this.data.email,
+    organizerName: this.data.organizerName,
+    organizerEmail: this.data.organizerEmail,
+    organizerNumber: this.data.organizerNumber,
     whatsAppLink: this.data.whatsAppLink,
-    isCertificate: Boolean(this.data.isCertificate),
+    // areVolunteersNeeded: Boolean(this.data.areVolunteersNeeded), take this to conditionally show the volunteers fields on fronted (FOR TAHER)
+    noOfVolunteersNeeded: Number(this.data.noOfVolunteersNeeded),
+    participationCertificateTemplate: this.data.participationCertificateTemplate,
+    volunteerCertificateTemplate: this.data.volunteerCertificateTemplate,
+    volunteers: [],
     // If user has not registered, but they want to participate in event
-    isWalkIn: Boolean(this.data.isWalkIn),
     registeredParticipants: [],
     presentParticipants: [],
-    // winners: [],
+
     createdDate: new Date(),
   };
 };
 
 Event.prototype.addEvent = async function () {
   this.cleanUp();
-  await eventsCollection.insertOne(this.data);
-  return "ok";
+  let event = await eventsCollection.insertOne(this.data);
+  return {
+    id: event.insertedId,
+    status: "ok",
+  };
 };
 
 Event.prototype.deleteEventById = async function (eventId) {
@@ -59,6 +65,14 @@ Event.prototype.getEventById = async function (eventId) {
   let data = await eventsCollection.findOne({ _id: new ObjectID(eventId) });
 
   return data;
+};
+Event.prototype.getEventCertificateTemplates = async function (eventId) {
+  let data = await eventsCollection.findOne({ _id: new ObjectID(eventId) });
+
+  return {
+    participationCertificateTemplate: data.participationCertificateTemplate,
+    volunteerCertificateTemplate: data.volunteerCertificateTemplate,
+  };
 };
 
 Event.prototype.getAllUpcomingEvents = async function () {
@@ -94,20 +108,41 @@ Event.prototype.getAllOngoingEvents = async function () {
   return data;
 };
 
-Event.prototype.registerEvent = async function (userId, eventId) {
-  let data = await eventsCollection.findOneAndUpdate(
-    {
-      _id: new ObjectID(eventId),
-    },
-    {
-      $push: {
-        registeredParticipants: {
-          userId: new ObjectID(userId),
-          registeredDate: new Date(),
-        },
+Event.prototype.registerEvent = async function (userId, eventId, registeringAs) {
+  if (registeringAs === "participant") {
+    let data = await eventsCollection.findOneAndUpdate(
+      {
+        _id: new ObjectID(eventId),
       },
-    }
-  );
+      {
+        $push: {
+          registeredParticipants: {
+            userId: new ObjectID(userId),
+            registeredDate: new Date(),
+          },
+
+        },
+      }
+    );
+  } else {
+    let data = await eventsCollection.findOneAndUpdate(
+      {
+        _id: new ObjectID(eventId),
+      },
+      {
+        $push: {
+          registeredParticipants: {
+            userId: new ObjectID(userId),
+            registeredDate: new Date(),
+          },
+          volunteers: {
+            userId: new ObjectID(userId),
+            registeredDate: new Date(),
+          },
+        },
+      }
+    );
+  }
 
   return "ok";
 };
