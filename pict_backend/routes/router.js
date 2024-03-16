@@ -5,6 +5,7 @@ const recyclerController = require("../controllers/recyclerController");
 const organizerController = require("../controllers/organizerController");
 const eventController = require("../controllers/eventController");
 const itemlistingContoller = require("../controllers/itemListingController");
+const reportController = require("../controllers/reportController");
 
 // ? Authentication module
 
@@ -127,4 +128,25 @@ router.post(
   itemlistingContoller.checkIfItemAlreadyExist
 );
 
+
+
+// Reporting Module
+
+//add report for unhygenic place with a attachment
+router.post("/report/addReport", reportController.addReport);
+//get all reports
+router.get("/report/getAllReports", reportController.getAllReports);
+// get single report by id
+router.get("/report/getReportById/:reportId", reportController.getReportById);
+// change report status accordingly to pending(by default), resolved, rejected(if fake report)
+router.post("/report/changeReportStatus", reportController.changeReportStatus);
+// get reports by status (pending, resolved, rejected)
+router.get("/report/getReportsByStatus/:reportStatus", reportController.getReportsByStatus);
+
+
+//404
+
+router.get("*", (req, res) => {
+  res.status(404).send("404: Page not found");
+});
 module.exports = router;
