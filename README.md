@@ -2,12 +2,12 @@
 
 # Backend
 
-cd ./pict_backend
-npm i
+cd ./pict_backend \n
+npm i \n
 npm start
 
 # Frontend
 
-cd ./pict_frontend
-flutter pub get
+cd ./pict_frontend \n
+flutter pub get \n
 flutter run
