@@ -3,15 +3,15 @@
 ## Backend
 
 ```bash
-cd ./pict_backend \n
-npm i \n
+cd ./pict_backend
+npm i
 npm start
 ```
 
 ## Frontend
 
 ```bash
-cd ./pict_frontend \n
-flutter pub get \n
+cd ./pict_frontend
+flutter pub get
 flutter run
 ```
