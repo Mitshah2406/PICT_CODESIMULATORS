@@ -1,13 +1,17 @@
 # PICT_CODESIMULATORS
 
-# Backend
+## Backend
 
+```bash
 cd ./pict_backend
 npm i
 npm start
+```
 
-# Frontend
+## Frontend
 
+```bash
 cd ./pict_frontend
 flutter pub get
 flutter run
+```
