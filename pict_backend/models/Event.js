@@ -109,7 +109,7 @@ Event.prototype.registerEvent = async function (userId, eventId) {
     }
   );
 
-  return data;
+  return "ok";
 };
 
 Event.prototype.getUserEventRegistrationCountById = async function (userId) {
@@ -287,24 +287,11 @@ Event.prototype.markCertificateReceived = async function (userId, eventId) {
 };
 
 Event.prototype.checkIfAlreadyRegistered = async function (userId, eventId) {
-  let isPresent = await eventsCollection
-    .aggregate([
-      {
-        $match: {
-          _id: new ObjectID(eventId),
-        },
-      },
-      {
-        $project: {
-          isRegistered: {
-            $in: [new ObjectID(userId), "$registeredParticipants.userId"],
-          },
-        },
-      },
-    ])
-    .toArray();
+  let event = await eventsCollection.findOne({ _id: new ObjectID(eventId) });
 
-  console.log(isPresent);
+  let isPresent = event.registeredParticipants.some((user) =>
+    user.userId.equals(new ObjectID(userId))
+  );
 
   return isPresent;
 };
