@@ -1,0 +1,576 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:logger/logger.dart';
+import 'package:pict_frontend/config/app_constants.dart';
+import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
+import 'package:pict_frontend/services/AuthService.dart';
+
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  var logger = Logger();
+
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _firstNameController =
+      TextEditingController(text: "");
+  final TextEditingController _lastNameController =
+      TextEditingController(text: "");
+  final TextEditingController _emailController =
+      TextEditingController(text: "");
+  final TextEditingController _mobileNoController =
+      TextEditingController(text: "");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "");
+
+  int? selectedValue = 0;
+
+  List<String> options = ["User", "Recycler"];
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _mobileNoController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: AppConstants.bgColorAuth,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 20.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: 250,
+                  height: 250,
+                  decoration: BoxDecoration(
+                      color: Colors.deepPurple.shade50, shape: BoxShape.circle),
+                  child: SvgPicture.asset(
+                    AppConstants.registerIcon,
+                    fit: BoxFit.cover,
+                    width: 100,
+                    height: 50,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                const Text(
+                  "Create Account",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 35,
+                    color: Colors.green,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                // const Text(
+                //   "Enter Your Basic Details...",
+                //   style: TextStyle(
+                //     fontSize: 14,
+                //     fontWeight: FontWeight.bold,
+                //     color: Colors.black38,
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                Divider(
+                  color: Colors.grey.shade300,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 8,
+                        ),
+
+                        // ? First Name Field
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
+                          child: Text(
+                            "First Name: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == "") {
+                              return "Enter Your First Name";
+                            }
+                          },
+                          controller: _firstNameController,
+                          keyboardType: TextInputType.multiline,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: "Enter Your First Name",
+                            hintStyle: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 14),
+                          ),
+                        ),
+
+                        const SizedBox(
+                          height: 8,
+                        ),
+
+                        // ? Last Name Field
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
+                          child: Text(
+                            "Last Name: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == "") {
+                              return "Enter Your Last Name";
+                            }
+                          },
+                          controller: _lastNameController,
+                          keyboardType: TextInputType.multiline,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: "Enter Your Last Name",
+                            hintStyle: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 14),
+                          ),
+                        ),
+
+                        const SizedBox(
+                          height: 8,
+                        ),
+
+                        // ? Email Field
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
+                          child: Text(
+                            "Email: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == "") {
+                              return "Enter Your Email Address";
+                            } else if (value!.contains('@')) {
+                              return null;
+                            } else {
+                              return "Enter valid Email Address";
+                            }
+                          },
+                          controller: _emailController,
+                          keyboardType: TextInputType.multiline,
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.normal),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: "Enter Your Email Address",
+                            hintStyle: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 14),
+                          ),
+                        ),
+
+                        const SizedBox(
+                          height: 10,
+                        ),
+
+                        // ? Mobile No Field
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
+                          child: Text(
+                            "Mobile Number: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == "") {
+                              return "Enter Your Mobile Number";
+                            } else if (value!.length != 10) {
+                              return "Enter Your Valid Mobile Number";
+                            }
+                          },
+                          controller: _mobileNoController,
+                          keyboardType: TextInputType.number,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: "Enter Your Mobile Number",
+                            hintStyle: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 14),
+                          ),
+                        ),
+
+                        const SizedBox(
+                          height: 10,
+                        ),
+
+                        // ? Password Field
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
+                          child: Text(
+                            "Password: ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                            ),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == "") {
+                              return "Enter Your Password";
+                            }
+                          },
+                          controller: _passwordController,
+                          obscureText: true,
+                          keyboardType: TextInputType.text,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: "Enter Your Password",
+                            hintStyle: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 14),
+                          ),
+                        ),
+
+                        const SizedBox(
+                          height: 10,
+                        ),
+
+                        // ? Choice
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                          child: Text(
+                            "Are You A ? ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        ChipsChoice.single(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 0, vertical: 0),
+                          value: selectedValue,
+                          onChanged: ((val) {
+                            setState(() {
+                              selectedValue = val;
+                            });
+                          }),
+                          choiceItems: C2Choice.listFrom(
+                            source: options,
+                            value: (i, v) => i,
+                            label: (i, v) => v.toString(),
+                          ),
+                          choiceActiveStyle: C2ChoiceStyle(
+                            color: Colors.green,
+                            borderColor: Colors.green,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          choiceStyle: const C2ChoiceStyle(
+                            color: Color.fromARGB(255, 62, 145, 64),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(
+                          height: 10,
+                        ),
+
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                String response = await AuthServices.signUp(
+                                  _firstNameController.text,
+                                  _lastNameController.text,
+                                  _emailController.text,
+                                  _mobileNoController.text,
+                                  _passwordController.text,
+                                  options[selectedValue!],
+                                );
+
+                                if (response == "ok") {
+                                  Fluttertoast.showToast(
+                                    msg:
+                                        "Your Account has been successfully created.",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.green,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0,
+                                  );
+                                } else if (response == "exist") {
+                                  Fluttertoast.showToast(
+                                    msg:
+                                        "Email Already Exist. Try using another email",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0,
+                                  );
+                                } else {
+                                  Fluttertoast.showToast(
+                                    msg: "Internal Server Error",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0,
+                                  );
+                                }
+
+                                // int result = await AuthServices.registerUser(
+                                //     idController.inputData(),
+                                //     registerController.nameController.text,
+                                //     registerController.emailController.text,
+                                //     Get.parameters['number'],
+                                //     int.parse(
+                                //         registerController.tag.toString()));
+
+                                // print("Resultttt");
+                                // print(result);
+
+                                // if (result == 1) {
+                                //   homeController.fetchFarmers();
+
+                                //   Get.offNamed("/farmerDashboard");
+                                // } else if (result == 2) {
+                                //   homeController.fetchFarmers();
+                                //   Get.offNamed("/vendorHomePage");
+                                // } else {
+                                //   Fluttertoast.showToast(
+                                //       msg: "Technical Error",
+                                //       fontSize: 18,
+                                //       textColor: Colors.white,
+                                //       gravity: ToastGravity.BOTTOM,
+                                //       backgroundColor: Colors.red);
+                                // }
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(
+                          height: 10,
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Already have an account?",
+                              style: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontSize: 16,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            GestureDetector(
+                              onTap: () {},
+                              child: const Text(
+                                "Sign In",
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

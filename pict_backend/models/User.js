@@ -12,6 +12,7 @@ User.prototype.cleanUp = function () {
     userFirstName: this.data.accountFirstName,
     userLastName: this.data.accountLastName,
     userEmail: this.data.accountEmail,
+    userMobileNo: this.data.accountMobileNo,
     userPassword: this.data.accountPassword,
     role: "user",
     // More fields will come later
@@ -29,8 +30,16 @@ User.prototype.signUp = async function () {
   this.cleanUp();
   let salt = bcrypt.genSaltSync(10);
   this.data.userPassword = bcrypt.hashSync(this.data.userPassword, salt);
-  await usersCollection.insertOne(this.data);
-  return "ok";
+  let data = await usersCollection.insertOne(this.data);
+
+  let userDoc = await usersCollection.findOne({
+    _id: new ObjectID(data.insertedId),
+  });
+
+  return {
+    message: "ok",
+    data: userDoc,
+  };
 };
 
 User.prototype.getUserByEmail = async function (email) {

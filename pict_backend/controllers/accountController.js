@@ -11,17 +11,21 @@ exports.signUp = async (req, res) => {
     if (response == "ok") {
       if (req.body.role === "user") {
         let user = new User(req.body);
-        await user.signUp();
+        let result = await user.signUp();
+
+        return res.status(200).json({ result });
       } else if (req.body.role === "recycler") {
         let recycler = new Recycler(req.body);
-        await recycler.signUp();
-      } else if (req.body.role === "organizer") {
-        let organizer = new Organizer(req.body);
-        await organizer.signUp();
+        let result = await recycler.signUp();
+        return res.status(200).json({ result });
       }
+      // else if (req.body.role === "organizer") {
+      //   let organizer = new Organizer(req.body);
+      //   await organizer.signUp();
+      // }
     }
 
-    return res.status(200).json({ message: response });
+    // return res.status(200).json({ message: response });
   } catch (e) {
     console.log(e);
     return res.status(500).json({ message: "Internal Sever Error" });

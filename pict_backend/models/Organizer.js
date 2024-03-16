@@ -12,6 +12,7 @@ Organizer.prototype.cleanUp = function () {
     organizerFirstName: this.data.accountFirstName,
     organizerLastName: this.data.accountLastName,
     organizerEmail: this.data.accountEmail,
+    organizerMobileNo: this.data.accountMobileNo,
     organizerPassword: this.data.accountPassword,
     role: "organizer",
     // More fields will come later
