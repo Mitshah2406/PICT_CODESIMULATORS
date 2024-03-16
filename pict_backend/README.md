@@ -1,1 +1,2 @@
-BACKEND
+npm i
+npm start
