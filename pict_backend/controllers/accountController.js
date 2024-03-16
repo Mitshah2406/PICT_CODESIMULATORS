@@ -11,17 +11,21 @@ exports.signUp = async (req, res) => {
     if (response == "ok") {
       if (req.body.role === "user") {
         let user = new User(req.body);
-        await user.signUp();
+        let result = await user.signUp();
+
+        return res.status(200).json({ result });
       } else if (req.body.role === "recycler") {
         let recycler = new Recycler(req.body);
-        await recycler.signUp();
-      } else if (req.body.role === "organizer") {
-        let organizer = new Organizer(req.body);
-        await organizer.signUp();
+        let result = await recycler.signUp();
+        return res.status(200).json({ result });
       }
+      // else if (req.body.role === "organizer") {
+      //   let organizer = new Organizer(req.body);
+      //   await organizer.signUp();
+      // }
+    } else {
+      return res.status(200).json({ result: response });
     }
-
-    return res.status(200).json({ message: response });
   } catch (e) {
     console.log(e);
     return res.status(500).json({ message: "Internal Sever Error" });
@@ -35,24 +39,24 @@ exports.signIn = async (req, res) => {
     let response = await account.signIn(accountEmail, accountPassword);
 
     if (response == "Invalid Credentials") {
-      return res.status(200).json({ response });
+      return res.status(200).json({ result: response });
     }
 
     if (response != null && response.role === "user") {
       let user = new User();
       let result = await user.getUserByEmail(response.accountEmail);
 
-      return res.status(200).json({ response: result });
+      return res.status(200).json({ result });
     } else if (response.role === "organizer") {
       let organizer = new Organizer();
       let result = await organizer.getOrganizerByEmail(response.accountEmail);
 
-      return res.status(200).json({ response: result });
+      return res.status(200).json({ result });
     } else if (response.role === "recycler") {
       let recycler = new Recycler();
       let result = await recycler.getRecyclerByEmail(response.accountEmail);
 
-      return res.status(200).json({ response: result });
+      return res.status(200).json({ result });
     }
   } catch (e) {
     console.log(e);

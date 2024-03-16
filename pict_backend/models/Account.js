@@ -13,6 +13,7 @@ Account.prototype.cleanUp = function () {
     accountFirstName: this.data.accountFirstName,
     accountLastName: this.data.accountLastName,
     accountEmail: this.data.accountEmail,
+    accountMobileNo: this.data.accountMobileNo,
     accountPassword: this.data.accountPassword,
     role: this.data.role,
     createdDate: new Date(),
@@ -36,8 +37,13 @@ Account.prototype.signUp = async function () {
       this.data.accountPassword,
       salt
     );
-    await accountsCollection.insertOne(this.data);
-    return "ok";
+    let data = await accountsCollection.insertOne(this.data);
+
+    if (data.acknowledged) {
+      return "ok";
+    }
+
+    return "fail";
   }
 };
 

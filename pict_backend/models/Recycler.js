@@ -12,6 +12,7 @@ Recycler.prototype.cleanUp = function () {
     recyclerFirstName: this.data.accountFirstName,
     recyclerLastName: this.data.accountLastName,
     recyclerEmail: this.data.accountEmail,
+    recyclerMobileNo: this.data.accountMobileNo,
     recyclerPassword: this.data.accountPassword,
     role: "recycler",
     // More fields will come later
@@ -26,8 +27,15 @@ Recycler.prototype.signUp = async function () {
     this.data.recyclerPassword,
     salt
   );
-  await recyclersCollection.insertOne(this.data);
-  return "ok";
+  let data = await recyclersCollection.insertOne(this.data);
+  let recyclerDoc = await recyclersCollection.findOne({
+    _id: new ObjectID(data.insertedId),
+  });
+
+  return {
+    message: "ok",
+    data: recyclerDoc,
+  };
 };
 
 Recycler.prototype.getRecyclerByEmail = async function (email) {
@@ -35,7 +43,10 @@ Recycler.prototype.getRecyclerByEmail = async function (email) {
     recyclerEmail: email,
   });
 
-  return data;
+  return {
+    message: "ok",
+    data: data,
+  };
 };
 
 module.exports = Recycler;
