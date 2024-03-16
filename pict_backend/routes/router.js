@@ -6,7 +6,7 @@ const organizerController = require("../controllers/organizerController");
 const eventController = require("../controllers/eventController");
 const itemlistingContoller = require("../controllers/itemListingController");
 const reportController = require("../controllers/reportController");
-
+const wastePickupScheduleController = require("../controllers/wastePickupScheduleController");
 // ? Authentication module
 
 // Create a new account, and segregating based on the roles
@@ -143,7 +143,8 @@ router.post("/report/changeReportStatus", reportController.changeReportStatus);
 // get reports by status (pending, resolved, rejected)
 router.get("/report/getReportsByStatus/:reportStatus", reportController.getReportsByStatus);
 
-
+//waste pickup schedule module
+router.post("/pickup/addWastePickupSchedule", wastePickupScheduleController.addWastePickupSchedule);
 //404
 
 router.get("*", (req, res) => {
