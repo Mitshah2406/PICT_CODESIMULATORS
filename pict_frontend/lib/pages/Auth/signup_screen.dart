@@ -40,7 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _passwordController =
       TextEditingController(text: "");
 
-  int? selectedValue = 0;
+  String? selectedOption = "user";
 
   List<String> options = ["user", "recycler"];
 
@@ -412,32 +412,62 @@ class _SignUpPageState extends State<SignUpPage> {
                             textAlign: TextAlign.start,
                           ),
                         ),
-                        ChipsChoice.single(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 0, vertical: 0),
-                          value: selectedValue,
-                          onChanged: ((val) {
-                            setState(() {
-                              selectedValue = val;
-                            });
-                          }),
-                          choiceItems: C2Choice.listFrom(
-                            source: options,
-                            value: (i, v) => i,
-                            label: (i, v) => capitalize(v),
-                          ),
-                          choiceActiveStyle: C2ChoiceStyle(
-                            color: Colors.green,
-                            borderColor: Colors.green,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          choiceStyle: const C2ChoiceStyle(
-                            color: Color.fromARGB(255, 62, 145, 64),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5),
+                        Wrap(
+                          spacing: 8.0,
+                          children: [
+                            FilterChip(
+                              autofocus: true,
+                              selectedColor: Colors.green,
+                              label: const Text('User'),
+                              selected: selectedOption == 'user',
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  if (selected) {
+                                    selectedOption = 'user';
+                                  }
+                                });
+                              },
                             ),
-                          ),
+                            FilterChip(
+                              selectedColor: Colors.green,
+                              label: const Text('Recycler'),
+                              selected: selectedOption == 'recycler',
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  if (selected) {
+                                    selectedOption = 'recycler';
+                                  }
+                                });
+                              },
+                            ),
+                          ],
                         ),
+                        // ChipsChoice.single(
+                        //   padding: const EdgeInsets.symmetric(
+                        //       horizontal: 0, vertical: 0),
+                        //   value: selectedValue,
+                        //   onChanged: ((val) {
+                        //     setState(() {
+                        //       selectedValue = val;
+                        //     });
+                        //   }),
+                        //   choiceItems: C2Choice.listFrom(
+                        //     source: options,
+                        //     value: (i, v) => i,
+                        //     label: (i, v) => capitalize(v),
+                        //   ),
+                        //   choiceActiveStyle: C2ChoiceStyle(
+                        //     color: Colors.green,
+                        //     borderColor: Colors.green,
+                        //     borderRadius: BorderRadius.circular(5),
+                        //   ),
+                        //   choiceStyle: const C2ChoiceStyle(
+                        //     color: Color.fromARGB(255, 62, 145, 64),
+                        //     borderRadius: BorderRadius.all(
+                        //       Radius.circular(5),
+                        //     ),
+                        //   ),
+                        // ),
 
                         const SizedBox(
                           height: 10,
@@ -455,7 +485,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   _emailController.text,
                                   _mobileNoController.text,
                                   _passwordController.text,
-                                  options[selectedValue!],
+                                  selectedOption,
                                 );
 
                                 if (response["result"] != "exist" &&

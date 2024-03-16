@@ -1,16 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:pict_frontend/config/utils/SharedPreference.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String? _name;
+
+  Future<Null> getSession() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _name = prefs.getString("name");
+    });
+  }
+
+  @override
+  void initState() {
+    _name = "";
+    getSession();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Home Screen"),
+        title: Text(_name.toString()),
         actions: [
           TextButton(
             onPressed: () async {
