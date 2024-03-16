@@ -7,13 +7,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:pict_frontend/config/app_constants.dart';
-import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:pict_frontend/config/utils/SharedPreference.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
 import 'package:pict_frontend/pages/user_home_screen.dart';
 import 'package:pict_frontend/services/AuthService.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
