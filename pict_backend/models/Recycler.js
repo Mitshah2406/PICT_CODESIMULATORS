@@ -43,7 +43,10 @@ Recycler.prototype.getRecyclerByEmail = async function (email) {
     recyclerEmail: email,
   });
 
-  return data;
+  return {
+    message: "ok",
+    data: data,
+  };
 };
 
 module.exports = Recycler;

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pict_frontend/pages/Auth/signup_screen.dart';
+import 'package:pict_frontend/pages/user_home_screen.dart';
 // import 'package:notes/pages/Dashboard.dart';
 // import 'package:notes/pages/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,25 +70,20 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(milliseconds: 3500), () async {
       // ! If the user close the app, and then try to open it again, then he will be prompted to login again.
 
-      // var result = await SharedPreferences.getInstance();
-      // var data = result.getBool("Login");
-      // var id = result.getString("id");
+      var result = await SharedPreferences.getInstance();
+      bool? data = result.getBool("isloggedIn");
 
-      // if (data != null) {
-      //   Navigator.pushReplacement(context,
-      //       MaterialPageRoute(builder: (context) {
-      //     return Dashboard();
-      //   }));
-      // } else {
-      //   Navigator.pushReplacement(context,
-      //       MaterialPageRoute(builder: (context) {
-      //     return const Login();
-      //   }));
-      // }
-
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const SignUpPage();
-      }));
+      if (data != null && data == true) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return const HomePage();
+        }));
+      } else {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return const SignUpPage();
+        }));
+      }
     });
   }
 }

@@ -45,7 +45,10 @@ User.prototype.signUp = async function () {
 User.prototype.getUserByEmail = async function (email) {
   let data = await usersCollection.findOne({ userEmail: email });
 
-  return data;
+  return {
+    message: "ok",
+    data: data,
+  };
 };
 
 User.prototype.getUserById = async function (userId) {

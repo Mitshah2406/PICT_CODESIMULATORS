@@ -1,12 +1,21 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:pict_frontend/config/app_constants.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
+import 'package:pict_frontend/config/utils/SharedPreference.dart';
+import 'package:pict_frontend/pages/Auth/signin_screen.dart';
+import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
+import 'package:pict_frontend/pages/user_home_screen.dart';
 import 'package:pict_frontend/services/AuthService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -33,7 +42,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   int? selectedValue = 0;
 
-  List<String> options = ["User", "Recycler"];
+  List<String> options = ["user", "recycler"];
 
   @override
   void dispose() {
@@ -415,7 +424,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           choiceItems: C2Choice.listFrom(
                             source: options,
                             value: (i, v) => i,
-                            label: (i, v) => v.toString(),
+                            label: (i, v) => capitalize(v),
                           ),
                           choiceActiveStyle: C2ChoiceStyle(
                             color: Colors.green,
@@ -439,7 +448,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                String response = await AuthServices.signUp(
+                                Map<String, dynamic> response =
+                                    await AuthServices.signUp(
                                   _firstNameController.text,
                                   _lastNameController.text,
                                   _emailController.text,
@@ -448,7 +458,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                   options[selectedValue!],
                                 );
 
-                                if (response == "ok") {
+                                if (response["result"] != "exist" &&
+                                    response["result"]["message"] == "ok") {
                                   Fluttertoast.showToast(
                                     msg:
                                         "Your Account has been successfully created.",
@@ -459,7 +470,33 @@ class _SignUpPageState extends State<SignUpPage> {
                                     textColor: Colors.white,
                                     fontSize: 16.0,
                                   );
-                                } else if (response == "exist") {
+
+                                  // Entire user
+                                  var account = response["result"]["data"];
+
+                                  // Push the user data into sharedPreferences
+                                  String res = await Utils.setSession(account);
+
+                                  if (res == "ok") {
+                                    if (account["role"] == "user") {
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const HomePage(),
+                                        ),
+                                      );
+                                    } else if (account["role"] == "recycler") {
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RecyclerHomePage(),
+                                        ),
+                                      );
+                                    }
+                                  }
+                                } else if (response["result"] == "exist") {
                                   Fluttertoast.showToast(
                                     msg:
                                         "Email Already Exist. Try using another email",
@@ -481,33 +518,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                     fontSize: 16.0,
                                   );
                                 }
-
-                                // int result = await AuthServices.registerUser(
-                                //     idController.inputData(),
-                                //     registerController.nameController.text,
-                                //     registerController.emailController.text,
-                                //     Get.parameters['number'],
-                                //     int.parse(
-                                //         registerController.tag.toString()));
-
-                                // print("Resultttt");
-                                // print(result);
-
-                                // if (result == 1) {
-                                //   homeController.fetchFarmers();
-
-                                //   Get.offNamed("/farmerDashboard");
-                                // } else if (result == 2) {
-                                //   homeController.fetchFarmers();
-                                //   Get.offNamed("/vendorHomePage");
-                                // } else {
-                                //   Fluttertoast.showToast(
-                                //       msg: "Technical Error",
-                                //       fontSize: 18,
-                                //       textColor: Colors.white,
-                                //       gravity: ToastGravity.BOTTOM,
-                                //       backgroundColor: Colors.red);
-                                // }
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -548,7 +558,12 @@ class _SignUpPageState extends State<SignUpPage> {
                               width: 5,
                             ),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return const SignInPage();
+                                }));
+                              },
                               child: const Text(
                                 "Sign In",
                                 style: TextStyle(

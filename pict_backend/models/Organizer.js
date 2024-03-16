@@ -36,7 +36,10 @@ Organizer.prototype.getOrganizerByEmail = async function (organizerEmail) {
     organizerEmail: organizerEmail,
   });
 
-  return data;
+  return {
+    message: "ok",
+    data: data,
+  };
 };
 
 module.exports = Organizer;

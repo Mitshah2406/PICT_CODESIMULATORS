@@ -39,7 +39,11 @@ Account.prototype.signUp = async function () {
     );
     let data = await accountsCollection.insertOne(this.data);
 
-    return "ok";
+    if (data.acknowledged) {
+      return "ok";
+    }
+
+    return "fail";
   }
 };
 

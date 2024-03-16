@@ -6,4 +6,5 @@ class AppConstants {
 
   static Color bgColorAuth = const Color(0xfff7f6fb);
   static const String registerIcon = "assets/images/register.svg";
+  static final String loginIcon = "assets/images/login.png";
 }
