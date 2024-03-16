@@ -57,14 +57,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  chips_choice_null_safety:
-    dependency: "direct main"
-    description:
-      name: chips_choice_null_safety
-      sha256: "3133fb94869b788ba3cabab0c76c6ffc86de0bd47df6543b06ca9b144338b9c4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.6"
   clock:
     dependency: transitive
     description:
