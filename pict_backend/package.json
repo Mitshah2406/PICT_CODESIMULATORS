@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "start nodemon db --ignore frontend-js --ignore public/ && start webpack --watch",
-    "start": "start nodemon db"
+    "start": "nodemon db"
   },
   "keywords": [],
   "author": "",
