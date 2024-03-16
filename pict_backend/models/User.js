@@ -17,6 +17,7 @@ User.prototype.cleanUp = function () {
     // More fields will come later
     eventsRegisteredIn: [],
     certificates: [],
+    favoriteItems: [],
     taskCompleted: Number(0),
     certificateReceived: Number(0),
     reward: Number(0),

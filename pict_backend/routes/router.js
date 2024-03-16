@@ -4,12 +4,17 @@ const userController = require("../controllers/userController");
 const recyclerController = require("../controllers/recyclerController");
 const organizerController = require("../controllers/organizerController");
 const eventController = require("../controllers/eventController");
+const itemlistingContoller = require("../controllers/itemListingController");
+
+// ? Authentication module
 
 // Create a new account, and segregating based on the roles
 router.post("/account/signUp", accountController.signUp);
 
 // User can signIn with email and password, no need to take role
 router.post("/account/signIn", accountController.signIn);
+
+// ? Event Management Module
 
 // Atharva's API
 router.post("/user/getUserByEmail", userController.getUserByEmail);
@@ -91,5 +96,35 @@ router.post(
 // Add some fields and one array of volunteers,
 // Volunteers module and their api's
 // Certificate generation (pending volunteer)
+
+// ? Item Listing Module (Buy & Sell)
+router.post("/addItem", itemlistingContoller.addItem);
+router.post("/getItemById", itemlistingContoller.getItemById);
+router.get("/getAllItems", itemlistingContoller.getAllItems);
+router.post(
+  "/getAllItemsPostedByUser",
+  itemlistingContoller.getAllItemsPostedByUser
+);
+router.post(
+  "/getItemCountPostedByUser",
+  itemlistingContoller.getItemCountPostedByUser
+);
+
+// Search API by title (You can also check count of items based on search)
+router.post("/searchItemByTitle", itemlistingContoller.searchItemByTitle);
+
+// Filters API (You can also check count of items based on filter)
+router.post("/filterByCategory", itemlistingContoller.filterByCategory);
+router.post("/filterByLocation", itemlistingContoller.filterByLocation);
+
+// Their favorite items
+router.post("/addItemToFav", itemlistingContoller.addItemToFav);
+router.post("/removeItemFromFav", itemlistingContoller.removeItemFromFav);
+
+// Check if the item is already present in the list or not
+router.post(
+  "/checkIfItemAlreadyExist",
+  itemlistingContoller.checkIfItemAlreadyExist
+);
 
 module.exports = router;
