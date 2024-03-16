@@ -33,7 +33,8 @@
     "nodemon": "^2.0.18",
     "path-browserify": "^1.0.1",
     "sanitize-html": "^2.7.0",
-    "webpack": "^5.73.0"
+    "webpack": "^5.73.0",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "webpack-cli": "^4.10.0"

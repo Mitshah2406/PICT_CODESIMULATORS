@@ -6,7 +6,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const fileUpload = require('express-fileupload')
 const cors = require('cors')
-
+const morgan = require('morgan')
 //npm install connect-flash
 const flash = require('connect-flash')
 //npm install marked-->used for safe user generated html
@@ -31,7 +31,7 @@ app.set('views', 'views')
 app.set('view engine', 'ejs')
 //The template system we are using is ejs. There are many different options in javascript community
 //npm install ejs
-
+app.use(morgan('tiny'));
 // app.use(csrf())
 
 // app.use(function(req, res, next){
