@@ -1,13 +1,14 @@
+const axios = require('axios');
 const Event = require("../models/Event");
 const path = require("path");
 const { ObjectID } = require("mongodb");
 const User = require("../models/User");
 const fs = require("fs");
 const jimp = require("jimp");
-
 exports.addEvent = async function (req, res) {
   try {
     let multipleNames = [];
+    console.log(req.files);
     if (req.files) {
       if (req.files.eventAttachment) {
         console.log(req.files);
@@ -54,15 +55,101 @@ exports.addEvent = async function (req, res) {
         await poster.mv(savePath1);
         req.body.eventPoster = fileName1;
       }
+
+      if (req.files.participationCertificateTemplate) {
+        const certificate = req.files.participationCertificateTemplate;
+        // console.log(logoFile.name);
+        const fileName1 = new Date().getTime().toString() + "-" + certificate.name;
+        const savePath1 = path.join(
+          __dirname,
+          "../public/",
+          "certificateTemplates",
+          fileName1
+        );
+        await certificate.mv(savePath1);
+        req.body.participationCertificateTemplate = fileName1;
+      } else {
+        const defaultFileName = "certificate.png";
+        const fileName = new Date().getTime().toString() + "-" + defaultFileName;
+
+        const defaultTemplatePath = path.join(
+          __dirname,
+          "../public/images",
+          defaultFileName
+        );
+        const savePath1 = path.join(
+          __dirname,
+          "../public/",
+          "certificateTemplates",
+          fileName
+        );
+        // Copy the default file to the savePath1 directory
+        fs.copyFileSync(defaultTemplatePath, savePath1);
+
+
+        req.body.participationCertificateTemplate = fileName;
+      }
+      console.log("Volunteer bc" + req.files.volunteerCertificateTemplate);
+      if (req.files.volunteerCertificateTemplate !== undefined) {
+        console.log("Volunteer Certificate Template");
+        const certificate = req.files.volunteerCertificateTemplate;
+        // console.log(logoFile.name);
+        const fileName1 = new Date().getTime().toString() + "-" + certificate.name;
+        const savePath1 = path.join(
+          __dirname,
+          "../public/",
+          "certificateTemplates",
+          fileName1
+        );
+        await certificate.mv(savePath1);
+        req.body.volunteerCertificateTemplate = fileName1;
+      } else {
+        console.log("fallback Certificate Template");
+
+        const defaultFileName = "certificate.png";
+        const fileName = new Date().getTime().toString() + "-" + defaultFileName;
+
+        const defaultTemplatePath = path.join(
+          __dirname,
+          "../public/images",
+          defaultFileName
+        );
+        const savePath1 = path.join(
+          __dirname,
+          "../public/",
+          "certificateTemplates",
+          fileName
+        );
+        // Copy the default file to the savePath1 directory
+        fs.copyFileSync(defaultTemplatePath, savePath1);
+
+        req.body.volunteerCertificateTemplate = fileName;
+      }
     }
 
     let event = new Event(req.body);
     console.log(req.body);
     let result = await event.addEvent();
 
-    // if (result == "ok") {
-    //   return res.status(200).json({ message: "Event Added Successfully" });
-    // }
+    if (result.status == "ok") {
+      axios.post('http://localhost:4000/account/signUp', {
+        accountFirstName: req.body.organizerName,
+        accountLastName: req.body.organizerName,
+        accountEmail: req.body.organizerEmail,
+        accountMobileNo: req.body.organizerNumber,
+        accountPassword: "qwerty",
+        role: "organizer"
+      })
+        .then(function (response) {
+          console.log(response.data);
+          return res.status(200).json({ message: "Event Added Successfully", eventId: result.id });
+        })
+        .catch(function (error) {
+          console.log(error);
+          return res.status(500).json({ message: "Internal Server Error" });
+
+        });
+    }
 
     // Redirect to the home page and give the message as "Event Added Successfully"
   } catch (e) {
@@ -116,8 +203,18 @@ exports.getEventById = async (req, res) => {
   try {
     let event = new Event();
     let result = await event.getEventById(req.params.eventId);
-
-    // Render the eventPage with all the details
+    // Render the eventPage with the event details
+    res.status(200).json({ result });
+  } catch (e) {
+    console.log(e);
+  }
+};
+exports.getEventCertificateTemplates = async (req, res) => {
+  try {
+    let event = new Event();
+    let result = await event.getEventCertificateTemplates(req.params.eventId);
+    // Render the eventPage with the event details
+    res.status(200).json({ result });
   } catch (e) {
     console.log(e);
   }
@@ -209,11 +306,11 @@ exports.getAllOngoingEvents = async (req, res) => {
 
 exports.registerEvent = async (req, res) => {
   try {
-    const { userId, eventId } = req.body;
+    const { userId, eventId, registeringAs } = req.body;
 
     let event = new Event();
     let user = new User();
-    let result = await event.registerEvent(userId, eventId);
+    let result = await event.registerEvent(userId, eventId, registeringAs);
 
     return res.status(200).json({ result });
   } catch (e) {
@@ -388,9 +485,16 @@ exports.generateCertificate = async (req, res) => {
     const fullName = `
         ${userDoc.userFirstName + " " + userDoc.userLastName}
       `;
+    axios
+      .get("http://localhost:4000/")
+      .then(function (response) {
+        console.log(response);
+      });
+
+    const certificateTemplate = await event.getEventCertificateTemplates(eventId);
 
     const image = await jimp.read(
-      path.join(__dirname, "../public/images/certificate.png")
+      path.join(__dirname, `../public/certificateTemplates/${certificateTemplate.participationCertificateTemplate}`)
     );
 
     console.log("Hello image");
@@ -406,8 +510,7 @@ exports.generateCertificate = async (req, res) => {
     await image.writeAsync(
       path.join(
         __dirname,
-        `../public/certificates/certificate(${
-          userDoc.userFirstName + " " + userDoc.userLastName
+        `../public/certificates/certificate(${userDoc.userFirstName + " " + userDoc.userLastName
         }).png`
       )
     );

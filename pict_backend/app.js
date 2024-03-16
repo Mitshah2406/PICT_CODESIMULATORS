@@ -31,7 +31,7 @@ app.set('views', 'views')
 app.set('view engine', 'ejs')
 //The template system we are using is ejs. There are many different options in javascript community
 //npm install ejs
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 // app.use(csrf())
 
 // app.use(function(req, res, next){
