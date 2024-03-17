@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:pict_frontend/config/firebase_api.dart';
+
 import 'package:pict_frontend/firebase_options.dart';
 import 'package:pict_frontend/pages/noti_screen.dart';
 import 'package:pict_frontend/pages/splash_screen.dart';
+import 'package:pict_frontend/utils/firebase/firebase_api.dart';
+import 'package:pict_frontend/utils/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,22 +14,17 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseApi().initializeFirebaseNotifications();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
-  // final ThemeData theme = ThemeData();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // theme: theme.copyWith(
-      //   colorScheme: theme.colorScheme.copyWith(secondary: Colors.green),
-      // ),
       navigatorKey: navigatorKey,
       routes: {
         NotiScreen.notificationRoute: (context) => const NotiScreen(),
@@ -35,8 +32,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       themeMode: ThemeMode.system,
-      // theme: ThemeData(),
-      // darkTheme: ThemeData(),
+      theme: TAppTheme.lightTheme,
+      darkTheme: TAppTheme.darkTheme,
     );
   }
 }

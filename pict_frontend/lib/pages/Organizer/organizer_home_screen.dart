@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pict_frontend/config/utils/SharedPreference.dart';
+
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
+import 'package:pict_frontend/utils/session/SharedPreference.dart';
 
 class OrganizerHomePage extends StatefulWidget {
   const OrganizerHomePage({super.key});

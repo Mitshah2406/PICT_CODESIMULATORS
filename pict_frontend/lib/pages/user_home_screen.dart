@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pict_frontend/config/utils/SharedPreference.dart';
+
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
+import 'package:pict_frontend/utils/session/SharedPreference.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {

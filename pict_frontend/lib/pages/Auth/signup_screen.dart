@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
-import 'package:pict_frontend/config/app_constants.dart';
-import 'package:pict_frontend/config/utils/SharedPreference.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
 import 'package:pict_frontend/pages/user_home_screen.dart';
 import 'package:pict_frontend/services/AuthService.dart';
+import 'package:pict_frontend/utils/constants/app_constants.dart';
+import 'package:pict_frontend/utils/session/SharedPreference.dart';
 
 String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
@@ -138,6 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (value == "") {
                               return "Enter Your First Name";
                             }
+                            return null;
                           },
                           controller: _firstNameController,
                           keyboardType: TextInputType.multiline,
@@ -192,6 +193,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (value == "") {
                               return "Enter Your Last Name";
                             }
+                            return null;
                           },
                           controller: _lastNameController,
                           keyboardType: TextInputType.multiline,
@@ -304,6 +306,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             } else if (value!.length != 10) {
                               return "Enter Your Valid Mobile Number";
                             }
+                            return null;
                           },
                           controller: _mobileNoController,
                           keyboardType: TextInputType.number,
@@ -360,6 +363,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (value == "") {
                               return "Enter Your Password";
                             }
+                            return null;
                           },
                           controller: _passwordController,
                           obscureText: true,
