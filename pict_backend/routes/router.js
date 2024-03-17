@@ -127,7 +127,6 @@ router.post("/pickup/addWastePickupSchedule", wastePickupScheduleController.addW
 
 // login route
 router.post("/login",authorityController.login)
-// Logout route
 router.get("/logout", authorityController.logout);
 // -- Bio Waste Resources --
 // add bio resource
@@ -176,9 +175,7 @@ router.get("/authority/login-page", authorityController.loginPage)
 router.get('/', authorityController.homePage)
 
 // Bio waste routes
-// Add Bio waste resources
 router.get("/biowaste/add-resources-page" ,biowasteController.addResourcesPage)
-// Get biowaste resources
 router.get("/biowaste/get-resources-page" ,biowasteController.getResourcesPage)
 
 
