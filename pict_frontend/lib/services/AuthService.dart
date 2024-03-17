@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:pict_frontend/config/app_constants.dart';
+import 'package:pict_frontend/utils/constants/app_constants.dart';
 
 class AuthServices {
   static Future signUp(

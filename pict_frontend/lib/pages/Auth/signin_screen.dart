@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
-import 'package:pict_frontend/config/app_constants.dart';
-import 'package:pict_frontend/config/utils/SharedPreference.dart';
 import 'package:pict_frontend/pages/Auth/signup_screen.dart';
 import 'package:pict_frontend/pages/Organizer/organizer_home_screen.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
 import 'package:pict_frontend/pages/user_home_screen.dart';
 import 'package:pict_frontend/services/AuthService.dart';
+import 'package:pict_frontend/utils/constants/app_constants.dart';
+import 'package:pict_frontend/utils/session/SharedPreference.dart';
 
 String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
@@ -171,6 +171,7 @@ class _SignInPageState extends State<SignInPage> {
                             if (value == "") {
                               return "Enter Your Password";
                             }
+                            return null;
                           },
                           controller: _passwordController,
                           obscureText: true,
