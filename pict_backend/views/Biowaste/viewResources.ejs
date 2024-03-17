@@ -1,0 +1,55 @@
+<%- include('../includes/header.ejs') %>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">Biowaste Resources</h4>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive mt-4">
+                    <table id="biowaste-table" class="table table-striped mb-0" role="grid">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Link</th>
+                                <th>Author</th>
+                                <th>Date Published</th>
+                                <th>Language</th>
+                                <th>Keywords</th>
+                                <th>Duration</th>
+                                <th>Created Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% resources.forEach(function(resource) { %>
+                                <tr>
+                                    <td><%= resource.title %></td>
+                                    <td><%= resource.description %></td>
+                                    <td><%= resource.type %></td>
+                                    <td><a href="<%= resource.link %>" target="_blank"><%= resource.link %></a></td>
+                                    <td><%= resource.author %></td>
+                                    <td><%= resource.datePublished %></td>
+                                    <td><%= resource.language %></td>
+                                    <td>
+                                        <% if (Array.isArray(resource.keywords)) { %>
+                                            <%= resource.keywords.join(", ") %>
+                                        <% } else { %>
+                                            <%= resource.keywords %>
+                                        <% } %>
+                                    </td>
+                                    <td><%= resource.duration %></td>
+                                    <td><%= resource.createdDate %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../includes/footer.ejs') %>

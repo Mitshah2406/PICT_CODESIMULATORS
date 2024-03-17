@@ -8,7 +8,7 @@ const itemlistingContoller = require("../controllers/itemListingController");
 const reportController = require("../controllers/reportController");
 const wastePickupScheduleController = require("../controllers/wastePickupScheduleController");
 const authorityController = require('../controllers/authorityController')
-
+const biowasteController = require('../controllers/biowasteController')
 // ? Authentication module
 
 // Create a new account, and segregating based on the roles
@@ -31,39 +31,7 @@ router.post(
   organizerController.getOrganizerByEmail
 );
 
-// Event's Routes (WebApp Side)
-router.post("/addEvent", eventController.addEvent);
-router.post("/deleteEventById/:eventId", eventController.deleteEventById);
-router.get("/getEvents", eventController.getEvents);
-router.get("/getEventById/:eventId", eventController.getEventById);
-router.get("/getUpcomingEvents", eventController.getUpcomingEvents);
-router.get("/getCompletedEvents", eventController.getCompletedEvents);
-router.get("/getOngoingEvents", eventController.getOngoingEvents);
-router.get("/getTotalEventsCount", eventController.getTotalEventsCount);
-router.get(
-  "/getAllUpcomingEventsCount",
-  eventController.getAllUpcomingEventsCount
-);
-router.get(
-  "/getAllCompletedEventsCount",
-  eventController.getAllCompletedEventsCount
-);
-router.get(
-  "/getAllOngoingEventsCount",
-  eventController.getAllOngoingEventsCount
-);
 
-// Get All registered participants in the specific event, which will be shown on the webApp
-router.post(
-  "/getRegisteredParticipants",
-  eventController.getRegisteredParticipants
-);
-
-// Get All present participants in the specific event, and there will be the generate certificate button when clicked the certificate will be generated for that user.
-router.post("/getPresentParticipants", eventController.getPresentParticipants);
-
-// Certificate generation
-router.post("/generateCertificate", eventController.generateCertificate);
 
 // Flutter's API
 router.get("/getAllEvents", eventController.getAllEvents);
@@ -153,19 +121,69 @@ router.post("/pickup/addWastePickupSchedule", wastePickupScheduleController.addW
 
 
 
-// Routes for govt. authority
+// ---------Routes for govt. authority-----------
 
+//          ---- Backend routes -----
 
-// Backend routes
 // login route
 router.post("/login",authorityController.login)
+// Logout route
+router.get("/logout", authorityController.logout);
+// -- Bio Waste Resources --
+// add bio resource
+router.post("/biowaste/add-resources",biowasteController.addResources)
+router.get("/biowaste/get-resources",biowasteController.getBiowasteResources)
 
+// Event's Routes 
+router.post("/addEvent", eventController.addEvent);
+router.post("/deleteEventById/:eventId", eventController.deleteEventById);
+router.get("/getEvents", eventController.getEvents);
+router.get("/getEventById/:eventId", eventController.getEventById);
+router.get("/getUpcomingEvents", eventController.getUpcomingEvents);
+router.get("/getCompletedEvents", eventController.getCompletedEvents);
+router.get("/getOngoingEvents", eventController.getOngoingEvents);
+router.get("/getTotalEventsCount", eventController.getTotalEventsCount);
+router.get(
+  "/getAllUpcomingEventsCount",
+  eventController.getAllUpcomingEventsCount
+);
+router.get(
+  "/getAllCompletedEventsCount",
+  eventController.getAllCompletedEventsCount
+);
+router.get(
+  "/getAllOngoingEventsCount",
+  eventController.getAllOngoingEventsCount
+);
 
-// Frontend  routes
+// Get All registered participants in the specific event, which will be shown on the webApp
+router.post(
+  "/getRegisteredParticipants",
+  eventController.getRegisteredParticipants
+);
+
+// Get All present participants in the specific event, and there will be the generate certificate button when clicked the certificate will be generated for that user.
+router.post("/getPresentParticipants", eventController.getPresentParticipants);
+
+// Certificate generation
+router.post("/generateCertificate", eventController.generateCertificate);
+
+//          ------ Frontend  routes ------
+
 // login route
 router.get("/authority/login-page", authorityController.loginPage)
 // Home page route
 router.get('/', authorityController.homePage)
+
+// Bio waste routes
+// Add Bio waste resources
+router.get("/biowaste/add-resources-page" ,biowasteController.addResourcesPage)
+// Get biowaste resources
+router.get("/biowaste/get-resources-page" ,biowasteController.getResourcesPage)
+
+
+
+
 
 //404
 

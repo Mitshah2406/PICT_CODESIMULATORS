@@ -1,8 +1,9 @@
 const Authority = require('../models/Authority')
 
-// Authority login
 
 // Backend Controller
+
+// Authority login
 exports.login = async (req, res) => {
   try {
       const { authorityEmail, authorityPassword } = req.body;
@@ -22,6 +23,18 @@ exports.login = async (req, res) => {
       console.log(err);
       return res.status(500).json({ message: "Internal Server Error" });
   }
+};
+// Authority Logout
+exports.logout = (req, res) => {
+  // Destroy the session
+  req.session.destroy((err) => {
+      if (err) {
+          console.log(err);
+          return res.status(500).json({ message: "Internal Server Error" });
+      }
+      // Redirect the user to the login page or any desired page after logout
+      res.redirect('/authority/login-page');
+  });
 };
 
 
