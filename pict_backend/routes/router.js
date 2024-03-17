@@ -130,8 +130,8 @@ router.post("/login",authorityController.login)
 router.get("/logout", authorityController.logout);
 // -- Bio Waste Resources --
 // add bio resource
-router.post("/biowaste/add-resources",biowasteController.addResources)
-router.get("/biowaste/get-resources",biowasteController.getBiowasteResources)
+router.post("/biowaste/addResources",biowasteController.addResources)
+router.get("/biowaste/getResources",biowasteController.getBiowasteResources)
 
 // Event's Routes 
 router.post("/addEvent", eventController.addEvent);
