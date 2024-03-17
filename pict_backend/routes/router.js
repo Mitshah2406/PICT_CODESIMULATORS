@@ -7,6 +7,8 @@ const eventController = require("../controllers/eventController");
 const itemlistingContoller = require("../controllers/itemListingController");
 const reportController = require("../controllers/reportController");
 const wastePickupScheduleController = require("../controllers/wastePickupScheduleController");
+const authorityController = require('../controllers/authorityController')
+
 // ? Authentication module
 
 // Create a new account, and segregating based on the roles
@@ -14,6 +16,7 @@ router.post("/account/signUp", accountController.signUp);
 
 // User can signIn with email and password, no need to take role
 router.post("/account/signIn", accountController.signIn);
+
 
 // ? Event Management Module
 
@@ -145,9 +148,29 @@ router.get("/report/getReportsByStatus/:reportStatus", reportController.getRepor
 
 //waste pickup schedule module
 router.post("/pickup/addWastePickupSchedule", wastePickupScheduleController.addWastePickupSchedule);
+
+
+
+
+
+// Routes for govt. authority
+
+
+// Backend routes
+// login route
+router.post("/login",authorityController.login)
+
+
+// Frontend  routes
+// login route
+router.get("/authority/login-page", authorityController.loginPage)
+// Home page route
+router.get('/', authorityController.homePage)
+
 //404
 
 router.get("*", (req, res) => {
   res.status(404).send("404: Page not found");
 });
+
 module.exports = router;

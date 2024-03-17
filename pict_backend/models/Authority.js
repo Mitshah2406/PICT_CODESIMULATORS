@@ -18,4 +18,19 @@ Authority.prototype.cleanUp = function () {
   };
 };
 
+Authority.prototype.login = async function(authorityEmail,authorityPassword){
+  let authority =  await authoritiesCollection.findOne({
+    authorityEmail:authorityEmail
+  });
+   if (!authority) {
+    return "Invalid Credentials";
+   }
+   let  validPass=await bcrypt.compareSync(authorityPassword,authority.authorityPassword);
+   if(!validPass){
+    return "Invalid Credentials"
+   }
+   return authority;
+
+}
+
 module.exports = Authority;
