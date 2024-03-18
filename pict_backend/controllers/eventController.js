@@ -535,3 +535,88 @@ exports.checkIfAlreadyRegistered = async function (req, res) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+// Frontend Controller
+exports.viewAllEventsPage= async(req,res)=>{
+  if(!req.session.authority){
+    return req.redirect('/authority/login-page')
+  }
+try{
+  const events=await new Event().getAllEvents();
+  res.render('Events/viewAllEvents',{events:events})
+}catch(err){  
+  console.error(err)
+  res.status(500).send('Error fetching events');
+}
+}
+exports.viewUpcomingEventsPage=async(req,res)=>{
+  if(!req.session.authority){
+    return req.redirect('/authority/login-page')
+  }
+  try{
+    const upcomingEvents = await new Event().getAllUpcomingEvents();
+    res.render('Events/viewUpcomingEvents',{upcomingEvents:upcomingEvents});
+  }catch(err){
+    console.error(err);
+    res.status(500).send('Error fetching upcoming  events');
+  }
+}
+exports.viewOngoingEventsPage= async(req,res)=>{
+  if(!req.session.authority){
+    res.redirect('/authority/login-page')
+  }
+  try{
+    const ongoingEvents = await new Event().getAllOngoingEvents()
+    res.render('Events/viewOngoingEvents',{ongoingEvents:ongoingEvents})
+  }
+  catch(err){
+    console.error(err)
+    res.status(500).send('Error fetching ongoing events')
+  }
+
+}
+exports.viewCompletedEventsPage= async(req,res)=>{
+  if(!req.session.authority){
+    res.redirect('/authority/login-page')
+  }
+  try{
+    const completedEvents = await new Event().getAllCompletedEvents()
+    res.render('Events/viewCompletedEvents',{completedEvents:completedEvents})
+  }
+  catch(err){
+    console.error(err)
+    res.status(500).send('Error fetching ongoing events')
+  }
+
+}
+exports.viewEventsByIdPage=async(req,res)=>{
+if(!req.session.authority){
+  res.redirect('authority/login-page')
+}
+try{
+  const eventId= req.params.eventId;
+  const event = await new Event().getEventById(eventId);
+  res.render('Events/viewIndivitualEvents',{result:event})
+}
+catch(err){
+  console.error(err);
+  res.status(500).send("Error fetching indivitual event")
+}
+}
+exports.addEventsPage=async(req,res)=>{
+  if(!req.session.authority){
+    res.redirect('authority/login-page')
+  }
+res.render('Events/addEvents');
+}
