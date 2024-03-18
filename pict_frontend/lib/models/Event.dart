@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final event = eventFromJson(jsonString);
+
 import 'dart:convert';
 
 Event eventFromJson(String str) => Event.fromJson(json.decode(str));
@@ -5,6 +9,7 @@ Event eventFromJson(String str) => Event.fromJson(json.decode(str));
 String eventToJson(Event data) => json.encode(data.toJson());
 
 class Event {
+  String? id;
   String? eventName;
   String? eventDescription;
   String? eventPoster;
@@ -27,6 +32,7 @@ class Event {
   List<dynamic>? presentParticipants;
 
   Event({
+    this.id,
     this.eventName,
     this.eventDescription,
     this.eventPoster,
@@ -50,6 +56,7 @@ class Event {
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => Event(
+        id: json["_id"],
         eventName: json["eventName"],
         eventDescription: json["eventDescription"],
         eventPoster: json["eventPoster"],
@@ -86,6 +93,7 @@ class Event {
       );
 
   Map<String, dynamic> toJson() => {
+        "_id": id,
         "eventName": eventName,
         "eventDescription": eventDescription,
         "eventPoster": eventPoster,

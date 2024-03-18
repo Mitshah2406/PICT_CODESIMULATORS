@@ -48,6 +48,12 @@ dependencies:
   riverpod_annotation: ^2.3.5
   geolocator: ^11.0.0
   geocoding: ^3.0.0
+  transparent_image: ^2.0.1
+  syncfusion_flutter_pdfviewer: 24.2.8
+  syncfusion_flutter_pdf: 24.2.9
+  path_provider: ^2.0.1
+  open_file: ^3.1.0
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

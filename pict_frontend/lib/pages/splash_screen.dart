@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Auth/signup_screen.dart';
 import 'package:pict_frontend/pages/User/user_home_screen.dart';
 // import 'package:notes/pages/Dashboard.dart';
@@ -34,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/images/logo.jpg",
+                  "assets/images/logo.png",
                   height: 300,
                 ),
                 const SizedBox(
@@ -52,9 +53,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                     children: const [
                       TextSpan(
-                          text: 'Trash', style: TextStyle(color: Colors.black)),
+                          text: 'Eco', style: TextStyle(color: Colors.black)),
                       TextSpan(
-                        text: 'Track',
+                        text: 'Saathi',
                         style: TextStyle(color: Colors.green),
                       )
                     ],
@@ -81,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
       } else {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-          return const SignUpPage();
+          return const SignInPage();
         }));
       }
     });

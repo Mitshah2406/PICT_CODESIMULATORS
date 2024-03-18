@@ -29,7 +29,8 @@ Event.prototype.cleanUp = function () {
     whatsAppLink: this.data.whatsAppLink,
     // areVolunteersNeeded: Boolean(this.data.areVolunteersNeeded), take this to conditionally show the volunteers fields on fronted (FOR TAHER)
     noOfVolunteersNeeded: Number(this.data.noOfVolunteersNeeded),
-    participationCertificateTemplate: this.data.participationCertificateTemplate,
+    participationCertificateTemplate:
+      this.data.participationCertificateTemplate,
     volunteerCertificateTemplate: this.data.volunteerCertificateTemplate,
     volunteerResponsibilities: this.data.volunteerResponsibilities,
     volunteers: [],
@@ -109,7 +110,11 @@ Event.prototype.getAllOngoingEvents = async function () {
   return data;
 };
 
-Event.prototype.registerEvent = async function (userId, eventId, registeringAs) {
+Event.prototype.registerEvent = async function (
+  userId,
+  eventId,
+  registeringAs
+) {
   if (registeringAs === "participant") {
     let data = await eventsCollection.findOneAndUpdate(
       {
@@ -121,7 +126,6 @@ Event.prototype.registerEvent = async function (userId, eventId, registeringAs) 
             userId: new ObjectID(userId),
             registeredDate: new Date(),
           },
-
         },
       }
     );
@@ -202,7 +206,7 @@ Event.prototype.markPresent = async function (userId, eventId) {
       $push: {
         presentParticipants: {
           userId: new ObjectID(userId),
-          certificateReceived: false,
+          certificateReceived: true,
           date: new Date(),
         },
       },
@@ -330,6 +334,37 @@ Event.prototype.checkIfAlreadyRegistered = async function (userId, eventId) {
   );
 
   return isPresent;
+};
+
+Event.prototype.getUserRegisteredEvents = async function (userId) {
+  let data = await eventsCollection
+    .find({
+      registeredParticipants: {
+        $elemMatch: {
+          userId: new ObjectID(userId),
+        },
+      },
+    })
+    .sort({ _id: -1 })
+    .toArray();
+
+  return data;
+};
+
+Event.prototype.getUserCompletedEvents = async function (userId) {
+  let data = await eventsCollection
+    .find({
+      presentParticipants: {
+        $elemMatch: {
+          userId: new ObjectID(userId),
+          certificateReceived: true,
+        },
+      },
+    })
+    .sort({ _id: -1 })
+    .toArray();
+
+  return data;
 };
 
 module.exports = Event;

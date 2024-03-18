@@ -7,17 +7,15 @@ const eventController = require("../controllers/eventController");
 const itemlistingContoller = require("../controllers/itemListingController");
 const reportController = require("../controllers/reportController");
 const wastePickupScheduleController = require("../controllers/wastePickupScheduleController");
-const authorityController = require('../controllers/authorityController')
-const biowasteController = require('../controllers/biowasteController')
+const authorityController = require("../controllers/authorityController");
+const biowasteController = require("../controllers/biowasteController");
 // ? Authentication module
 
 // Create a new account, and segregating based on the roles
 router.post("/account/signUp", accountController.signUp);
 
-
 // User can signIn with email and password, no need to take role
 router.post("/account/signIn", accountController.signIn);
-
 
 // ? Event Management Module
 
@@ -31,8 +29,6 @@ router.post(
   "/organizer/getOrganizerByEmail",
   organizerController.getOrganizerByEmail
 );
-
-
 
 // Flutter's API
 router.get("/getAllEvents", eventController.getAllEvents);
@@ -57,6 +53,15 @@ router.post(
   "/getUserEventParticipationCountById",
   eventController.getUserEventParticipationCountById
 );
+
+// Get their registered Events
+router.post(
+  "/getUserRegisteredEvents",
+  eventController.getUserRegisteredEvents
+);
+
+// Get their completed as well as they were present in the events.
+router.post("/getUserCompletedEvents", eventController.getUserCompletedEvents);
 
 // To check whether user has already registered or not based on userId. If already, return true and show QR scanner on app
 router.post(
@@ -100,8 +105,6 @@ router.post(
   itemlistingContoller.checkIfItemAlreadyExist
 );
 
-
-
 // Reporting Module
 
 //add report for unhygenic place with a attachment
@@ -113,28 +116,30 @@ router.get("/report/getReportById/:reportId", reportController.getReportById);
 // change report status accordingly to pending(by default), resolved, rejected(if fake report)
 router.post("/report/changeReportStatus", reportController.changeReportStatus);
 // get reports by status (pending, resolved, rejected)
-router.get("/report/getReportsByStatus/:reportStatus", reportController.getReportsByStatus);
+router.get(
+  "/report/getReportsByStatus/:reportStatus",
+  reportController.getReportsByStatus
+);
 
 //waste pickup schedule module
-router.post("/pickup/addWastePickupSchedule", wastePickupScheduleController.addWastePickupSchedule);
-
-
-
-
+router.post(
+  "/pickup/addWastePickupSchedule",
+  wastePickupScheduleController.addWastePickupSchedule
+);
 
 // ---------Routes for govt. authority-----------
 
 //          ---- Backend routes -----
 
 // login route
-router.post("/login",authorityController.login)
+router.post("/login", authorityController.login);
 router.get("/logout", authorityController.logout);
 // -- Bio Waste Resources --
 // add bio resource
-router.post("/biowaste/addResources",biowasteController.addResources)
-router.get("/biowaste/getResources",biowasteController.getBiowasteResources)
+router.post("/biowaste/addResources", biowasteController.addResources);
+router.get("/biowaste/getResources", biowasteController.getBiowasteResources);
 
-// Event's Routes 
+// Event's Routes
 router.post("/addEvent", eventController.addEvent);
 router.post("/deleteEventById/:eventId", eventController.deleteEventById);
 router.get("/getEvents", eventController.getEvents);
@@ -171,19 +176,31 @@ router.post("/generateCertificate", eventController.generateCertificate);
 //          ------ Frontend  routes ------
 
 // login route
-router.get("/authority/login-page", authorityController.loginPage)
+router.get("/authority/login-page", authorityController.loginPage);
 // Home page route
-router.get('/', authorityController.homePage)
+router.get("/", authorityController.homePage);
 // Bio waste routes
-router.get("/biowaste/add-resources-page" ,biowasteController.addResourcesPage)
-router.get("/biowaste/get-resources-page" ,biowasteController.getResourcesPage)
+router.get("/biowaste/add-resources-page", biowasteController.addResourcesPage);
+router.get("/biowaste/get-resources-page", biowasteController.getResourcesPage);
 // Events Routes
-router.get("/events/view-all-events",eventController.viewAllEventsPage)
-router.get('/events/view-upcoming-events',eventController.viewUpcomingEventsPage)
-router.get("/events/view-ongoing-events",eventController.viewOngoingEventsPage)
-router.get("/events/view-completed-events",eventController.viewCompletedEventsPage)
-router.get("/events/view-event-by-id/:eventId",eventController.viewEventsByIdPage)
-router.get("/events/add-events-page" ,eventController.addEventsPage)
+router.get("/events/view-all-events", eventController.viewAllEventsPage);
+router.get(
+  "/events/view-upcoming-events",
+  eventController.viewUpcomingEventsPage
+);
+router.get(
+  "/events/view-ongoing-events",
+  eventController.viewOngoingEventsPage
+);
+router.get(
+  "/events/view-completed-events",
+  eventController.viewCompletedEventsPage
+);
+router.get(
+  "/events/view-event-by-id/:eventId",
+  eventController.viewEventsByIdPage
+);
+router.get("/events/add-events-page", eventController.addEventsPage);
 //404
 
 router.get("*", (req, res) => {

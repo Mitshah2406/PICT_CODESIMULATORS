@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pict_frontend/pages/Events/user_completed_events.dart';
 import 'package:pict_frontend/utils/session/SharedPreference.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Events/event_details.dart';
@@ -35,12 +38,24 @@ class HomePageState extends ConsumerState<HomePage> {
     _name = "";
     _id = "";
     getSession();
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final getUpcomingEvents = ref.watch(getAllUpcomingEvents);
+    final getOngoingEvents = ref.watch(getAllOngoingEvents);
+    final getRegisteredEventsOfUsers =
+        ref.watch(getUserRegisteredEvents(_id.toString()));
+    // print(getUpcomingEvents.value?.map((e) => print(e.eventName)));
+    // print(getOngoingEvents.value?.map((e) => print(e.eventName)));
+    // print(getRegisteredEventsOfUsers.value?.map(
+    //     (e) => e.registeredParticipants?.map((curr) => print(curr['userId']))));
+    // print(getRegisteredEventsOfUsers.value?.map((e) => print(e.eventName)));
+    // final getCompletedEventsOfUsers =
+    //     ref.watch(getUserCompletedEvents(_id.toString()));
+    // print(getCompletedEventsOfUsers.value?.map((e) => print(e.whatsAppLink)));
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -101,7 +116,18 @@ class HomePageState extends ConsumerState<HomePage> {
               );
             },
             child: const Text("Go to Events Page"),
-          )
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return const UserCompletedEventsPage();
+                }),
+              );
+            },
+            child: const Text("Go to User Completed Events"),
+          ),
         ],
       ),
     );

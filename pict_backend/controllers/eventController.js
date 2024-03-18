@@ -132,7 +132,8 @@ exports.addEvent = async function (req, res) {
 
     let event = new Event(req.body);
     // console.log(req.body);
-    let volunteerResponsibilities = req.body.volunteerResponsibilities.split(", ")
+    let volunteerResponsibilities =
+      req.body.volunteerResponsibilities.split(", ");
     req.body.volunteerResponsibilities = volunteerResponsibilities;
 
     let result = await event.addEvent();
@@ -481,11 +482,13 @@ exports.getRegisteredParticipants = async (req, res) => {
 
 exports.generateCertificate = async (req, res) => {
   try {
+    console.log("Generate Certificate route called");
     const { userId, eventId } = req.body;
 
     let event = new Event();
     let user = new User();
     let userDoc = await user.getUserById(userId);
+    console.log(userDoc);
 
     // Marks the certificateReceived true in the presentParticipants in the user.
     await event.markCertificateReceived(userId, eventId);
@@ -527,8 +530,37 @@ exports.generateCertificate = async (req, res) => {
       )
     );
 
+    // const name = path.resolve(
+    //   __dirname,
+    //   `../public/certificates/certificate(${
+    //     userDoc.userFirstName + " " + userDoc.userLastName
+    //   }).png`
+    // );
+
+    // fs.readFile(name, (err, file) => {
+    //   // if(err){
+    //   //   req.flash("errors", "Couldn't Download")
+    //   //   req.session.save(function() {
+    //   //     res.redirect(`/clientEventPage/${eventDoc._id}`)
+    //   //   })
+    //   // }
+    //   if (err) return res.status(500).send("Erro" + err);
+
+    //   res.setHeader("Content-Type", "image/png");
+    //   res.setHeader(
+    //     "Content-Disposition",
+    //     `attachment;filename=certificate(${
+    //       userDoc.userFirstName + " " + userDoc.userLastName
+    //     }).png`
+    //   );
+    //   return res.send(file);
+    // });
+    let name = `/certificate(${
+      userDoc.userFirstName + " " + userDoc.userLastName
+    }).png`;
+
     // Flash the message as Certificate has been generated in the web app;
-    return res.status(200).json({ message: "Certificate Generated" });
+    return res.status(200).json({ name });
   } catch (e) {
     console.log(e);
     // return res.status(500).json({ message: "Internal Server Error" });
@@ -548,87 +580,101 @@ exports.checkIfAlreadyRegistered = async function (req, res) {
   }
 };
 
+exports.getUserRegisteredEvents = async function (req, res) {
+  try {
+    const { userId } = req.body;
 
+    let event = new Event();
+    let data = await event.getUserRegisteredEvents(userId);
 
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
+exports.getUserCompletedEvents = async function (req, res) {
+  try {
+    const { userId } = req.body;
 
+    let event = new Event();
+    let data = await event.getUserCompletedEvents(userId);
 
-
-
-
-
-
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 // Frontend Controller
-exports.viewAllEventsPage= async(req,res)=>{
-  if(!req.session.authority){
-    return req.redirect('/authority/login-page')
+exports.viewAllEventsPage = async (req, res) => {
+  if (!req.session.authority) {
+    return req.redirect("/authority/login-page");
   }
-try{
-  const events=await new Event().getAllEvents();
-  res.render('Events/viewAllEvents',{events:events})
-}catch(err){  
-  console.error(err)
-  res.status(500).send('Error fetching events');
-}
-}
-exports.viewUpcomingEventsPage=async(req,res)=>{
-  if(!req.session.authority){
-    return req.redirect('/authority/login-page')
-  }
-  try{
-    const upcomingEvents = await new Event().getAllUpcomingEvents();
-    res.render('Events/viewUpcomingEvents',{upcomingEvents:upcomingEvents});
-  }catch(err){
+  try {
+    const events = await new Event().getAllEvents();
+    res.render("Events/viewAllEvents", { events: events });
+  } catch (err) {
     console.error(err);
-    res.status(500).send('Error fetching upcoming  events');
+    res.status(500).send("Error fetching events");
   }
-}
-exports.viewOngoingEventsPage= async(req,res)=>{
-  if(!req.session.authority){
-    res.redirect('/authority/login-page')
+};
+exports.viewUpcomingEventsPage = async (req, res) => {
+  if (!req.session.authority) {
+    return req.redirect("/authority/login-page");
   }
-  try{
-    const ongoingEvents = await new Event().getAllOngoingEvents()
-    res.render('Events/viewOngoingEvents',{ongoingEvents:ongoingEvents})
+  try {
+    const upcomingEvents = await new Event().getAllUpcomingEvents();
+    res.render("Events/viewUpcomingEvents", { upcomingEvents: upcomingEvents });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching upcoming  events");
   }
-  catch(err){
-    console.error(err)
-    res.status(500).send('Error fetching ongoing events')
+};
+exports.viewOngoingEventsPage = async (req, res) => {
+  if (!req.session.authority) {
+    res.redirect("/authority/login-page");
   }
-
-}
-exports.viewCompletedEventsPage= async(req,res)=>{
-  if(!req.session.authority){
-    res.redirect('/authority/login-page')
+  try {
+    const ongoingEvents = await new Event().getAllOngoingEvents();
+    res.render("Events/viewOngoingEvents", { ongoingEvents: ongoingEvents });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching ongoing events");
   }
-  try{
-    const completedEvents = await new Event().getAllCompletedEvents()
-    res.render('Events/viewCompletedEvents',{completedEvents:completedEvents})
+};
+exports.viewCompletedEventsPage = async (req, res) => {
+  if (!req.session.authority) {
+    res.redirect("/authority/login-page");
   }
-  catch(err){
-    console.error(err)
-    res.status(500).send('Error fetching ongoing events')
+  try {
+    const completedEvents = await new Event().getAllCompletedEvents();
+    res.render("Events/viewCompletedEvents", {
+      completedEvents: completedEvents,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching ongoing events");
   }
-
-}
-exports.viewEventsByIdPage=async(req,res)=>{
-if(!req.session.authority){
-  res.redirect('authority/login-page')
-}
-try{
-  const eventId= req.params.eventId;
-  const event = await new Event().getEventById(eventId);
-  res.render('Events/viewIndivitualEvents',{result:event})
-}
-catch(err){
-  console.error(err);
-  res.status(500).send("Error fetching indivitual event")
-}
-}
-exports.addEventsPage=async(req,res)=>{
-  if(!req.session.authority){
-    res.redirect('authority/login-page')
+};
+exports.viewEventsByIdPage = async (req, res) => {
+  if (!req.session.authority) {
+    res.redirect("authority/login-page");
   }
-res.render('Events/addEvents');
-}
+  try {
+    const eventId = req.params.eventId;
+    const event = await new Event().getEventById(eventId);
+    res.render("Events/viewIndivitualEvents", { result: event });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching indivitual event");
+  }
+};
+exports.addEventsPage = async (req, res) => {
+  if (!req.session.authority) {
+    res.redirect("authority/login-page");
+  }
+  res.render("Events/addEvents");
+};

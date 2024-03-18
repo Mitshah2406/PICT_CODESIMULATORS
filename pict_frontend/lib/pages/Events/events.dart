@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pict_frontend/config/utils/SharedPreference.dart';
+import 'package:pict_frontend/utils/session/SharedPreference.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Events/event_details.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
@@ -98,7 +98,7 @@ class EventsPageState extends ConsumerState<EventsPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return EventDetailsPage(event: event);
+                      return EventDetailsPage(event: event, userId: _id!);
                     }),
                   );
                 },
