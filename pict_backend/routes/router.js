@@ -12,6 +12,7 @@ const wastePickupScheduleController = require("../controllers/wastePickupSchedul
 // Create a new account, and segregating based on the roles
 router.post("/account/signUp", accountController.signUp);
 
+
 // User can signIn with email and password, no need to take role
 router.post("/account/signIn", accountController.signIn);
 

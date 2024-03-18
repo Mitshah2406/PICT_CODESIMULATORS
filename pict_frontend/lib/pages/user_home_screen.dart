@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
+import 'package:pict_frontend/utils/geolocation/geolocation_service.dart';
 import 'package:pict_frontend/utils/session/SharedPreference.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,12 +20,14 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _name = prefs.getString("name");
     });
+    await GeolocationService.determinePosition();
   }
 
   @override
   void initState() {
     _name = "";
     getSession();
+
     super.initState();
   }
 

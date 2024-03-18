@@ -1,30 +1,23 @@
+import 'package:logger/logger.dart';
+
 class LoggerHelper {
-  final String _tag;
-  final bool _isEnabled;
-
-  LoggerHelper(this._tag, this._isEnabled);
-
-  void debug(String message) {
-    if (_isEnabled) {
-      print('[$_tag] DEBUG: $message');
-    }
+  static void debug(String message) {
+    var logger = Logger();
+    logger.d(message);
   }
 
-  void info(String message) {
-    if (_isEnabled) {
-      print('[$_tag] INFO: $message');
-    }
+  static void info(String message) {
+    var logger = Logger();
+    logger.i(message);
   }
 
-  void warn(String message) {
-    if (_isEnabled) {
-      print('[$_tag] WARNING: $message');
-    }
+  static void warn(String message) {
+    var logger = Logger();
+    logger.w(message);
   }
 
-  void error(String message) {
-    if (_isEnabled) {
-      print('[$_tag] ERROR: $message');
-    }
+  static void error(String message) {
+    var logger = Logger();
+    logger.e(message);
   }
 }
