@@ -89,7 +89,7 @@ exports.addEvent = async function (req, res) {
 
         req.body.participationCertificateTemplate = fileName;
       }
-      console.log("Volunteer bc" + req.files.volunteerCertificateTemplate);
+
       if (req.files.volunteerCertificateTemplate !== undefined) {
         console.log("Volunteer Certificate Template");
         const certificate = req.files.volunteerCertificateTemplate;
@@ -128,7 +128,10 @@ exports.addEvent = async function (req, res) {
     }
 
     let event = new Event(req.body);
-    console.log(req.body);
+    // console.log(req.body);
+    let volunteerResponsibilities = req.body.volunteerResponsibilities.split(", ")
+    req.body.volunteerResponsibilities = volunteerResponsibilities;
+
     let result = await event.addEvent();
 
     if (result.status == "ok") {

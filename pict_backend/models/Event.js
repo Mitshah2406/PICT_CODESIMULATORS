@@ -31,6 +31,7 @@ Event.prototype.cleanUp = function () {
     noOfVolunteersNeeded: Number(this.data.noOfVolunteersNeeded),
     participationCertificateTemplate: this.data.participationCertificateTemplate,
     volunteerCertificateTemplate: this.data.volunteerCertificateTemplate,
+    volunteerResponsibilities: this.data.volunteerResponsibilities,
     volunteers: [],
     // If user has not registered, but they want to participate in event
     registeredParticipants: [],

@@ -1,12 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pict_frontend/firebase_options.dart';
-import 'package:pict_frontend/pages/location_eg.dart';
 import 'package:pict_frontend/pages/noti_screen.dart';
 import 'package:pict_frontend/pages/splash_screen.dart';
 import 'package:pict_frontend/utils/firebase/firebase_api.dart';
-import 'package:pict_frontend/utils/geolocation/geolocation_service.dart';
-import 'package:pict_frontend/utils/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
