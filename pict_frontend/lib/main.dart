@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/config/firebase_api.dart';
 import 'package:pict_frontend/firebase_options.dart';
 import 'package:pict_frontend/pages/noti_screen.dart';
@@ -12,7 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseApi().initializeFirebaseNotifications();
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();

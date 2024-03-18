@@ -44,10 +44,16 @@ dependencies:
   google_fonts: ^4.0.3
   chips_choice: ^3.0.1
   http: ^1.2.1
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  custom_lint:
+  riverpod_generator: ^2.4.0
+  riverpod_lint: ^2.3.10
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

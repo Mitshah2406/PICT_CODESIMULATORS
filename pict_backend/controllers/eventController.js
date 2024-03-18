@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require("axios");
 const Event = require("../models/Event");
 const path = require("path");
 const { ObjectID } = require("mongodb");
@@ -59,7 +59,8 @@ exports.addEvent = async function (req, res) {
       if (req.files.participationCertificateTemplate) {
         const certificate = req.files.participationCertificateTemplate;
         // console.log(logoFile.name);
-        const fileName1 = new Date().getTime().toString() + "-" + certificate.name;
+        const fileName1 =
+          new Date().getTime().toString() + "-" + certificate.name;
         const savePath1 = path.join(
           __dirname,
           "../public/",
@@ -70,7 +71,8 @@ exports.addEvent = async function (req, res) {
         req.body.participationCertificateTemplate = fileName1;
       } else {
         const defaultFileName = "certificate.png";
-        const fileName = new Date().getTime().toString() + "-" + defaultFileName;
+        const fileName =
+          new Date().getTime().toString() + "-" + defaultFileName;
 
         const defaultTemplatePath = path.join(
           __dirname,
@@ -86,7 +88,6 @@ exports.addEvent = async function (req, res) {
         // Copy the default file to the savePath1 directory
         fs.copyFileSync(defaultTemplatePath, savePath1);
 
-
         req.body.participationCertificateTemplate = fileName;
       }
       console.log("Volunteer bc" + req.files.volunteerCertificateTemplate);
@@ -94,7 +95,8 @@ exports.addEvent = async function (req, res) {
         console.log("Volunteer Certificate Template");
         const certificate = req.files.volunteerCertificateTemplate;
         // console.log(logoFile.name);
-        const fileName1 = new Date().getTime().toString() + "-" + certificate.name;
+        const fileName1 =
+          new Date().getTime().toString() + "-" + certificate.name;
         const savePath1 = path.join(
           __dirname,
           "../public/",
@@ -107,7 +109,8 @@ exports.addEvent = async function (req, res) {
         console.log("fallback Certificate Template");
 
         const defaultFileName = "certificate.png";
-        const fileName = new Date().getTime().toString() + "-" + defaultFileName;
+        const fileName =
+          new Date().getTime().toString() + "-" + defaultFileName;
 
         const defaultTemplatePath = path.join(
           __dirname,
@@ -132,22 +135,24 @@ exports.addEvent = async function (req, res) {
     let result = await event.addEvent();
 
     if (result.status == "ok") {
-      axios.post('http://localhost:4000/account/signUp', {
-        accountFirstName: req.body.organizerName,
-        accountLastName: req.body.organizerName,
-        accountEmail: req.body.organizerEmail,
-        accountMobileNo: req.body.organizerNumber,
-        accountPassword: "qwerty",
-        role: "organizer"
-      })
+      axios
+        .post("http://localhost:4000/account/signUp", {
+          accountFirstName: req.body.organizerName,
+          accountLastName: req.body.organizerName,
+          accountEmail: req.body.organizerEmail,
+          accountMobileNo: req.body.organizerNumber,
+          accountPassword: "qwerty",
+          role: "organizer",
+        })
         .then(function (response) {
           console.log(response.data);
-          return res.status(200).json({ message: "Event Added Successfully", eventId: result.id });
+          return res
+            .status(200)
+            .json({ message: "Event Added Successfully", eventId: result.id });
         })
         .catch(function (error) {
           console.log(error);
           return res.status(500).json({ message: "Internal Server Error" });
-
         });
     }
 
@@ -366,7 +371,7 @@ exports.getAllUpcomingEventsCount = async (req, res) => {
     let count = await event.getAllUpcomingEventsCount();
 
     // This should be displayed on webapp dashboard in chart section
-    // return res.json({ count });
+    return res.json({ count });
   } catch (e) {
     console.log(e);
   }
@@ -379,7 +384,7 @@ exports.getAllCompletedEventsCount = async (req, res) => {
     let count = await event.getAllCompletedEventsCount();
 
     // This should be displayed on webapp dashboard in chart section
-    // return res.json({ count });
+    return res.json({ count });
   } catch (e) {
     console.log(e);
   }
@@ -393,7 +398,7 @@ exports.getAllOngoingEventsCount = async (req, res) => {
 
     // This should be displayed on webapp dashboard in chart section
 
-    // return res.json({ count });
+    return res.json({ count });
   } catch (e) {
     console.log(e);
   }
@@ -485,16 +490,19 @@ exports.generateCertificate = async (req, res) => {
     const fullName = `
         ${userDoc.userFirstName + " " + userDoc.userLastName}
       `;
-    axios
-      .get("http://localhost:4000/")
-      .then(function (response) {
-        console.log(response);
-      });
+    axios.get("http://localhost:4000/").then(function (response) {
+      console.log(response);
+    });
 
-    const certificateTemplate = await event.getEventCertificateTemplates(eventId);
+    const certificateTemplate = await event.getEventCertificateTemplates(
+      eventId
+    );
 
     const image = await jimp.read(
-      path.join(__dirname, `../public/certificateTemplates/${certificateTemplate.participationCertificateTemplate}`)
+      path.join(
+        __dirname,
+        `../public/certificateTemplates/${certificateTemplate.participationCertificateTemplate}`
+      )
     );
 
     console.log("Hello image");
@@ -510,7 +518,8 @@ exports.generateCertificate = async (req, res) => {
     await image.writeAsync(
       path.join(
         __dirname,
-        `../public/certificates/certificate(${userDoc.userFirstName + " " + userDoc.userLastName
+        `../public/certificates/certificate(${
+          userDoc.userFirstName + " " + userDoc.userLastName
         }).png`
       )
     );

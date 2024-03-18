@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pict_frontend/pages/Auth/signup_screen.dart';
-import 'package:pict_frontend/pages/user_home_screen.dart';
+import 'package:pict_frontend/pages/User/user_home_screen.dart';
 // import 'package:notes/pages/Dashboard.dart';
 // import 'package:notes/pages/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';

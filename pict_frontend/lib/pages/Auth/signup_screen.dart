@@ -10,8 +10,8 @@ import 'package:pict_frontend/config/app_constants.dart';
 import 'package:pict_frontend/config/utils/SharedPreference.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
-import 'package:pict_frontend/pages/user_home_screen.dart';
-import 'package:pict_frontend/services/AuthService.dart';
+import 'package:pict_frontend/pages/User/user_home_screen.dart';
+import 'package:pict_frontend/services/auth_service.dart';
 
 String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
