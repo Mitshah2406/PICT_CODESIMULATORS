@@ -35,6 +35,7 @@ exports.signUp = async (req, res) => {
 exports.signIn = async (req, res) => {
   try {
     const { accountEmail, accountPassword } = req.body;
+    console.log(accountEmail, accountPassword);
     let account = new Account();
     let response = await account.signIn(accountEmail, accountPassword);
 

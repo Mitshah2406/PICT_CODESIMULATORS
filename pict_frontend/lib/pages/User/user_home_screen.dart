@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pict_frontend/config/utils/SharedPreference.dart';
+import 'package:pict_frontend/utils/session/SharedPreference.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Events/event_details.dart';
 import 'package:pict_frontend/pages/Events/events.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pict_frontend/pages/Auth/signin_screen.dart';
+import 'package:pict_frontend/utils/geolocation/geolocation_service.dart';
+import 'package:pict_frontend/utils/session/SharedPreference.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -24,6 +27,7 @@ class HomePageState extends ConsumerState<HomePage> {
       _name = prefs.getString("name");
       _id = prefs.getString("userId");
     });
+    await GeolocationService.determinePosition();
   }
 
   @override
@@ -31,6 +35,7 @@ class HomePageState extends ConsumerState<HomePage> {
     _name = "";
     _id = "";
     getSession();
+
     super.initState();
   }
 

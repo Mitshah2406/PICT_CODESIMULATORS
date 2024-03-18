@@ -1,6 +1,3 @@
-
-
-
 void sendNoti() async {
   String token = await FirebaseApi().getFCM();
   print("Sending notification");

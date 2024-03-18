@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      MONGO_URI: "mongodb+srv://mit24:g0jLzFVKZZO0rqGE@cluster0.zjlh1.mongodb.net/Waste-Management"
+    ports:
+      - 4000:4000
+    develop:
+      # specify the files to watch for changes
+      watch:
+        # it'll watch for changes in package.json and package-lock.json and rebuild the container and image if there are any changes
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+
+        # it'll watch for changes in the backend directory and sync the changes with the container real time
+        - path: ./
+          target: /app
+          action: sync

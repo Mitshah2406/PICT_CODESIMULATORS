@@ -1,0 +1,60 @@
+<%- include('../includes/header.ejs') %>
+<div class="card">
+    <div class="card-header d-flex justify-content-between">
+        <div class="header-title">
+            <h4 class="card-title">Add Resources</h4>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="card-body">
+        <div class="row">
+        <%- include('../includes/flash.ejs') %>
+        <form action="/biowaste/addResources" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="form-label" for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="5" placeholder="Enter Description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="type">Resource Type</label>
+                <select class="form-control" id="type" name="type" required>
+                    <option value="video">Video</option>
+                    <option value="article">Article</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="link">URL/Link</label>
+                <input type="url" class="form-control" id="link" name="link" placeholder="Enter URL/Link" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="author">Author/Publisher</label>
+                <input type="text" class="form-control" id="author" name="author" placeholder="Enter Author/Publisher" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="datePublished">Date Published</label>
+                <input type="date" class="form-control" id="datePublished" name="datePublished" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="language">Language</label>
+                <input type="text" class="form-control" id="language" name="language" placeholder="Enter Language" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="keywords">Keywords/Tags</label>
+                <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Enter Keywords/Tags" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="duration">Duration</label>
+                <input type="text" class="form-control" id="duration" name="duration" placeholder="Enter Duration" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-danger">Cancel</button>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+<%- include('../includes/footer.ejs') %>
