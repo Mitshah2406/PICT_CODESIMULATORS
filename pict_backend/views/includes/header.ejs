@@ -405,7 +405,7 @@
                                       <path d="M3.32156 13.5127C2.21752 13.7297 1.49225 14.1719 1.19139 14.8167C0.936203 15.3453 0.936203 15.9586 1.19139 16.4872C1.65163 17.4851 3.13531 17.8066 3.71195 17.8885C3.83104 17.9065 3.92595 17.8038 3.91342 17.6832C3.61883 14.9167 5.9621 13.6046 6.56918 13.3029C6.59425 13.2885 6.59962 13.2677 6.59694 13.2542C6.59515 13.2452 6.5853 13.2317 6.5656 13.2299C5.25294 13.2047 3.84358 13.3848 3.32156 13.5127Z" fill="currentColor"></path>
                                   </svg>
                               </i>
-                              <span class="item-name">Dummy</span>
+                              <span class="item-name">Events</span>
                               <i class="right-icon">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -413,8 +413,21 @@
                               </i>
                           </a>
                           <ul class="sub-nav collapse" id="sidebar-user" data-bs-parent="#sidebar-menu">
+                            <li class="nav-item">
+                              <a class="nav-link " href="/events/add-events-page">
+                                  <i class="icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                          <g>
+                                          <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                          </g>
+                                      </svg>
+                                  </i>
+                                  <i class="sidenav-mini-icon"> A </i>
+                                  <span class="item-name">Add Event</span>
+                              </a>
+                          </li>
                               <li class="nav-item">
-                                  <a class="nav-link " href="#">
+                                  <a class="nav-link " href="/events/view-all-events">
                                       <i class="icon">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                               <g>
@@ -423,23 +436,51 @@
                                           </svg>
                                       </i>
                                       <i class="sidenav-mini-icon"> A </i>
-                                      <span class="item-name">Dummy</span>
+                                      <span class="item-name">View All Event</span>
                                   </a>
                               </li>
+
                               <li class="nav-item">
-                                  <a class="nav-link " href="#">
-                                      <i class="icon">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                              <g>
-                                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                              </g>
-                                          </svg>
-                                      </i>
-                                      <i class="sidenav-mini-icon"> U </i>
-                                      <span class="item-name">Dummy</span>
-                                  </a>
-                              </li>
-                          </ul>
+                                <a class="nav-link " href="/events/view-upcoming-events">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">View Upcoming Events</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/events/view-ongoing-events">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">View Ongoing Events</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/events/view-completed-events">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">View Completed Events</span>
+                                </a>
+                            </li>
+                            </ul>
+
                       </li>
                         
                 </li>

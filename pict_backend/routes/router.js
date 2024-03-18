@@ -174,15 +174,16 @@ router.post("/generateCertificate", eventController.generateCertificate);
 router.get("/authority/login-page", authorityController.loginPage)
 // Home page route
 router.get('/', authorityController.homePage)
-
 // Bio waste routes
 router.get("/biowaste/add-resources-page" ,biowasteController.addResourcesPage)
 router.get("/biowaste/get-resources-page" ,biowasteController.getResourcesPage)
-
-
-
-
-
+// Events Routes
+router.get("/events/view-all-events",eventController.viewAllEventsPage)
+router.get('/events/view-upcoming-events',eventController.viewUpcomingEventsPage)
+router.get("/events/view-ongoing-events",eventController.viewOngoingEventsPage)
+router.get("/events/view-completed-events",eventController.viewCompletedEventsPage)
+router.get("/events/view-event-by-id/:eventId",eventController.viewEventsByIdPage)
+router.get("/events/add-events-page" ,eventController.addEventsPage)
 //404
 
 router.get("*", (req, res) => {

@@ -1,0 +1,52 @@
+<%- include('../includes/header.ejs') %>
+<div class="row">
+    <div class="col-sm-12">
+       <div class="card">
+          <div class="card-header d-flex justify-content-between">
+             <div class="header-title">
+                <h4 class="card-title">View Upcoming Events</h4>
+             </div>
+          </div>
+          <div class="card-body">
+             <p>All The events are displayed here</p>
+             <div class="table-responsive">
+                <table id="datatable" class="table table-striped" data-toggle="data-table">
+                   <thead>
+                      <tr>
+                         <th>Event Name</th>
+                         <th>Description</th>
+                         <th>Start Date</th>
+                         <th>End Date</th>
+                         <th>Organizer Name</th>
+                         <th>Organizer Email</th>
+                         <th>WhatsApp Link</th>
+                         <th>View</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                      <% upcomingEvents.forEach(event => { %>
+                        <tr>
+                           <td><%= event.eventName %></td>
+                           <td><%= event.eventDescription %></td>
+                           <td><%= event.eventStartDate %></td>
+                           <td><%= event.eventEndDate %></td>
+                           <td><%= event.organizerName %></td>
+                           <td><%= event.organizerEmail %></td>
+                           <td><a href="<%= event.whatsAppLink %>" target="_blank">WhatsApp</a></td>
+                           <td>
+                            <!-- HREF TO OPEN INDIVITUAL EVENT PAGE -->
+                            <a href="/events/view-event-by-id/<%= event._id %>">
+
+                                <img src="/images/icons/eyeIcon.png" alt="" srcset=""> </td>
+                            </a>
+                        </tr>
+                      <% }); %>
+                   </tbody>
+                </table>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+<%- include('../includes/footer.ejs') %>
