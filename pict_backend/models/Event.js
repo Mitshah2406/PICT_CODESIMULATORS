@@ -367,4 +367,18 @@ Event.prototype.getUserCompletedEvents = async function (userId) {
   return data;
 };
 
+Event.prototype.getOngoingEventsByEmail = async function (email) {
+  let data = await eventsCollection
+    .find({
+      organizerEmail: email,
+      $and: [
+        { eventStartDate: { $lte: new Date() } },
+        { eventEndDate: { $gte: new Date() } },
+      ],
+    })
+    .toArray();
+
+  return data;
+};
+
 module.exports = Event;

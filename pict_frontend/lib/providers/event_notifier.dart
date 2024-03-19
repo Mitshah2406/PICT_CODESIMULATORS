@@ -34,6 +34,12 @@ final getUserCompletedEvents =
   return await eventService.getUserCompletedEvents(id);
 });
 
+final getOngoingEventsByEmail =
+    FutureProvider.family<List<Event>, String>((ref, email) async {
+  final eventService = ref.watch(eventServiceProvider);
+  return await eventService.getOngoingEventsByEmail(email);
+});
+
 // final checkIfUserAlreadyRegistered =
 //     FutureProvider.family<bool, List<String>>((ref, id) async {
 //   final eventService = ref.watch(eventServiceProvider);

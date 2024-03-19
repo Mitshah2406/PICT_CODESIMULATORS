@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Auth/signup_screen.dart';
+import 'package:pict_frontend/pages/Organizer/organizer_home_screen.dart';
+import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
 import 'package:pict_frontend/pages/User/user_home_screen.dart';
 // import 'package:notes/pages/Dashboard.dart';
 // import 'package:notes/pages/Login.dart';
@@ -73,12 +75,25 @@ class _SplashScreenState extends State<SplashScreen> {
 
       var result = await SharedPreferences.getInstance();
       bool? data = result.getBool("isloggedIn");
+      String? role = result.getString("role");
 
       if (data != null && data == true) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return const HomePage();
-        }));
+        if (role == "user") {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return const HomePage();
+          }));
+        } else if (role == "organizer") {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return const OrganizerHomePage();
+          }));
+        } else if (role == "recycler") {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return const RecyclerHomePage();
+          }));
+        }
       } else {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {

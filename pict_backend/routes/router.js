@@ -69,43 +69,13 @@ router.post(
   eventController.checkIfAlreadyRegistered
 );
 
-// ! Pending API's
-// Based on userId, get all the certificates of the user of any events and display in the app
-// Add some fields and one array of volunteers,
-// Volunteers module and their api's
-// Certificate generation (pending volunteer)
-
-// ? Item Listing Module (Buy & Sell)
-router.post("/addItem", itemlistingContoller.addItem);
-router.post("/getItemById", itemlistingContoller.getItemById);
-router.get("/getAllItems", itemlistingContoller.getAllItems);
+// Get Ongoing events of the organizer based on the email address.
 router.post(
-  "/getAllItemsPostedByUser",
-  itemlistingContoller.getAllItemsPostedByUser
-);
-router.post(
-  "/getItemCountPostedByUser",
-  itemlistingContoller.getItemCountPostedByUser
+  "/getOngoingEventsByEmail",
+  eventController.getOngoingEventsByEmail
 );
 
-// Search API by title (You can also check count of items based on search)
-router.post("/searchItemByTitle", itemlistingContoller.searchItemByTitle);
-
-// Filters API (You can also check count of items based on filter)
-router.post("/filterByCategory", itemlistingContoller.filterByCategory);
-router.post("/filterByLocation", itemlistingContoller.filterByLocation);
-
-// Their favorite items
-router.post("/addItemToFav", itemlistingContoller.addItemToFav);
-router.post("/removeItemFromFav", itemlistingContoller.removeItemFromFav);
-
-// Check if the item is already present in the list or not
-router.post(
-  "/checkIfItemAlreadyExist",
-  itemlistingContoller.checkIfItemAlreadyExist
-);
-
-// Reporting Module
+// ? Reporting Module
 
 //add report for unhygenic place with a attachment
 router.post("/report/addReport", reportController.addReport);
@@ -206,5 +176,35 @@ router.get("/events/add-events-page", eventController.addEventsPage);
 router.get("*", (req, res) => {
   res.status(404).send("404: Page not found");
 });
+
+// ? Item Listing Module (Buy & Sell)
+router.post("/addItem", itemlistingContoller.addItem);
+router.post("/getItemById", itemlistingContoller.getItemById);
+router.get("/getAllItems", itemlistingContoller.getAllItems);
+router.post(
+  "/getAllItemsPostedByUser",
+  itemlistingContoller.getAllItemsPostedByUser
+);
+router.post(
+  "/getItemCountPostedByUser",
+  itemlistingContoller.getItemCountPostedByUser
+);
+
+// Search API by title (You can also check count of items based on search)
+router.post("/searchItemByTitle", itemlistingContoller.searchItemByTitle);
+
+// Filters API (You can also check count of items based on filter)
+router.post("/filterByCategory", itemlistingContoller.filterByCategory);
+router.post("/filterByLocation", itemlistingContoller.filterByLocation);
+
+// Their favorite items
+router.post("/addItemToFav", itemlistingContoller.addItemToFav);
+router.post("/removeItemFromFav", itemlistingContoller.removeItemFromFav);
+
+// Check if the item is already present in the list or not
+router.post(
+  "/checkIfItemAlreadyExist",
+  itemlistingContoller.checkIfItemAlreadyExist
+);
 
 module.exports = router;
