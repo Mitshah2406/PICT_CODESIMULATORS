@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Auth/signup_screen.dart';
+import 'package:pict_frontend/pages/Events/events_new/events_home.dart';
 import 'package:pict_frontend/pages/Organizer/organizer_home_screen.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
 import 'package:pict_frontend/pages/User/user_home_screen.dart';
@@ -81,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (role == "user") {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return const HomePage();
+            return const EventsHomePage();
           }));
         } else if (role == "organizer") {
           Navigator.pushReplacement(context,
