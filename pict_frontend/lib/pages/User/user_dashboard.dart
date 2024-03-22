@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/pages/Events/events.dart';
+import 'package:pict_frontend/pages/Events/events_new/events_home.dart';
 import 'package:pict_frontend/pages/Report/reports.dart';
 import 'package:pict_frontend/pages/User/user_home_screen.dart';
 import 'package:pict_frontend/pages/User/user_profile.dart';
@@ -22,7 +23,8 @@ class _UserDashboardState extends ConsumerState<UserDashboard> {
   final tabs = [
     const HomePage(),
     const ReportsPage(),
-    const EventsPage(),
+    const ReportsPage(),
+    const EventsHomePage(),
     const UserProfilePage(),
   ];
 
@@ -74,7 +76,7 @@ class _UserDashboardState extends ConsumerState<UserDashboard> {
             color: Color.fromRGBO(255, 255, 255, 1),
           ),
           Icon(Icons.qr_code_scanner, size: 26, color: Colors.white),
-          // Icon(Icons.shopping_cart_outlined, size: 26, color: Colors.white),
+          Icon(Icons.event, size: 26, color: Colors.white),
           Icon(Icons.person, size: 26, color: Colors.white),
         ],
         onTap: (index) {

@@ -91,14 +91,14 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
                     "Your Profile",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 24,
+                      fontSize: 20,
                     ),
                   ),
                 ),
                 ClipPath(
                   clipper: CustomShape(),
                   child: SizedBox(
-                    height: 240,
+                    height: 200,
                     child: Container(
                       color: Colors.green,
                     ),
@@ -107,13 +107,13 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ],
             ),
             Positioned.fill(
-              bottom: 480,
+              bottom: 350,
               child: Align(
                 alignment: Alignment.center,
                 child: _userImage!.isNotEmpty
                     ? CircleAvatar(
                         backgroundColor: Colors.white,
-                        radius: 90,
+                        radius: 70,
                         child: SizedBox(
                           width:
                               180, // Diameter of the CircleAvatar is twice the radius
@@ -136,7 +136,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ),
             ),
             Positioned.fill(
-              bottom: 250,
+              bottom: 160,
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -149,7 +149,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ),
             ),
             Positioned.fill(
-              bottom: 200,
+              bottom: 110,
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -163,7 +163,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ),
             ),
             Positioned.fill(
-              bottom: 30,
+              bottom: -50,
               child: Align(
                 alignment: Alignment.center,
                 child: Counters(

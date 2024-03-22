@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
+import 'package:pict_frontend/pages/Events/events_new/event_list.dart';
 import 'package:pict_frontend/pages/Events/user_completed_events.dart';
 import 'package:pict_frontend/pages/Report/reports.dart';
 import 'package:pict_frontend/pages/User/edit_user_profile.dart';
+import 'package:pict_frontend/providers/event_notifier.dart';
 import 'package:pict_frontend/utils/session/SharedPreference.dart';
 import 'package:pict_frontend/widgets/language_dropdown.dart';
 
-class profileOptions extends StatefulWidget {
+class profileOptions extends ConsumerStatefulWidget {
   profileOptions(
       {super.key,
       required this.name,
@@ -21,10 +25,13 @@ class profileOptions extends StatefulWidget {
   String? userImage;
 
   @override
-  State<profileOptions> createState() => _profileOptionsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _profileOptionsState();
 }
 
-class _profileOptionsState extends State<profileOptions> {
+class _profileOptionsState extends ConsumerState<profileOptions> {
+  late List<Event>? getCompletedEventsOfUsers;
+  //  registeredEvent;
+
   void signOut() {
     showDialog(
       context: context,
@@ -60,14 +67,26 @@ class _profileOptionsState extends State<profileOptions> {
 
   @override
   Widget build(BuildContext context) {
+    getCompletedEventsOfUsers = [];
+
+    if (widget.userId != '') {
+      setState(() {
+        getCompletedEventsOfUsers = ref
+            .watch(
+              getUserCompletedEvents(widget.userId.toString()),
+            )
+            .value;
+      });
+    }
+
     return Card(
-      margin: const EdgeInsets.fromLTRB(20, 480, 20, 0),
+      margin: const EdgeInsets.fromLTRB(20, 410, 20, 0),
       elevation: 1.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             GestureDetector(
               onTap: () {
                 // ? We need to push the user to edit profile page.
@@ -104,7 +123,12 @@ class _profileOptionsState extends State<profileOptions> {
               onTap: () {
                 // ? Push the user to the get all completed events
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const UserCompletedEventsPage();
+                  return EventList(
+                    userId: widget.userId!,
+                    name: "Your Completed Event",
+                    events: getCompletedEventsOfUsers!,
+                    userImage: widget.userImage!,
+                  );
                 }));
               },
               child: ListTile(

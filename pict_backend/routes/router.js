@@ -154,6 +154,18 @@ router.get(
   eventController.getAllOngoingEventsCount
 );
 
+// Get latest 3 registered events of users
+router.post(
+  "/getLatest3UserRegisteredEvents",
+  eventController.getLatest3UserRegisteredEvents
+);
+
+// Getting upcoming events of this month
+router.get(
+  "/getUpcomingEventsOfMonth",
+  eventController.getUpcomingEventsOfMonth
+);
+
 // Get All registered participants in the specific event, which will be shown on the webApp
 router.post(
   "/getRegisteredParticipants",

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/pages/Events/events_new/event_enroll_succes.dart';
+import 'package:pict_frontend/services/event_service.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EventRoleSelectionPage extends StatefulWidget {
-  const EventRoleSelectionPage({super.key});
+  const EventRoleSelectionPage({super.key, required this.event});
+  final Event event;
 
   @override
   State<EventRoleSelectionPage> createState() => _EventRoleSelectionPageState();
@@ -13,94 +17,136 @@ class EventRoleSelectionPage extends StatefulWidget {
 class _EventRoleSelectionPageState extends State<EventRoleSelectionPage> {
   int selectedButton = 0;
   bool checkedValue = false;
+
+  List<String> roles = ['participant', 'volunteer'];
+
+  String? _name;
+  String? _id;
+  String? _userImage;
+
+  Future<Null> getSession() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _name = prefs.getString("name");
+      _id = prefs.getString("userId");
+      _userImage = prefs.getString("image");
+    });
+  }
+
+  @override
+  void initState() {
+    _id = "";
+    _name = "";
+    _userImage = "";
+    getSession();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Events",
-          style: Theme.of(context).textTheme.headlineLarge,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: CircleAvatar(
-              child: Image.asset("assets/images/overlap1.png"),
-            ),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "Select Role To participate: ",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            OptionRadio(
-                text: 'Participant',
-                index: 0,
-                icon: FontAwesomeIcons.a,
-                selectedButton: selectedButton,
-                press: (val) {
-                  selectedButton = val;
-                  setState(() {});
-                }),
-            const Divider(),
-            OptionRadio(
-                text: 'Volunteer',
-                index: 1,
-                selectedButton: selectedButton,
-                icon: FontAwesomeIcons.a,
-                press: (val) {
-                  selectedButton = val;
-                  setState(() {});
-                }),
-            const SizedBox(
-              height: 20,
-            ),
-            CheckboxListTile(
-              title: Text(
-                "I hereby, accept all the rules and regulations for the event and follow the responsibilities as per mentioned above for the role I selected.",
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.normal,
-                    ),
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Select a role to participate: ",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(),
               ),
-              value: checkedValue,
-              onChanged: (newValue) {
-                setState(() {
-                  checkedValue = newValue!;
-                });
-              },
-              controlAffinity:
-                  ListTileControlAffinity.leading, //  <-- leading Checkbox
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const EventEnrollSuccessPage(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
+              const SizedBox(
+                height: 20,
+              ),
+              OptionRadio(
+                  text: 'Participant',
+                  index: 0,
+                  icon: FontAwesomeIcons.p,
+                  selectedButton: selectedButton,
+                  press: (val) {
+                    setState(() {
+                      selectedButton = val;
+                    });
+                  }),
+              const Divider(),
+              OptionRadio(
+                  text: 'Volunteer',
+                  index: 1,
+                  selectedButton: selectedButton,
+                  icon: FontAwesomeIcons.v,
+                  press: (val) {
+                    setState(() {
+                      selectedButton = val;
+                    });
+                  }),
+              const SizedBox(
+                height: 20,
+              ),
+              CheckboxListTile(
+                title: Text(
+                  "I hereby, accept all the rules and regulations for the event and follow the responsibilities as per mentioned above for the role I selected.",
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.normal,
+                      ),
+                ),
+                value: checkedValue,
+                onChanged: (newValue) {
+                  setState(() {
+                    checkedValue = newValue!;
+                  });
+                },
+                controlAffinity:
+                    ListTileControlAffinity.leading, //  <-- leading Checkbox
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  if (checkedValue == true && _id != '') {
+                    // Register the user based on role
+                    String res = await EventService.registerEvent(
+                      _id,
+                      widget.event.id,
+                      roles[selectedButton],
+                    );
+                    if (res == "ok") {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const EventEnrollSuccessPage(),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                              "Failed to register into event. Please try again later"),
+                        ),
+                      );
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "Please accept the terms and conditions",
+                        ),
+                      ),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
                   backgroundColor: TColors.primaryGreen,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20))),
-              child: const Text("Register"),
-            )
-          ],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: const Text("Register"),
+              )
+            ],
+          ),
         ),
       ),
     );

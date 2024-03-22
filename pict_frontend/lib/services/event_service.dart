@@ -289,4 +289,76 @@ class EventService {
       throw Exception('Failed to Fetch ongoing events');
     }
   }
+
+  Future<int> getAllUpcomingEventsCount() async {
+    try {
+      var response = await http.get(
+        Uri.parse("${AppConstants.IP}/getAllUpcomingEventsCount"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      var result = jsonDecode(response.body)["count"];
+      print(result);
+
+      return result;
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to get upcoming events count');
+    }
+  }
+
+  Future<List<Event>> getLatest3UserRegisteredEvents(id) async {
+    try {
+      var response = await http.post(
+        Uri.parse("${AppConstants.IP}/getLatest3UserRegisteredEvents"),
+        body: jsonEncode({
+          "userId": id,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      var result = jsonDecode(response.body)["result"];
+
+      List<Event> events = [];
+
+      for (var eventJson in result) {
+        Event event = Event.fromJson(eventJson);
+        events.add(event);
+      }
+
+      return events;
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to fetch latest 3 record of Registered Events');
+    }
+  }
+
+  Future<List<Event>> getUpcomingEventsOfMonth() async {
+    try {
+      var response = await http.get(
+        Uri.parse("${AppConstants.IP}/getUpcomingEventsOfMonth"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      var result = jsonDecode(response.body)["result"];
+
+      List<Event> events = [];
+
+      for (var eventJson in result) {
+        Event event = Event.fromJson(eventJson);
+        events.add(event);
+      }
+
+      return events;
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to fetch upcoming events of this month');
+    }
+  }
 }

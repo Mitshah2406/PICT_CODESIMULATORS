@@ -28,6 +28,8 @@ Event.prototype.cleanUp = function () {
     organizerNumber: this.data.organizerNumber,
     whatsAppLink: this.data.whatsAppLink,
     // areVolunteersNeeded: Boolean(this.data.areVolunteersNeeded), take this to conditionally show the volunteers fields on fronted (FOR TAHER)
+    eventAddress: this.data.eventAddress,
+    eventCity: this.data.eventCity,
     noOfVolunteersNeeded: Number(this.data.noOfVolunteersNeeded),
     participationCertificateTemplate:
       this.data.participationCertificateTemplate,
@@ -375,6 +377,40 @@ Event.prototype.getOngoingEventsByEmail = async function (email) {
         { eventStartDate: { $lte: new Date() } },
         { eventEndDate: { $gte: new Date() } },
       ],
+    })
+    .toArray();
+
+  return data;
+};
+
+Event.prototype.getLatest3UserRegisteredEvents = async function (userId) {
+  let data = await eventsCollection
+    .find({
+      registeredParticipants: {
+        $elemMatch: {
+          userId: new ObjectID(userId),
+        },
+      },
+    })
+    .sort({ _id: -1 })
+    .limit(3)
+    .toArray();
+
+  return data;
+};
+
+Event.prototype.getUpcomingEventsOfMonth = async function () {
+  let currentDate = new Date();
+
+  let lastDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0 // It represents last day of the month i.e 31 march
+  );
+
+  let data = await eventsCollection
+    .find({
+      eventStartDate: { $gte: new Date(), $lte: lastDayOfMonth },
     })
     .toArray();
 

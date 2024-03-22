@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pict_frontend/pages/Events/events_new/event_details.dart';
+import 'package:pict_frontend/pages/User/user_dashboard.dart';
 
 import 'package:pict_frontend/utils/constants/app_colors.dart';
 
@@ -14,24 +14,10 @@ class _EventEnrollSuccessPageState extends State<EventEnrollSuccessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Events",
-          style: Theme.of(context).textTheme.headlineLarge,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: CircleAvatar(
-              child: Image.asset("assets/images/overlap1.png"),
-            ),
-          )
-        ],
-      ),
       body: Padding(
         padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Center(
@@ -72,16 +58,18 @@ class _EventEnrollSuccessPageState extends State<EventEnrollSuccessPage> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const EventDetailsPage(),
+                    builder: (context) => const UserDashboard(),
                   ),
                 );
               },
               style: ElevatedButton.styleFrom(
-                  backgroundColor: TColors.primaryGreen,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20))),
+                backgroundColor: TColors.primaryGreen,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
               child: const Text("Go To Home"),
             )
           ],

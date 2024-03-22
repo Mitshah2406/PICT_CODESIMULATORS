@@ -22,10 +22,21 @@ final getAllOngoingEvents = FutureProvider<List<Event>>((ref) async {
   return await eventService.getAllOngoingEvents();
 });
 
+final getUpcomingEventsOfMonth = FutureProvider<List<Event>>((ref) async {
+  final eventService = ref.watch(eventServiceProvider);
+  return await eventService.getUpcomingEventsOfMonth();
+});
+
 final getUserRegisteredEvents =
     FutureProvider.family<List<Event>, String>((ref, id) async {
   final eventService = ref.watch(eventServiceProvider);
   return await eventService.getUserRegisteredEvents(id);
+});
+
+final getLatestUserRegisteredEvents =
+    FutureProvider.family<List<Event>, String>((ref, id) async {
+  final eventService = ref.watch(eventServiceProvider);
+  return await eventService.getLatest3UserRegisteredEvents(id);
 });
 
 final getUserCompletedEvents =
@@ -38,6 +49,11 @@ final getOngoingEventsByEmail =
     FutureProvider.family<List<Event>, String>((ref, email) async {
   final eventService = ref.watch(eventServiceProvider);
   return await eventService.getOngoingEventsByEmail(email);
+});
+
+final getUpcomingEventsCount = FutureProvider<int>((ref) async {
+  final eventService = ref.watch(eventServiceProvider);
+  return await eventService.getAllUpcomingEventsCount();
 });
 
 // final checkIfUserAlreadyRegistered =

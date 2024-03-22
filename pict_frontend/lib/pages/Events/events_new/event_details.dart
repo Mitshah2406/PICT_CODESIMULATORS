@@ -1,42 +1,102 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pict_frontend/pages/Events/events_new/event_role_selection.dart';
+import 'package:pict_frontend/services/event_service.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
+import 'package:pict_frontend/utils/constants/app_constants.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+
+import '../../../models/Event.dart';
 
 class EventDetailsPage extends StatefulWidget {
-  const EventDetailsPage({super.key});
+  const EventDetailsPage(
+      {super.key,
+      required this.event,
+      required this.userId,
+      required this.userImage});
+  final Event event;
+  final String userImage;
+  final String userId;
 
   @override
   State<EventDetailsPage> createState() => _EventDetailsPageState();
 }
 
 class _EventDetailsPageState extends State<EventDetailsPage> {
+  bool? isExist;
+
+  Future<Null> checkIfAlreadyRegistered() async {
+    bool res = await EventService.checkIfUserAlreadyRegistered(
+      widget.userId,
+      widget.event.id!,
+    );
+
+    setState(() {
+      isExist = res;
+    });
+  }
+
+  @override
+  void initState() {
+    isExist = false;
+    checkIfAlreadyRegistered();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final event = widget.event;
+
+    print("Daaa");
+    print(isExist);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Events",
-          style: Theme.of(context).textTheme.headlineLarge,
+          event.eventName.toString(),
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: CircleAvatar(
-              child: Image.asset("assets/images/overlap1.png"),
-            ),
+            child: widget.userImage.isNotEmpty
+                ? CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 20,
+                    child: SizedBox(
+                      width: 180,
+                      height: 180,
+                      child: ClipOval(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: widget.userImage == "null"
+                            ? Image.asset(
+                                "assets/images/villager.png",
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                "${AppConstants.IP}/userImages/${widget.userImage}",
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                    ),
+                  )
+                : const CircularProgressIndicator(),
           )
         ],
       ),
       body: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[
-          Image.asset(
-            "assets/images/event_detail_bg.png",
-            fit: BoxFit.cover,
-            height: 300,
-            width: double.infinity,
-          ),
+          event.eventAttachment!.isNotEmpty
+              ? Image.network(
+                  "${AppConstants.IP}/eventAttachments/${event.eventAttachment![0]}",
+                  fit: BoxFit.cover,
+                  height: 300,
+                  width: double.infinity,
+                )
+              : Image.asset("assets/images/event_detail_bg.png"),
           Align(
             alignment: Alignment.bottomCenter,
             child: ClipRRect(
@@ -59,38 +119,59 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                       children: [
                         Expanded(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                "Pict College Clean Drive!",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    color: TColors.black),
-                              ),
                               Text(
-                                "50 Volunteers",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge!
-                                    .copyWith(
-                                        fontSize: 20,
-                                        decoration: TextDecoration.underline,
-                                        fontWeight: FontWeight.w300,
-                                        color: TColors.black),
+                                event.eventName.toString(),
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: TColors.black,
+                                ),
                               ),
+                              event.volunteers!.isNotEmpty
+                                  ? Text(
+                                      "${event.volunteers?.length} Volunteers",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge!
+                                          .copyWith(
+                                            fontSize: 20,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontWeight: FontWeight.w300,
+                                            color: TColors.black,
+                                          ),
+                                    )
+                                  : const Text(""),
                             ],
                           ),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
-                        Image.asset(
-                          "assets/images/overlap3.png",
-                          width: 130,
-                          height: 130,
-                          fit: BoxFit.cover,
+                        Hero(
+                          tag: event.id!,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 60,
+                            child: SizedBox(
+                              width: 180,
+                              height: 180,
+                              child: ClipOval(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                child: event.eventPoster == null
+                                    ? Image.network(
+                                        fit: BoxFit.cover,
+                                        "${AppConstants.IP}/poster/fallback-poster.png",
+                                      )
+                                    : Image.network(
+                                        "${AppConstants.IP}/poster/${event.eventPoster}",
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -104,7 +185,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                           width: 10,
                         ),
                         Text(
-                          "PICT College Campus",
+                          "${event.eventAddress}, ${event.eventCity}",
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
@@ -125,7 +206,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                           width: 10,
                         ),
                         Text(
-                          "28 April, 2024",
+                          "${event.eventStartDate!.day} ${AppConstants.months[event.eventStartDate!.month - 1]}, ${event.eventStartDate!.year}",
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
@@ -146,7 +227,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                           width: 10,
                         ),
                         Text(
-                          "PICT College Campus",
+                          "${event.eventStartTime} AM",
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
@@ -158,30 +239,75 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                       height: 15,
                     ),
                     Text(
-                      "Join us for a day filled with excitement, creativity, and camaraderie at the PICT College Annual Spring Fest! This much-awaited event promises a plethora of activities, competitions, and entertainment for students, faculty, and staff alike.",
+                      event.eventDescription.toString(),
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           color: TColors.black, fontWeight: FontWeight.normal),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const EventRoleSelectionPage(),
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: TColors.primaryGreen,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20))),
-                      child: const Text("Enroll Now"),
-                    )
+                    isExist == null
+                        ? const CircularProgressIndicator()
+                        : isExist!
+                            ? ElevatedButton(
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    backgroundColor: Colors.white,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Scaffold(
+                                        backgroundColor: Colors.white,
+                                        body: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              QrImageView(
+                                                data:
+                                                    "${widget.userId}-${event.id!}",
+                                                size: 250,
+                                                embeddedImageStyle:
+                                                    const QrEmbeddedImageStyle(),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  backgroundColor: TColors.buttonPrimary,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 10,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                child: const Text("Show QR"),
+                              )
+                            : ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EventRoleSelectionPage(event: event),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: TColors.primaryGreen,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                child: const Text("Enroll Now"),
+                              )
                   ],
                 ),
               ),

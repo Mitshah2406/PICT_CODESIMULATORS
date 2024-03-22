@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
+      themeMode: ThemeMode.light,
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
     );
