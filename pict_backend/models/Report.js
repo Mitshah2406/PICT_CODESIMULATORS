@@ -3,70 +3,121 @@ const { ObjectID } = require("mongodb");
 const reportCollection = require("../db").db().collection("reports");
 
 let Report = function (data) {
-    this.data = data;
-    this.errors = [];
+  this.data = data;
+  this.errors = [];
 };
 
 Report.prototype.cleanUp = function () {
-    this.data = {
-        uploaderId: ObjectID(this.data.uploaderId),
-        uploaderName: this.data.uploaderName,
-        uploaderEmail: this.data.uploaderEmail,
-        lat: this.data.lat,
-        lon: this.data.lon,
-        reportAttachment: this.data.reportAttachment,
-        formattedAddress: this.data.formattedAddress,
-        reportStatus: "pending", //options: 1. pending (by default) 2. resolved  3. rejected (fake report)
-        createdOn: new Date()
-    }
-}
-
-
+  this.data = {
+    uploaderId: ObjectID(this.data.uploaderId),
+    uploaderName: this.data.uploaderName,
+    uploaderEmail: this.data.uploaderEmail,
+    description: this.data.description,
+    lat: this.data.lat,
+    lon: this.data.lon,
+    reportAttachment: this.data.reportAttachment,
+    formattedAddress: this.data.formattedAddress,
+    reportStatus: "pending", //options: 1. pending (by default) 2. resolved  3. rejected (fake report)
+    createdOn: new Date(),
+  };
+};
 
 Report.prototype.addReport = async function () {
-    this.cleanUp();
-    try {
-        console.log("Function called")
-        console.log(this.data)
+  this.cleanUp();
+  try {
+    console.log("Function called");
+    console.log(this.data);
 
-        let data = await reportCollection.insertOne(this.data);
-        console.log(data.insertedId)
-        return data.insertedId;
-    } catch (e) {
-        console.log(e)
+    let data = await reportCollection.insertOne(this.data);
+    console.log(data.insertedId);
+    if (data.acknowledged) {
+      return "ok";
     }
+    return "fail";
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 Report.prototype.getAllReports = async function () {
-    let data = await reportCollection.find({}).toArray();
-    console.log(data);
-    return data;
+  let data = await reportCollection.find({}).toArray();
+  console.log(data);
+  return data;
 };
 
 Report.prototype.deleteReport = async function (reportId) {
-    try {
-        let data = await reportCollection.findOneAndDelete({
-            _id: new ObjectID(reportId),
-        });
-        return data
-    } catch (e) {
-        console.log(e);
-    }
+  try {
+    let data = await reportCollection.findOneAndDelete({
+      _id: new ObjectID(reportId),
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 Report.prototype.getReportById = async function (reportId) {
-    let data = await reportCollection.findOne({ _id: new ObjectID(reportId) });
-    return data;
-}
+  let data = await reportCollection.findOne({ _id: new ObjectID(reportId) });
+  return data;
+};
 
 Report.prototype.changeReportStatus = async function (reportId, reportStatus) {
-    let data = await reportCollection.findOneAndUpdate({ _id: new ObjectID(reportId) },
-        { $set: { reportStatus: reportStatus } });
+  let data = await reportCollection.findOneAndUpdate(
+    { _id: new ObjectID(reportId) },
+    { $set: { reportStatus: reportStatus } }
+  );
 
-    return "Updated";
-}
+  return "Updated";
+};
 Report.prototype.getReportsByStatus = async function (reportStatus) {
-    let data = await reportCollection.find({ reportStatus: reportStatus }).toArray();
-    return data;
-}
-module.exports = Report
+  let data = await reportCollection
+    .find({ reportStatus: reportStatus })
+    .toArray();
+  return data;
+};
+
+Report.prototype.getAllUserReports = async function (userId, filter) {
+  let data = await reportCollection
+    .find({ uploaderId: new ObjectID(userId), reportStatus: filter })
+    .sort({ _id: -1 })
+    .toArray();
+
+  return data;
+};
+
+Report.prototype.getAllUserPendingReports = async function (userId) {
+  let data = await reportCollection
+    .find({ uploaderId: new ObjectID(userId), reportStatus: "pending" })
+    .sort({ _id: -1 })
+    .toArray();
+
+  return data;
+};
+
+Report.prototype.getAllUserResolvedReports = async function (userId) {
+  let data = await reportCollection
+    .find({ uploaderId: new ObjectID(userId), reportStatus: "resolved" })
+    .sort({ _id: -1 })
+    .toArray();
+
+  return data;
+};
+
+Report.prototype.getAllUserRejectedReports = async function (userId) {
+  let data = await reportCollection
+    .find({ uploaderId: new ObjectID(userId), reportStatus: "rejected" })
+    .sort({ _id: -1 })
+    .toArray();
+
+  return data;
+};
+
+Report.prototype.getCountOfAllUserReports = async function (userId) {
+  let data = await reportCollection.countDocuments({
+    uploaderId: new ObjectID(userId),
+  });
+
+  return data;
+};
+
+module.exports = Report;

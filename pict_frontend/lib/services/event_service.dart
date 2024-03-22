@@ -20,16 +20,20 @@ class EventService {
       );
 
       var result = jsonDecode(response.body)["result"];
+      print("Result");
+      print(result);
 
       List<Event> events = [];
 
       for (var eventJson in result) {
         Event event = Event.fromJson(eventJson);
+        print(event);
         events.add(event);
       }
 
       return events;
     } catch (e) {
+      print("Error de");
       print(e);
       throw Exception('Failed to fetch events');
     }

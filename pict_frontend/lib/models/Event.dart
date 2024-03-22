@@ -25,6 +25,7 @@ class Event {
   String? organizerNumber;
   String? whatsAppLink;
   int? noOfVolunteersNeeded;
+  List<dynamic>? volunteerResponsibilities;
   String? participationCertificateTemplate;
   String? volunteerCertificateTemplate;
   List<dynamic>? volunteers;
@@ -48,6 +49,7 @@ class Event {
     this.organizerNumber,
     this.whatsAppLink,
     this.noOfVolunteersNeeded,
+    this.volunteerResponsibilities,
     this.participationCertificateTemplate,
     this.volunteerCertificateTemplate,
     this.volunteers,
@@ -81,6 +83,7 @@ class Event {
         participationCertificateTemplate:
             json["participationCertificateTemplate"],
         volunteerCertificateTemplate: json["volunteerCertificateTemplate"],
+        volunteerResponsibilities: json["volunteerResponsibilities"],
         volunteers: json["volunteers"] == null
             ? []
             : List<dynamic>.from(json["volunteers"]!.map((x) => x)),
@@ -111,6 +114,7 @@ class Event {
         "organizerNumber": organizerNumber,
         "whatsAppLink": whatsAppLink,
         "noOfVolunteersNeeded": noOfVolunteersNeeded,
+        "volunteersResposibilities": volunteerResponsibilities,
         "participationCertificateTemplate": participationCertificateTemplate,
         "volunteerCertificateTemplate": volunteerCertificateTemplate,
         "volunteers": volunteers == null

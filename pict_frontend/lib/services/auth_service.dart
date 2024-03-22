@@ -60,4 +60,41 @@ class AuthServices {
       return "Internal Server Error";
     }
   }
+
+  static Future editProfile(
+      userFirstName, userLastName, userEmail, userImage) async {
+    try {
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse("${AppConstants.IP}/editProfile"),
+      );
+
+      request.fields.addAll({
+        "userFirstName": userFirstName,
+        "userLastName": userLastName,
+        "userEmail": userEmail,
+      });
+
+      if (userImage != null) {
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'userImage',
+            userImage,
+          ),
+        );
+      }
+
+      var response = await request.send();
+      var responseData = await response.stream.bytesToString();
+
+      var result = jsonDecode(responseData);
+
+      print(result);
+
+      return result;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

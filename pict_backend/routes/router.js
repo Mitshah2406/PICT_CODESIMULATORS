@@ -17,6 +17,9 @@ router.post("/account/signUp", accountController.signUp);
 // User can signIn with email and password, no need to take role
 router.post("/account/signIn", accountController.signIn);
 
+// Edit Profile Route
+router.post("/editProfile", userController.editProfile);
+
 // ? Event Management Module
 
 // Atharva's API
@@ -89,6 +92,26 @@ router.post("/report/changeReportStatus", reportController.changeReportStatus);
 router.get(
   "/report/getReportsByStatus/:reportStatus",
   reportController.getReportsByStatus
+);
+// get all users reports
+router.post("/report/getAllUserReports", reportController.getAllUserReports);
+// get all users pending reports
+router.post(
+  "/report/getAllUserPendingReports",
+  reportController.getAllUserPendingReports
+);
+router.post(
+  "/report/getAllUserResolvedReports",
+  reportController.getAllUserResolvedReports
+);
+router.post(
+  "/report/getAllUserRejectedReports",
+  reportController.getAllUserRejectedReports
+);
+
+router.post(
+  "/report/getCountOfAllUserReports",
+  reportController.getCountOfAllUserReports
 );
 
 //waste pickup schedule module

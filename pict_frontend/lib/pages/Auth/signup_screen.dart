@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
+import 'package:pict_frontend/pages/User/user_dashboard.dart';
 import 'package:pict_frontend/pages/User/user_home_screen.dart';
 import 'package:pict_frontend/services/auth_service.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
@@ -515,7 +516,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const HomePage(),
+                                              const UserDashboard(),
                                         ),
                                       );
                                     } else if (account["role"] == "recycler") {

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
 import 'package:pict_frontend/services/event_service.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
@@ -48,12 +49,20 @@ class _UserCompletedEventsPageState
     super.initState();
   }
 
+  late AsyncValue<List<Event>> getCompletedEventsOfUsers;
+
   @override
   Widget build(BuildContext context) {
-    print(_id.toString());
-    final getCompletedEventsOfUsers =
-        ref.watch(getUserCompletedEvents(_id.toString()));
-    // print(getCompletedEventsOfUsers.value?.map((e) => print(e.eventName)));
+    // print(_id.toString());
+    getCompletedEventsOfUsers = const AsyncValue.loading();
+
+    if (_id != '') {
+      setState(() {
+        getCompletedEventsOfUsers = ref.watch(
+          getUserCompletedEvents(_id.toString()),
+        );
+      });
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -61,10 +70,17 @@ class _UserCompletedEventsPageState
         centerTitle: true,
       ),
       body: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // const Text("Completed Events"),
           getCompletedEventsOfUsers.when(
             data: (events) {
+              if (events.isEmpty) {
+                return const Center(
+                  child: Text("No Completed Events"),
+                );
+              }
+
               return ListView.builder(
                 padding: const EdgeInsets.all(10),
                 scrollDirection: Axis.vertical,

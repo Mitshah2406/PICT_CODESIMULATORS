@@ -36,6 +36,8 @@ class EventsPageState extends ConsumerState<EventsPage> {
   @override
   Widget build(BuildContext context) {
     final eventService = ref.watch(getAllEvents);
+    // print("eventService");
+    // print(eventService);
     // final event = ref.watch(getEventById(''));
 
     return Scaffold(
@@ -89,6 +91,8 @@ class EventsPageState extends ConsumerState<EventsPage> {
 
       body: eventService.when(
         data: (events) {
+          print(events);
+
           return ListView.builder(
             itemCount: events.length,
             itemBuilder: (context, index) {
