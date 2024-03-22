@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:pict_frontend/pages/Auth/signup_screen.dart';
+import 'package:pict_frontend/pages/Events/events_new/events_home.dart';
 import 'package:pict_frontend/pages/Organizer/organizer_home_screen.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
 import 'package:pict_frontend/pages/User/user_dashboard.dart';
