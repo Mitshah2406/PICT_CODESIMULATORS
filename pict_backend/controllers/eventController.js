@@ -504,12 +504,37 @@ exports.generateCertificate = async (req, res) => {
       eventId
     );
 
-    const image = await jimp.read(
-      path.join(
-        __dirname,
-        `../public/certificate/${certificateTemplate.participationCertificateTemplate}`
-      )
+    // We need to check the user is registered as a volunteer or participant
+    const isVolunteer = await event.checkUserRegisteredAsVounteer(
+      userId,
+      eventId
     );
+
+    console.log("The user is registered as");
+    console.log(isVolunteer);
+    var image;
+
+    console.log(certificateTemplate);
+
+    if (isVolunteer) {
+      image = await jimp.read(
+        path.join(
+          __dirname,
+          `../public/certificateTemplates/${certificateTemplate.volunteerCertificateTemplate}`
+        )
+      );
+      console.log("Volunteer");
+      console.log(image);
+    } else {
+      image = await jimp.read(
+        path.join(
+          __dirname,
+          `../public/certificateTemplates/${certificateTemplate.participationCertificateTemplate}`
+        )
+      );
+      console.log("Participant");
+      console.log(image);
+    }
 
     console.log("Hello image");
     console.log(image);
@@ -521,49 +546,15 @@ exports.generateCertificate = async (req, res) => {
     // image.quality(100)
     image.resize(1920, 1080);
 
+    const certificateFileName = `/certificate(${userDoc.userFirstName} ${userDoc.userLastName}).png`;
     await image.writeAsync(
-      path.join(
-        __dirname,
-        `../public/certificate/certificate(${
-          userDoc.userFirstName + " " + userDoc.userLastName
-        }).png`
-      )
+      path.join(__dirname, `../public/certificates/${certificateFileName}`)
     );
 
-    // const name = path.resolve(
-    //   __dirname,
-    //   `../public/certificates/certificate(${
-    //     userDoc.userFirstName + " " + userDoc.userLastName
-    //   }).png`
-    // );
-
-    // fs.readFile(name, (err, file) => {
-    //   // if(err){
-    //   //   req.flash("errors", "Couldn't Download")
-    //   //   req.session.save(function() {
-    //   //     res.redirect(`/clientEventPage/${eventDoc._id}`)
-    //   //   })
-    //   // }
-    //   if (err) return res.status(500).send("Erro" + err);
-
-    //   res.setHeader("Content-Type", "image/png");
-    //   res.setHeader(
-    //     "Content-Disposition",
-    //     `attachment;filename=certificate(${
-    //       userDoc.userFirstName + " " + userDoc.userLastName
-    //     }).png`
-    //   );
-    //   return res.send(file);
-    // });
-    let name = `/certificate(${
-      userDoc.userFirstName + " " + userDoc.userLastName
-    }).png`;
-
-    // Flash the message as Certificate has been generated in the web app;
-    return res.status(200).json({ name });
+    return res.status(200).json({ name: certificateFileName });
   } catch (e) {
     console.log(e);
-    // return res.status(500).json({ message: "Internal Server Error" });
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 

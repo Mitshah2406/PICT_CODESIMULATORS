@@ -57,6 +57,12 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
 
   void _saveCredentials() async {
     if (_form.currentState!.validate()) {
+      // print(_userFirstNameController.text +
+      //     " " +
+      //     _userLastNameController.text +
+      //     " " +
+      //     _emailController.text);
+
       Map<dynamic, dynamic> res = await AuthServices.editProfile(
         _userFirstNameController.text,
         _userLastNameController.text,
@@ -75,9 +81,14 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
           fontSize: 16.0,
         );
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString("image", res["imagePath"]);
+        await prefs.setString('name',
+            "${_userFirstNameController.text} ${_userLastNameController.text}");
+        await prefs.setString('image', res["imagePath"].toString());
+
+        print("Navigating to UserProfilePage...");
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
+          print("Navigated to UserProfilePage");
           return const UserProfilePage();
         }));
       } else {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/models/Event.dart';
-import 'package:pict_frontend/pages/Events/events_new/event_details.dart';
-import 'package:pict_frontend/pages/Events/events_new/event_list.dart';
+import 'package:pict_frontend/pages/Events/event_details.dart';
+import 'package:pict_frontend/pages/Events/event_list.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
 
 import 'package:pict_frontend/utils/constants/app_colors.dart';

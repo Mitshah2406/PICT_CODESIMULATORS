@@ -73,6 +73,9 @@ Event.prototype.getEventById = async function (eventId) {
 Event.prototype.getEventCertificateTemplates = async function (eventId) {
   let data = await eventsCollection.findOne({ _id: new ObjectID(eventId) });
 
+  console.log("Event data");
+  console.log(data);
+
   return {
     participationCertificateTemplate: data.participationCertificateTemplate,
     volunteerCertificateTemplate: data.volunteerCertificateTemplate,
@@ -415,6 +418,19 @@ Event.prototype.getUpcomingEventsOfMonth = async function () {
     .toArray();
 
   return data;
+};
+
+Event.prototype.checkUserRegisteredAsVounteer = async function (
+  userId,
+  eventId
+) {
+  let event = await eventsCollection.findOne({ _id: new ObjectID(eventId) });
+
+  let isPresent = event.volunteers.some((user) =>
+    user.userId.equals(new ObjectID(userId))
+  );
+
+  return isPresent;
 };
 
 module.exports = Event;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pict_frontend/models/Event.dart';
-import 'package:pict_frontend/pages/Events/events_new/event_enroll_succes.dart';
+import 'package:pict_frontend/pages/Events/event_enroll_succes.dart';
 import 'package:pict_frontend/services/event_service.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -129,7 +129,7 @@ class _EventRoleSelectionPageState extends State<EventRoleSelectionPage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(
-                          "Please accept the terms and conditions",
+                          "Please accept the rules before registering into event.",
                         ),
                       ),
                     );

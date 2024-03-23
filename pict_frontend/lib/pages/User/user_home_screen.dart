@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pict_frontend/pages/Events/user_completed_events.dart';
+// import 'package:pict_frontend/pages/Events/user_completed_events.dart';
 import 'package:pict_frontend/pages/Report/addReport.dart';
 import 'package:pict_frontend/pages/Report/reports.dart';
 import 'package:pict_frontend/pages/User/user_profile.dart';
 import 'package:pict_frontend/utils/session/SharedPreference.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Events/event_details.dart';
-import 'package:pict_frontend/pages/Events/events.dart';
+// import 'package:pict_frontend/pages/Events/events.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
@@ -107,61 +107,61 @@ class HomePageState extends ConsumerState<HomePage> {
       ),
       body: Column(
         children: [
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return const EventsPage();
-                }),
-              );
-            },
-            child: const Text("Go to Events Page"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return const UserCompletedEventsPage();
-                }),
-              );
-            },
-            child: const Text("Go to User Completed Events"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return const AddReportPage();
-                }),
-              );
-            },
-            child: const Text("Add Report"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return const ReportsPage();
-                }),
-              );
-            },
-            child: const Text("Your Report"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return const UserProfilePage();
-                }),
-              );
-            },
-            child: const Text("Go to user profile"),
-          )
+          // TextButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) {
+          //         return const EventsPage();
+          //       }),
+          //     );
+          //   },
+          //   child: const Text("Go to Events Page"),
+          // ),
+          // TextButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) {
+          //         return const UserCompletedEventsPage();
+          //       }),
+          //     );
+          //   },
+          //   child: const Text("Go to User Completed Events"),
+          // ),
+          // TextButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) {
+          //         return const AddReportPage();
+          //       }),
+          //     );
+          //   },
+          //   child: const Text("Add Report"),
+          // ),
+          // TextButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) {
+          //         return const ReportsPage();
+          //       }),
+          //     );
+          //   },
+          //   child: const Text("Your Report"),
+          // ),
+          // TextButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) {
+          //         return const UserProfilePage();
+          //       }),
+          //     );
+          //   },
+          //   child: const Text("Go to user profile"),
+          // )
         ],
       ),
     );
