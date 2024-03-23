@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/pages/Events/event_details.dart';
@@ -167,7 +166,6 @@ class _EventsHomePageState extends ConsumerState<EventsHomePage> {
                         softWrap: true,
                         style:
                             Theme.of(context).textTheme.displaySmall!.copyWith(
-                                  color: TColors.black,
                                   fontWeight: FontWeight.w900,
                                 ),
                       ),
@@ -250,8 +248,10 @@ class _EventsHomePageState extends ConsumerState<EventsHomePage> {
               Text(
                 "Events \nOn This Month",
                 softWrap: true,
-                style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                    color: TColors.black, fontWeight: FontWeight.w900),
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall!
+                    .copyWith(fontWeight: FontWeight.w900),
               ),
               const SizedBox(
                 height: 15,

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
+import 'package:pict_frontend/utils/logging/logger.dart';
 
 final eventServiceProvider = Provider<EventService>((ref) {
   return EventService();
@@ -71,7 +72,7 @@ class EventService {
       );
 
       var result = jsonDecode(response.body)["result"];
-
+      LoggerHelper.info(result.toString());
       List<Event> events = [];
 
       for (var eventJson in result) {

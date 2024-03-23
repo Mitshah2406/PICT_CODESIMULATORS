@@ -237,7 +237,7 @@ class OptionRadioPage extends State<OptionRadio> {
                     /*Here the selectedButton which is null initially takes place of value after onChanged. Now, I need to clear the selected button when other button is clicked */
                     groupValue: widget.selectedButton,
                     value: widget.index,
-                    activeColor: Colors.green,
+                    activeColor: TColors.primaryGreen,
                     onChanged: (val) async {
                       debugPrint('Radio button is clicked onChanged $val');
                       // setState(() {

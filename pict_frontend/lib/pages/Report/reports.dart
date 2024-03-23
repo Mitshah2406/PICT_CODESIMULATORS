@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/models/Report.dart';
 import 'package:pict_frontend/providers/report_notifier.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -66,7 +67,7 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
             spacing: 8.0,
             children: filterOptions.map((filter) {
               return FilterChip(
-                selectedColor: Colors.green,
+                selectedColor: TColors.primaryGreen,
                 label: Text(capitalize(filter)),
                 selected: selectedFilter == filter,
                 onSelected: (bool selected) {
@@ -103,7 +104,7 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
                       padding: const EdgeInsets.all(10),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: data!.length,
+                      itemCount: data.length,
                       itemBuilder: (context, index) {
                         final report = data[index];
 

@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pict_frontend/pages/User/user_profile.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
 import 'package:pict_frontend/services/auth_service.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/widgets/user_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -76,7 +77,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
+          backgroundColor: TColors.primaryGreen,
           textColor: Colors.white,
           fontSize: 16.0,
         );
@@ -97,7 +98,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
+          backgroundColor: TColors.primaryGreen,
           textColor: Colors.white,
           fontSize: 16.0,
         );

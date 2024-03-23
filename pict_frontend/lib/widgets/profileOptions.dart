@@ -79,7 +79,7 @@ class _profileOptionsState extends ConsumerState<profileOptions> {
     }
 
     return Card(
-      margin: const EdgeInsets.fromLTRB(20, 410, 20, 0),
+      margin: const EdgeInsets.fromLTRB(20, 470, 20, 0),
       elevation: 1.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: SingleChildScrollView(
@@ -106,8 +106,6 @@ class _profileOptionsState extends ConsumerState<profileOptions> {
                 ),
                 title: const Text(
                   "Edit Profile",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w600),
                 ),
                 trailing: const Icon(Icons.keyboard_arrow_right),
               ),
@@ -138,10 +136,6 @@ class _profileOptionsState extends ConsumerState<profileOptions> {
                 ),
                 title: const Text(
                   "My Completed Events",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                  ),
                 ),
                 trailing: const Icon(Icons.keyboard_arrow_right),
               ),
@@ -167,10 +161,6 @@ class _profileOptionsState extends ConsumerState<profileOptions> {
                 ),
                 title: const Text(
                   "My Reports",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                  ),
                 ),
                 trailing: const Icon(Icons.keyboard_arrow_right),
               ),
@@ -189,10 +179,6 @@ class _profileOptionsState extends ConsumerState<profileOptions> {
               ),
               title: const Text(
                 "Languages",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
               ),
               subtitle: const Text("English"),
               trailing: const langDropdownMenu(),

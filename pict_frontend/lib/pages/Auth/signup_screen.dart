@@ -1,16 +1,14 @@
-import 'dart:convert';
-
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
 import 'package:pict_frontend/pages/User/user_dashboard.dart';
-import 'package:pict_frontend/pages/User/user_home_screen.dart';
+
 import 'package:pict_frontend/services/auth_service.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
 import 'package:pict_frontend/utils/session/SharedPreference.dart';
 
@@ -87,7 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 35,
-                    color: Colors.green,
+                    color: TColors.primaryGreen,
                   ),
                 ),
                 const SizedBox(
@@ -420,7 +418,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           children: [
                             FilterChip(
                               autofocus: true,
-                              selectedColor: Colors.green,
+                              selectedColor: TColors.primaryGreen,
                               label: const Text('User'),
                               selected: selectedOption == 'user',
                               onSelected: (bool selected) {
@@ -432,7 +430,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               },
                             ),
                             FilterChip(
-                              selectedColor: Colors.green,
+                              selectedColor: TColors.primaryGreen,
                               label: const Text('Recycler'),
                               selected: selectedOption == 'recycler',
                               onSelected: (bool selected) {
@@ -460,8 +458,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         //     label: (i, v) => capitalize(v),
                         //   ),
                         //   choiceActiveStyle: C2ChoiceStyle(
-                        //     color: Colors.green,
-                        //     borderColor: Colors.green,
+                        //     color: TColors.primaryGreen,
+                        //     borderColor: TColors.primaryGreen,
                         //     borderRadius: BorderRadius.circular(5),
                         //   ),
                         //   choiceStyle: const C2ChoiceStyle(
@@ -499,7 +497,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.green,
+                                    backgroundColor: TColors.primaryGreen,
                                     textColor: Colors.white,
                                     fontSize: 16.0,
                                   );
@@ -555,7 +553,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
-                              backgroundColor: Colors.green,
+                              backgroundColor: TColors.primaryGreen,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
                               ),

@@ -7,116 +7,89 @@ class TTextTheme {
     headlineLarge: const TextStyle().copyWith(
       fontSize: 32.0,
       fontWeight: FontWeight.bold,
-      color: TColors.primaryGreen,
+      color: TColors.black,
     ),
     headlineMedium: const TextStyle().copyWith(
       fontSize: 24.0,
       fontWeight: FontWeight.w600,
-      color: TColors.primaryGreen,
+      color: TColors.black,
     ),
     headlineSmall: const TextStyle().copyWith(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
-      color: TColors.primaryGreen,
+      color: TColors.black,
     ),
     titleLarge: const TextStyle().copyWith(
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
-      color: TColors.primaryGreen,
+      color: TColors.black,
     ),
     titleMedium: const TextStyle().copyWith(
       fontSize: 16.0,
       fontWeight: FontWeight.w500,
-      color: TColors.primaryGreen,
+      color: TColors.black,
     ),
     titleSmall: const TextStyle().copyWith(
       fontSize: 16.0,
       fontWeight: FontWeight.w400,
-      color: TColors.primaryGreen,
+      color: TColors.black,
     ),
     bodyLarge: const TextStyle().copyWith(
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
-      color: TColors.primaryGreen,
+      color: TColors.black,
     ),
     bodyMedium: const TextStyle().copyWith(
       fontSize: 14.0,
       fontWeight: FontWeight.normal,
-      color: TColors.primaryGreen,
+      color: TColors.black,
     ),
     bodySmall: const TextStyle().copyWith(
       fontSize: 12.0,
       fontWeight: FontWeight.normal,
-      color: TColors.primaryGreen.withOpacity(0.5),
+      color: TColors.black.withOpacity(0.5),
     ),
     labelLarge: const TextStyle().copyWith(
       fontSize: 12.0,
       fontWeight: FontWeight.normal,
-      color: TColors.primaryGreen,
+      color: TColors.black,
     ),
     labelMedium: const TextStyle().copyWith(
       fontSize: 12.2,
       fontWeight: FontWeight.normal,
-      color: TColors.primaryGreen.withOpacity(0.85),
+      color: TColors.black.withOpacity(0.85),
     ),
   ); // TextTheme
 
 // Customizable Dark Text Theme
   static TextTheme darkTextTheme = TextTheme(
     headlineLarge: const TextStyle().copyWith(
-      fontSize: 32.0,
-      fontWeight: FontWeight.bold,
-      color: TColors.primaryGreen,
-    ),
+        fontSize: 32.0, fontWeight: FontWeight.bold, color: TColors.white),
     headlineMedium: const TextStyle().copyWith(
-      fontSize: 24.0,
-      fontWeight: FontWeight.w600,
-      color: TColors.primaryGreen,
-    ),
+        fontSize: 24.0, fontWeight: FontWeight.w600, color: TColors.white),
     headlineSmall: const TextStyle().copyWith(
-      fontSize: 18.0,
-      fontWeight: FontWeight.w600,
-      color: TColors.primaryGreen,
-    ),
+        fontSize: 18.0, fontWeight: FontWeight.w600, color: TColors.white),
     titleLarge: const TextStyle().copyWith(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w600,
-      color: TColors.primaryGreen,
-    ),
+        fontSize: 16.0, fontWeight: FontWeight.w600, color: TColors.white),
     titleMedium: const TextStyle().copyWith(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w500,
-      color: TColors.primaryGreen,
-    ),
+        fontSize: 16.0, fontWeight: FontWeight.w500, color: TColors.white),
     titleSmall: const TextStyle().copyWith(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w400,
-      color: TColors.primaryGreen,
-    ),
+        fontSize: 16.0, fontWeight: FontWeight.w400, color: TColors.white),
     bodyLarge: const TextStyle().copyWith(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w500,
-      color: TColors.primaryGreen,
-    ),
+        fontSize: 14.0, fontWeight: FontWeight.w500, color: TColors.white),
     bodyMedium: const TextStyle().copyWith(
-      fontSize: 14.0,
-      fontWeight: FontWeight.normal,
-      color: TColors.primaryGreen,
-    ),
+        fontSize: 14.0, fontWeight: FontWeight.normal, color: TColors.white),
     bodySmall: const TextStyle().copyWith(
       fontSize: 12.0,
       fontWeight: FontWeight.normal,
-      color: TColors.primaryGreen.withOpacity(0.85),
+      color: TColors.white.withOpacity(0.85),
     ),
     labelLarge: const TextStyle().copyWith(
-      fontSize: 12.0,
-      fontWeight: FontWeight.normal,
-      color: TColors.primaryGreen,
-    ),
+        fontSize: 12.0, fontWeight: FontWeight.normal, color: TColors.white),
     labelMedium: const TextStyle().copyWith(
       fontSize: 12.2,
       fontWeight: FontWeight.normal,
-      color: TColors.primaryGreen.withOpacity(0.85),
+      color: TColors.white.withOpacity(0.85),
     ),
   ); // TextTheme
 }
