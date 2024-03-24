@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require("axios");
 const Event = require("../models/Event");
 const path = require("path");
 const { ObjectID } = require("mongodb");
@@ -61,7 +61,8 @@ exports.addEvent = async function (req, res) {
       if (req.files.participationCertificateTemplate) {
         const certificate = req.files.participationCertificateTemplate;
         // console.log(logoFile.name);
-        const fileName1 = new Date().getTime().toString() + "-" + certificate.name;
+        const fileName1 =
+          new Date().getTime().toString() + "-" + certificate.name;
         const savePath1 = path.join(
           __dirname,
           "../public/",
@@ -72,7 +73,8 @@ exports.addEvent = async function (req, res) {
         req.body.participationCertificateTemplate = fileName1;
       } else {
         const defaultFileName = "certificate.png";
-        const fileName = new Date().getTime().toString() + "-" + defaultFileName;
+        const fileName =
+          new Date().getTime().toString() + "-" + defaultFileName;
 
         const defaultTemplatePath = path.join(
           __dirname,
@@ -88,15 +90,15 @@ exports.addEvent = async function (req, res) {
         // Copy the default file to the savePath1 directory
         fs.copyFileSync(defaultTemplatePath, savePath1);
 
-
         req.body.participationCertificateTemplate = fileName;
       }
-      console.log("Volunteer bc" + req.files.volunteerCertificateTemplate);
+
       if (req.files.volunteerCertificateTemplate !== undefined) {
         console.log("Volunteer Certificate Template");
         const certificate = req.files.volunteerCertificateTemplate;
         // console.log(logoFile.name);
-        const fileName1 = new Date().getTime().toString() + "-" + certificate.name;
+        const fileName1 =
+          new Date().getTime().toString() + "-" + certificate.name;
         const savePath1 = path.join(
           __dirname,
           "../public/",
@@ -109,7 +111,8 @@ exports.addEvent = async function (req, res) {
         console.log("fallback Certificate Template");
 
         const defaultFileName = "certificate.png";
-        const fileName = new Date().getTime().toString() + "-" + defaultFileName;
+        const fileName =
+          new Date().getTime().toString() + "-" + defaultFileName;
 
         const defaultTemplatePath = path.join(
           __dirname,
@@ -130,10 +133,15 @@ exports.addEvent = async function (req, res) {
     }
 
     let event = new Event(req.body);
-    console.log(req.body);
+    // console.log(req.body);
+    let volunteerResponsibilities =
+      req.body.volunteerResponsibilities.split(", ");
+    req.body.volunteerResponsibilities = volunteerResponsibilities;
+
     let result = await event.addEvent();
 
     if (result.status == "ok") {
+<<<<<<< HEAD
       
       axios.post('http://localhost:4000/account/signUp', {
         accountFirstName: req.body.organizerName,
@@ -159,6 +167,26 @@ exports.addEvent = async function (req, res) {
 
           req.flash('error', 'Internal server error');
           return res.redirect('/events/add-events-page');
+=======
+      axios
+        .post("http://localhost:4000/account/signUp", {
+          accountFirstName: req.body.organizerName,
+          accountLastName: req.body.organizerName,
+          accountEmail: req.body.organizerEmail,
+          accountMobileNo: req.body.organizerNumber,
+          accountPassword: "qwerty",
+          role: "organizer",
+        })
+        .then(function (response) {
+          console.log(response.data);
+          return res
+            .status(200)
+            .json({ message: "Event Added Successfully", eventId: result.id });
+        })
+        .catch(function (error) {
+          console.log(error);
+          return res.status(500).json({ message: "Internal Server Error" });
+>>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
         });
     }
 
@@ -381,7 +409,7 @@ exports.getAllUpcomingEventsCount = async (req, res) => {
     let count = await event.getAllUpcomingEventsCount();
 
     // This should be displayed on webapp dashboard in chart section
-    // return res.json({ count });
+    return res.json({ count });
   } catch (e) {
     console.log(e);
   }
@@ -394,7 +422,7 @@ exports.getAllCompletedEventsCount = async (req, res) => {
     let count = await event.getAllCompletedEventsCount();
 
     // This should be displayed on webapp dashboard in chart section
-    // return res.json({ count });
+    return res.json({ count });
   } catch (e) {
     console.log(e);
   }
@@ -408,7 +436,7 @@ exports.getAllOngoingEventsCount = async (req, res) => {
 
     // This should be displayed on webapp dashboard in chart section
 
-    // return res.json({ count });
+    return res.json({ count });
   } catch (e) {
     console.log(e);
   }
@@ -440,15 +468,15 @@ exports.markPresent = async (req, res) => {
         if (result == "ok") {
           return res
             .status(200)
-            .json({ message: "Present Marked Successfully" });
+            .json({ message: "Present Marked Successfully", status: "ok" });
         }
       } else {
         // Means, The user has already attended the event.
-        return res.status(200).json({ message: "Already Present" });
+        return res.status(200).json({ message: "Already Present", status: "ok" });
       }
     } else {
       // Means, The user has not registered in the event.
-      return res.status(200).json({ message: "Not Registered" });
+      return res.status(200).json({ message: "Not Registered", status: "bad" });
     }
   } catch (e) {
     console.log(e);
@@ -488,11 +516,13 @@ exports.getRegisteredParticipants = async (req, res) => {
 
 exports.generateCertificate = async (req, res) => {
   try {
+    console.log("Generate Certificate route called");
     const { userId, eventId } = req.body;
 
     let event = new Event();
     let user = new User();
     let userDoc = await user.getUserById(userId);
+    console.log(userDoc);
 
     // Marks the certificateReceived true in the presentParticipants in the user.
     await event.markCertificateReceived(userId, eventId);
@@ -500,17 +530,45 @@ exports.generateCertificate = async (req, res) => {
     const fullName = `
         ${userDoc.userFirstName + " " + userDoc.userLastName}
       `;
-    axios
-      .get("http://localhost:4000/")
-      .then(function (response) {
-        console.log(response);
-      });
+    // axios.get("http://localhost:4000/").then(function (response) {
+    //   console.log(response);
+    // });
 
-    const certificateTemplate = await event.getEventCertificateTemplates(eventId);
-
-    const image = await jimp.read(
-      path.join(__dirname, `../public/certificateTemplates/${certificateTemplate.participationCertificateTemplate}`)
+    const certificateTemplate = await event.getEventCertificateTemplates(
+      eventId
     );
+
+    // We need to check the user is registered as a volunteer or participant
+    const isVolunteer = await event.checkUserRegisteredAsVounteer(
+      userId,
+      eventId
+    );
+
+    console.log("The user is registered as");
+    console.log(isVolunteer);
+    var image;
+
+    console.log(certificateTemplate);
+
+    if (isVolunteer) {
+      image = await jimp.read(
+        path.join(
+          __dirname,
+          `../public/certificateTemplates/${certificateTemplate.volunteerCertificateTemplate}`
+        )
+      );
+      console.log("Volunteer");
+      console.log(image);
+    } else {
+      image = await jimp.read(
+        path.join(
+          __dirname,
+          `../public/certificateTemplates/${certificateTemplate.participationCertificateTemplate}`
+        )
+      );
+      console.log("Participant");
+      console.log(image);
+    }
 
     console.log("Hello image");
     console.log(image);
@@ -522,19 +580,15 @@ exports.generateCertificate = async (req, res) => {
     // image.quality(100)
     image.resize(1920, 1080);
 
+    const certificateFileName = `/certificate(${userDoc.userFirstName} ${userDoc.userLastName}).png`;
     await image.writeAsync(
-      path.join(
-        __dirname,
-        `../public/certificates/certificate(${userDoc.userFirstName + " " + userDoc.userLastName
-        }).png`
-      )
+      path.join(__dirname, `../public/certificates/${certificateFileName}`)
     );
 
-    // Flash the message as Certificate has been generated in the web app;
-    return res.status(200).json({ message: "Certificate Generated" });
+    return res.status(200).json({ name: certificateFileName });
   } catch (e) {
     console.log(e);
-    // return res.status(500).json({ message: "Internal Server Error" });
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -551,18 +605,75 @@ exports.checkIfAlreadyRegistered = async function (req, res) {
   }
 };
 
+exports.getUserRegisteredEvents = async function (req, res) {
+  try {
+    const { userId } = req.body;
 
+    let event = new Event();
+    let data = await event.getUserRegisteredEvents(userId);
 
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
+exports.getUserCompletedEvents = async function (req, res) {
+  try {
+    const { userId } = req.body;
 
+    let event = new Event();
+    let data = await event.getUserCompletedEvents(userId);
 
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
+exports.getOngoingEventsByEmail = async function (req, res) {
+  try {
+    let { organizerEmail } = req.body;
 
+    let event = new Event();
+    let data = await event.getOngoingEventsByEmail(organizerEmail);
 
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
+exports.getLatest3UserRegisteredEvents = async function (req, res) {
+  try {
+    const { userId } = req.body;
 
+    let event = new Event();
+    let data = await event.getLatest3UserRegisteredEvents(userId);
+
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+exports.getUpcomingEventsOfMonth = async function (req, res) {
+  try {
+    let event = new Event();
+    let data = await event.getUpcomingEventsOfMonth();
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 // Frontend Controller
+<<<<<<< HEAD
 exports.viewAllEventsPage= async(req,res)=>{
 try{
   const events=await new Event().getAllEvents();
@@ -577,30 +688,75 @@ try{
     const upcomingEvents = await new Event().getAllUpcomingEvents();
     res.render('Events/viewUpcomingEvents',{upcomingEvents:upcomingEvents,authority: req.session.authority,moment:moment});
   }catch(err){
-    console.error(err);
-    res.status(500).send('Error fetching upcoming  events');
+=======
+exports.viewAllEventsPage = async (req, res) => {
+  if (!req.session.authority) {
+    return req.redirect("/authority/login-page");
   }
+  try {
+    const events = await new Event().getAllEvents();
+    res.render("Events/viewAllEvents", { events: events });
+  } catch (err) {
+>>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
+    console.error(err);
+    res.status(500).send("Error fetching events");
+  }
+<<<<<<< HEAD
 }
 exports.viewOngoingEventsPage= async(req,res)=>{
 try{
     const ongoingEvents = await new Event().getAllOngoingEvents()
     res.render('Events/viewOngoingEvents',{ongoingEvents:ongoingEvents,authority: req.session.authority,moment:moment})
+=======
+};
+exports.viewUpcomingEventsPage = async (req, res) => {
+  if (!req.session.authority) {
+    return req.redirect("/authority/login-page");
   }
-  catch(err){
-    console.error(err)
-    res.status(500).send('Error fetching ongoing events')
+  try {
+    const upcomingEvents = await new Event().getAllUpcomingEvents();
+    res.render("Events/viewUpcomingEvents", { upcomingEvents: upcomingEvents });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching upcoming  events");
+>>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
   }
+};
+exports.viewOngoingEventsPage = async (req, res) => {
+  if (!req.session.authority) {
+    res.redirect("/authority/login-page");
+  }
+<<<<<<< HEAD
 
 }
 exports.viewCompletedEventsPage= async(req,res)=>{
 try{
     const completedEvents = await new Event().getAllCompletedEvents()
     res.render('Events/viewCompletedEvents',{completedEvents:completedEvents,authority: req.session.authority,moment:moment})
+=======
+  try {
+    const ongoingEvents = await new Event().getAllOngoingEvents();
+    res.render("Events/viewOngoingEvents", { ongoingEvents: ongoingEvents });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching ongoing events");
   }
-  catch(err){
-    console.error(err)
-    res.status(500).send('Error fetching ongoing events')
+};
+exports.viewCompletedEventsPage = async (req, res) => {
+  if (!req.session.authority) {
+    res.redirect("/authority/login-page");
+>>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
   }
+  try {
+    const completedEvents = await new Event().getAllCompletedEvents();
+    res.render("Events/viewCompletedEvents", {
+      completedEvents: completedEvents,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching ongoing events");
+  }
+<<<<<<< HEAD
 
 }
 exports.viewEventsByIdPage=async(req,res)=>{
@@ -617,3 +773,25 @@ catch(err){
 exports.addEventsPage=async(req,res)=>{
 res.render('Events/addEvents',{authority: req.session.authority,moment:moment});
 }
+=======
+};
+exports.viewEventsByIdPage = async (req, res) => {
+  if (!req.session.authority) {
+    res.redirect("authority/login-page");
+  }
+  try {
+    const eventId = req.params.eventId;
+    const event = await new Event().getEventById(eventId);
+    res.render("Events/viewIndivitualEvents", { result: event });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching indivitual event");
+  }
+};
+exports.addEventsPage = async (req, res) => {
+  if (!req.session.authority) {
+    res.redirect("authority/login-page");
+  }
+  res.render("Events/addEvents");
+};
+>>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e

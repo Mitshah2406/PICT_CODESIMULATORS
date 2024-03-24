@@ -16,6 +16,7 @@ User.prototype.cleanUp = function () {
     userPassword: this.data.accountPassword,
     role: "user",
     // More fields will come later
+    userImage: null,
     eventsRegisteredIn: [],
     certificates: [],
     favoriteItems: [],
@@ -52,9 +53,31 @@ User.prototype.getUserByEmail = async function (email) {
 };
 
 User.prototype.getUserById = async function (userId) {
-
   let data = await usersCollection.findOne({ _id: new ObjectID(userId) });
   return data;
+};
+
+User.prototype.editProfile = async function ({
+  userFirstName,
+  userLastName,
+  userEmail,
+  userImage,
+}) {
+  let data = await usersCollection.findOneAndUpdate(
+    {
+      userEmail: userEmail,
+    },
+    {
+      $set: {
+        userFirstName: userFirstName,
+        userLastName: userLastName,
+        userEmail: userEmail,
+        userImage: userImage,
+      },
+    }
+  );
+
+  return true;
 };
 
 module.exports = User;

@@ -21,16 +21,24 @@ Event.prototype.cleanUp = function () {
     eventEndTime: this.data.endTime,
     // isInCollabaration: Boolean(this.data.isInCollabaration),  take this to conditionally show the collab fields on fronted (FOR TAHER)
     collabOrganizationName: this.data.collabOrganizationName,
-    collabOrgEmail: this.data.collabOrgEmail,
+    collabOrgEmail: this.data.collabOrgEmail, 
     eventAttachment: this.data.eventAttachment,
     organizerName: this.data.organizerName,
     organizerEmail: this.data.organizerEmail,
     organizerNumber: this.data.organizerNumber,
     whatsAppLink: this.data.whatsAppLink,
     // areVolunteersNeeded: Boolean(this.data.areVolunteersNeeded), take this to conditionally show the volunteers fields on fronted (FOR TAHER)
+    eventAddress: this.data.eventAddress,
+    eventCity: this.data.eventCity,
     noOfVolunteersNeeded: Number(this.data.noOfVolunteersNeeded),
+<<<<<<< HEAD
     CertificateTemplate: this.data.participationCertificateTemplate,
+=======
+    participationCertificateTemplate:
+      this.data.participationCertificateTemplate,
+>>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
     volunteerCertificateTemplate: this.data.volunteerCertificateTemplate,
+    volunteerResponsibilities: this.data.volunteerResponsibilities,
     volunteers: [],
     // If user has not registered, but they want to participate in event
     registeredParticipants: [],
@@ -68,6 +76,9 @@ Event.prototype.getEventById = async function (eventId) {
 };
 Event.prototype.getEventCertificateTemplates = async function (eventId) {
   let data = await eventsCollection.findOne({ _id: new ObjectID(eventId) });
+
+  console.log("Event data");
+  console.log(data);
 
   return {
     participationCertificateTemplate: data.participationCertificateTemplate,
@@ -108,7 +119,11 @@ Event.prototype.getAllOngoingEvents = async function () {
   return data;
 };
 
-Event.prototype.registerEvent = async function (userId, eventId, registeringAs) {
+Event.prototype.registerEvent = async function (
+  userId,
+  eventId,
+  registeringAs
+) {
   if (registeringAs === "participant") {
     let data = await eventsCollection.findOneAndUpdate(
       {
@@ -120,7 +135,6 @@ Event.prototype.registerEvent = async function (userId, eventId, registeringAs) 
             userId: new ObjectID(userId),
             registeredDate: new Date(),
           },
-
         },
       }
     );
@@ -201,7 +215,7 @@ Event.prototype.markPresent = async function (userId, eventId) {
       $push: {
         presentParticipants: {
           userId: new ObjectID(userId),
-          certificateReceived: false,
+          certificateReceived: true,
           date: new Date(),
         },
       },
@@ -325,6 +339,99 @@ Event.prototype.checkIfAlreadyRegistered = async function (userId, eventId) {
   let event = await eventsCollection.findOne({ _id: new ObjectID(eventId) });
 
   let isPresent = event.registeredParticipants.some((user) =>
+    user.userId.equals(new ObjectID(userId))
+  );
+
+  return isPresent;
+};
+
+Event.prototype.getUserRegisteredEvents = async function (userId) {
+  let data = await eventsCollection
+    .find({
+      registeredParticipants: {
+        $elemMatch: {
+          userId: new ObjectID(userId),
+        },
+      },
+    })
+    .sort({ _id: -1 })
+    .toArray();
+
+  return data;
+};
+
+Event.prototype.getUserCompletedEvents = async function (userId) {
+  let data = await eventsCollection
+    .find({
+      presentParticipants: {
+        $elemMatch: {
+          userId: new ObjectID(userId),
+          certificateReceived: true,
+        },
+      },
+    })
+    .sort({ _id: -1 })
+    .toArray();
+
+  return data;
+};
+
+Event.prototype.getOngoingEventsByEmail = async function (email) {
+  console.log(email);
+  let data = await eventsCollection
+    .find({
+      organizerEmail: email,
+      $and: [
+        { eventStartDate: { $lte: new Date() } },
+        { eventEndDate: { $gte: new Date() } },
+      ],
+    })
+    .toArray();
+
+  return data;
+};
+
+Event.prototype.getLatest3UserRegisteredEvents = async function (userId) {
+  let data = await eventsCollection
+    .find({
+      registeredParticipants: {
+        $elemMatch: {
+          userId: new ObjectID(userId),
+        },
+      },
+    })
+    .sort({ _id: -1 })
+    .limit(3)
+    .toArray();
+
+  return data;
+};
+
+Event.prototype.getUpcomingEventsOfMonth = async function () {
+  let currentDate = new Date();
+
+  let lastDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0 // It represents last day of the month i.e 31 march
+  );
+
+  let data = await eventsCollection
+    .find({
+      eventStartDate: { $gte: new Date(), $lte: lastDayOfMonth },
+    })
+    .toArray();
+
+  return data;
+};
+
+Event.prototype.checkUserRegisteredAsVounteer = async function (
+  userId,
+  eventId
+) {
+  let event = await eventsCollection.findOne({ _id: new ObjectID(eventId) });
+
+  let isPresent = event.volunteers.some((user) =>
     user.userId.equals(new ObjectID(userId))
   );
 

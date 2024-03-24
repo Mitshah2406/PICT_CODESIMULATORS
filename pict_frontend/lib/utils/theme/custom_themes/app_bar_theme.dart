@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 
 class TAppBarTheme {
   static const lightAppBarTheme = AppBarTheme(
@@ -8,9 +9,9 @@ class TAppBarTheme {
     backgroundColor: Colors.transparent,
     surfaceTintColor: Colors.transparent,
     iconTheme: IconThemeData(color: Colors.black, size: 24),
-    actionsIconTheme: IconThemeData(color: Colors.black, size: 24),
+    actionsIconTheme: IconThemeData(color: TColors.primaryGreen, size: 24),
     titleTextStyle: TextStyle(
-        fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 20, fontWeight: FontWeight.w600, color: TColors.primaryGreen),
   ); // AppBarTheme
 
   static const darkAppBarTheme = AppBarTheme(
@@ -19,9 +20,12 @@ class TAppBarTheme {
     scrolledUnderElevation: 0,
     backgroundColor: Colors.transparent,
     surfaceTintColor: Colors.transparent,
-    iconTheme: IconThemeData(color: Colors.black, size: 24),
-    actionsIconTheme: IconThemeData(color: Colors.white, size: 24),
+    iconTheme: IconThemeData(color: TColors.primaryGreen, size: 24),
+    actionsIconTheme: IconThemeData(color: TColors.primaryGreen, size: 24),
     titleTextStyle: TextStyle(
-        fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.white),
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      color: TColors.primaryGreen,
+    ),
   ); // AppBarTheme
 }

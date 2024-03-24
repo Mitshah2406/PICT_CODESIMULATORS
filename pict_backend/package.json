@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "watch": "start nodemon db --ignore frontend-js --ignore public/ && start webpack --watch",
-    "start": "nodemon db"
+    "start": "nodemon db",
+    "build": "node db"
   },
   "keywords": [],
   "author": "",
@@ -27,8 +28,13 @@
     "fs": "^0.0.1-security",
     "jimp": "^0.22.12",
     "md5": "^2.3.0",
+<<<<<<< HEAD
     "moment": "^2.30.1",
     "mongodb": "^4.7.0",
+=======
+    "moment": "^2.29.4",
+    "mongodb": "^4.17.2",
+>>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.7",
     "nodemon": "^2.0.18",
