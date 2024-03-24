@@ -78,6 +78,10 @@ router.post(
   "/getOngoingEventsByEmail",
   eventController.getOngoingEventsByEmail
 );
+router.post(
+  "/getCompletedEventsByEmail",
+  eventController.getCompletedEventsByEmail
+);
 
 // ? Reporting Module
 

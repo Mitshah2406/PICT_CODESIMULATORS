@@ -12,32 +12,32 @@ final eventServiceProvider = Provider<EventService>((ref) {
 
 class EventService {
   Future<List<Event>> getAllEvents() async {
-    try {
-      var response = await http.get(
-        Uri.parse("${AppConstants.IP}/getAllEvents"),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      );
+    // try {
+    var response = await http.get(
+      Uri.parse("${AppConstants.IP}/getAllEvents"),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
 
-      var result = jsonDecode(response.body)["result"];
-      print("Result");
-      print(result);
+    var result = jsonDecode(response.body)["result"];
+    print("Result");
+    print(result);
 
-      List<Event> events = [];
+    List<Event> events = [];
 
-      for (var eventJson in result) {
-        Event event = Event.fromJson(eventJson);
-        print(event);
-        events.add(event);
-      }
-
-      return events;
-    } catch (e) {
-      print("Error de");
-      print(e);
-      throw Exception('Failed to fetch events');
+    for (var eventJson in result) {
+      Event event = Event.fromJson(eventJson);
+      print(event);
+      events.add(event);
     }
+
+    return events;
+    // } catch (e) {
+    //   print("Error de");
+    //   print(e);
+    //   throw Exception('Failed to fetch events');
+    // }
   }
 
   Future<Event> getEventById(id) async {
@@ -244,6 +244,34 @@ class EventService {
     try {
       var response = await http.post(
         Uri.parse("${AppConstants.IP}/getOngoingEventsByEmail"),
+        body: jsonEncode({
+          "organizerEmail": email,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      var result = jsonDecode(response.body)["result"];
+
+      List<Event> events = [];
+
+      for (var eventJson in result) {
+        Event event = Event.fromJson(eventJson);
+        events.add(event);
+      }
+
+      return events;
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to Fetch ongoing events');
+    }
+  }
+
+  Future<List<Event>> getCompletedEventsByEmail(email) async {
+    try {
+      var response = await http.post(
+        Uri.parse("${AppConstants.IP}/getCompletedEventsByEmail"),
         body: jsonEncode({
           "organizerEmail": email,
         }),

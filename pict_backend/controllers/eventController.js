@@ -612,6 +612,19 @@ exports.getOngoingEventsByEmail = async function (req, res) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+exports.getCompletedEventsByEmail = async function (req, res) {
+  try {
+    let { organizerEmail } = req.body;
+
+    let event = new Event();
+    let data = await event.getCompletedEventsByEmail(organizerEmail);
+
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 exports.getLatest3UserRegisteredEvents = async function (req, res) {
   try {
