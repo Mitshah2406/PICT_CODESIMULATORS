@@ -6,7 +6,7 @@ const Authority = require('../models/Authority')
 // Authority login
 exports.login = async (req, res) => {
   try {
-      const { authorityEmail, authorityPassword } = req.body;
+      const { authorityName, authorityEmail, authorityPassword } = req.body;
       let authority = new Authority();
       let response = await authority.login(authorityEmail, authorityPassword);
       
@@ -15,7 +15,7 @@ exports.login = async (req, res) => {
           return res.redirect('/authority/login-page'); // Redirect back to the sign-in page
       }
 
-      req.session.authority = { authorityEmail: response.authorityEmail };
+      req.session.authority = { authorityEmail: response.authorityEmail, authorityName:response.authorityName };
       req.session.save(function () {
           res.redirect('/');
       });
@@ -47,10 +47,6 @@ exports.loginPage = function (req,res){
 }
 // Home page
 exports.homePage = function (req,res){
-  if(req.session.authority){
-    res.render('home')
-  }
-  else{
-    res.redirect('/authority/login-page')
-  }
+  res.render('home',{authority:req.session.authority})
+  
 }

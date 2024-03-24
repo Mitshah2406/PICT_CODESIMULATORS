@@ -29,7 +29,7 @@ Event.prototype.cleanUp = function () {
     whatsAppLink: this.data.whatsAppLink,
     // areVolunteersNeeded: Boolean(this.data.areVolunteersNeeded), take this to conditionally show the volunteers fields on fronted (FOR TAHER)
     noOfVolunteersNeeded: Number(this.data.noOfVolunteersNeeded),
-    participationCertificateTemplate: this.data.participationCertificateTemplate,
+    CertificateTemplate: this.data.participationCertificateTemplate,
     volunteerCertificateTemplate: this.data.volunteerCertificateTemplate,
     volunteers: [],
     // If user has not registered, but they want to participate in event

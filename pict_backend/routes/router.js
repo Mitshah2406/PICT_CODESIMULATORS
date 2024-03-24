@@ -11,6 +11,16 @@ const authorityController = require('../controllers/authorityController')
 const biowasteController = require('../controllers/biowasteController')
 // ? Authentication module
 
+// Check authorization
+const requireAuth = (req, res, next) => {
+  if (!req.session.authority) {
+      // If the doctor is not in session, redirect to the login page
+      return res.redirect('/authority/login-page');
+  }
+  // If the doctor is authenticated, proceed to the next middleware
+  next();
+};
+
 // Create a new account, and segregating based on the roles
 router.post("/account/signUp", accountController.signUp);
 
@@ -54,7 +64,7 @@ router.post(
 
 // Get Count of user who is present in the events
 router.post(
-  "/getUserEventParticipationCountById",
+  "/getUserEventCountById",
   eventController.getUserEventParticipationCountById
 );
 
@@ -173,17 +183,18 @@ router.post("/generateCertificate", eventController.generateCertificate);
 // login route
 router.get("/authority/login-page", authorityController.loginPage)
 // Home page route
-router.get('/', authorityController.homePage)
+router.get('/', requireAuth,authorityController.homePage)
 // Bio waste routes
-router.get("/biowaste/add-resources-page" ,biowasteController.addResourcesPage)
-router.get("/biowaste/get-resources-page" ,biowasteController.getResourcesPage)
+router.get("/biowaste/add-resources-page" ,requireAuth,biowasteController.addResourcesPage)
+router.get("/biowaste/get-resources-page" ,requireAuth,biowasteController.getResourcesPage)
 // Events Routes
-router.get("/events/view-all-events",eventController.viewAllEventsPage)
-router.get('/events/view-upcoming-events',eventController.viewUpcomingEventsPage)
-router.get("/events/view-ongoing-events",eventController.viewOngoingEventsPage)
-router.get("/events/view-completed-events",eventController.viewCompletedEventsPage)
-router.get("/events/view-event-by-id/:eventId",eventController.viewEventsByIdPage)
-router.get("/events/add-events-page" ,eventController.addEventsPage)
+router.get("/events/view-all-events",requireAuth,eventController.viewAllEventsPage)
+router.get('/events/view-upcoming-events',requireAuth,eventController.viewUpcomingEventsPage)
+router.get("/events/view-ongoing-events",requireAuth,eventController.viewOngoingEventsPage)
+router.get("/events/view-completed-events",requireAuth,eventController.viewCompletedEventsPage)
+router.get("/events/view-event-by-id/:eventId",requireAuth,eventController.viewEventsByIdPage)
+router.get("/events/add-events-page" ,requireAuth,eventController.addEventsPage)
+
 //404
 
 router.get("*", (req, res) => {
