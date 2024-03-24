@@ -159,7 +159,9 @@ class _EventListState extends State<EventList> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineSmall!
-                                        .copyWith(fontWeight: FontWeight.w400),
+                                        .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: TColors.black),
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -171,7 +173,8 @@ class _EventListState extends State<EventList> {
                                               : "${event.volunteers!.length} Volunteers",
                                           style: Theme.of(context)
                                               .textTheme
-                                              .labelLarge,
+                                              .labelLarge!
+                                              .copyWith(color: TColors.black),
                                         )
                                       : const SizedBox.shrink(),
                                   const SizedBox(
@@ -180,8 +183,10 @@ class _EventListState extends State<EventList> {
                                   Text(
                                     "${AppConstants.months[event.eventStartDate!.month - 1]} ${event.eventStartDate!.day}"
                                         .toUpperCase(),
-                                    style:
-                                        Theme.of(context).textTheme.labelLarge,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge!
+                                        .copyWith(color: TColors.black),
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -242,7 +247,13 @@ class _EventListState extends State<EventList> {
                                           },
                                           style: ElevatedButton.styleFrom(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
+                                              horizontal: 15,
+                                            ),
+                                            backgroundColor:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? TColors.white
+                                                    : TColors.black,
                                           ),
                                           child: Text(
                                             "Explore now",
@@ -250,7 +261,11 @@ class _EventListState extends State<EventList> {
                                                 .textTheme
                                                 .bodyLarge!
                                                 .copyWith(
-                                                  color: TColors.white,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? TColors.black
+                                                      : TColors.white,
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                           ),

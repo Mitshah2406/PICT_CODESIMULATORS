@@ -1,12 +1,15 @@
+import 'package:beep_player/beep_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
-import 'package:pict_frontend/pages/Organizer/scanner.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
+import 'package:pict_frontend/services/event_service.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
+import 'package:pict_frontend/utils/logging/logger.dart';
 import 'package:pict_frontend/utils/session/SharedPreference.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class OrganizerHomePage extends ConsumerStatefulWidget {
@@ -32,20 +35,36 @@ class _OrganizerHomePageState extends ConsumerState<OrganizerHomePage> {
     // await GeolocationService.determinePosition();
   }
 
+  static const BeepFile _beepFile = BeepFile(
+    'assets/audios/beep.wav',
+  );
+  static const BeepFile _beepFileError = BeepFile(
+    'assets/audios/beep-error.wav',
+  );
+
   @override
   void initState() {
     _name = "";
     _id = "";
     _email = "";
     getSession();
+    BeepPlayer.load(_beepFile);
+    BeepPlayer.load(_beepFileError);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    BeepPlayer.unload(_beepFile);
+    BeepPlayer.unload(_beepFileError);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final getOngoingEvents =
         ref.watch(getOngoingEventsByEmail(_email.toString()));
-
+    String userId = '';
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -148,10 +167,61 @@ class _OrganizerHomePageState extends ConsumerState<OrganizerHomePage> {
                       ),
                     ),
                     trailing: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const ScannerPage(),
+                      onPressed: () async {
+                        var res =
+                            await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              const SimpleBarcodeScannerPage(),
                         ));
+                        setState(() {
+                          if (res is String) {
+                            userId = res;
+                            LoggerHelper.info(userId);
+                          }
+                        });
+
+                        try {
+                          var res =
+                              await EventService.markPresent(userId, event.id);
+
+                          print("Response from backend");
+                          LoggerHelper.debug(res.toString());
+
+                          if (res.isNotEmpty) {
+                            if (res['status'] == 'ok') {
+                              BeepPlayer.play(
+                                _beepFile,
+                              );
+                            } else {
+                              BeepPlayer.play(_beepFileError);
+                            }
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text(
+                                    "Output: ",
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  content: Text(res['message']!),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("Okay"),
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
                       },
                       icon: const Icon(Icons.qr_code_scanner),
                     ),

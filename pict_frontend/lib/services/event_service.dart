@@ -268,7 +268,7 @@ class EventService {
     }
   }
 
-  static Future<String> markPresent(userId, eventId) async {
+  static Future<dynamic> markPresent(userId, eventId) async {
     try {
       var response = await http.post(
         Uri.parse("${AppConstants.IP}/markPresent"),
@@ -281,7 +281,7 @@ class EventService {
         },
       );
 
-      var result = jsonDecode(response.body)["message"];
+      var result = jsonDecode(response.body);
       print(result);
 
       return result;
