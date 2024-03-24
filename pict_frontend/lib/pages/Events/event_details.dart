@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pict_frontend/pages/Events/event_role_selection.dart';
+import 'package:pict_frontend/pages/Events/event_ticket_page.dart';
 import 'package:pict_frontend/services/event_service.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+// import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../models/Event.dart';
 
@@ -56,7 +56,10 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
       appBar: AppBar(
         title: Text(
           event.eventName.toString(),
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context)
+              .textTheme
+              .headlineMedium!
+              .copyWith(color: TColors.primaryGreen),
         ),
         actions: [
           Padding(
@@ -251,29 +254,13 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                         : isExist!
                             ? ElevatedButton(
                                 onPressed: () {
-                                  showModalBottomSheet(
-                                    backgroundColor: Colors.white,
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Scaffold(
-                                        backgroundColor: Colors.white,
-                                        body: Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              QrImageView(
-                                                data:
-                                                    "${widget.userId}-${event.id!}",
-                                                size: 250,
-                                                embeddedImageStyle:
-                                                    const QrEmbeddedImageStyle(),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => EventTicketPage(
+                                          event: event,
+                                          userId: widget.userId,
+                                          userImage: widget.userImage),
+                                    ),
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -318,3 +305,6 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     );
   }
 }
+
+
+//  --> old QR

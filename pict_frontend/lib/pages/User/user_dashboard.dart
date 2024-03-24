@@ -8,6 +8,7 @@ import 'package:pict_frontend/pages/Report/report_home.dart';
 import 'package:pict_frontend/pages/User/user_home_screen.dart';
 import 'package:pict_frontend/pages/User/user_profile.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserDashboard extends ConsumerStatefulWidget {
@@ -67,8 +68,8 @@ class _UserDashboardState extends ConsumerState<UserDashboard> {
         index: _currentIndex,
         height: 55,
         backgroundColor: Colors.transparent,
-        buttonBackgroundColor: Colors.green,
-        color: Colors.green,
+        buttonBackgroundColor: TColors.primaryGreen,
+        color: TColors.primaryGreen,
         animationDuration: const Duration(milliseconds: 300),
         items: const [
           Icon(Icons.home, size: 26, color: Colors.white),

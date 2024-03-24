@@ -434,15 +434,15 @@ exports.markPresent = async (req, res) => {
         if (result == "ok") {
           return res
             .status(200)
-            .json({ message: "Present Marked Successfully" });
+            .json({ message: "Present Marked Successfully", status: "ok" });
         }
       } else {
         // Means, The user has already attended the event.
-        return res.status(200).json({ message: "Already Present" });
+        return res.status(200).json({ message: "Already Present", status: "ok" });
       }
     } else {
       // Means, The user has not registered in the event.
-      return res.status(200).json({ message: "Not Registered" });
+      return res.status(200).json({ message: "Not Registered", status: "bad" });
     }
   } catch (e) {
     console.log(e);
@@ -605,6 +605,19 @@ exports.getOngoingEventsByEmail = async function (req, res) {
 
     let event = new Event();
     let data = await event.getOngoingEventsByEmail(organizerEmail);
+
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+exports.getCompletedEventsByEmail = async function (req, res) {
+  try {
+    let { organizerEmail } = req.body;
+
+    let event = new Event();
+    let data = await event.getCompletedEventsByEmail(organizerEmail);
 
     return res.status(200).json({ result: data });
   } catch (e) {

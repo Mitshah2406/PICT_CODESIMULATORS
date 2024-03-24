@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
+import 'package:pict_frontend/utils/logging/logger.dart';
 
 final eventServiceProvider = Provider<EventService>((ref) {
   return EventService();
@@ -11,32 +12,32 @@ final eventServiceProvider = Provider<EventService>((ref) {
 
 class EventService {
   Future<List<Event>> getAllEvents() async {
-    try {
-      var response = await http.get(
-        Uri.parse("${AppConstants.IP}/getAllEvents"),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      );
+    // try {
+    var response = await http.get(
+      Uri.parse("${AppConstants.IP}/getAllEvents"),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
 
-      var result = jsonDecode(response.body)["result"];
-      print("Result");
-      print(result);
+    var result = jsonDecode(response.body)["result"];
+    print("Result");
+    print(result);
 
-      List<Event> events = [];
+    List<Event> events = [];
 
-      for (var eventJson in result) {
-        Event event = Event.fromJson(eventJson);
-        print(event);
-        events.add(event);
-      }
-
-      return events;
-    } catch (e) {
-      print("Error de");
-      print(e);
-      throw Exception('Failed to fetch events');
+    for (var eventJson in result) {
+      Event event = Event.fromJson(eventJson);
+      print(event);
+      events.add(event);
     }
+
+    return events;
+    // } catch (e) {
+    //   print("Error de");
+    //   print(e);
+    //   throw Exception('Failed to fetch events');
+    // }
   }
 
   Future<Event> getEventById(id) async {
@@ -71,7 +72,7 @@ class EventService {
       );
 
       var result = jsonDecode(response.body)["result"];
-
+      LoggerHelper.info(result.toString());
       List<Event> events = [];
 
       for (var eventJson in result) {
@@ -267,7 +268,35 @@ class EventService {
     }
   }
 
-  static Future<String> markPresent(userId, eventId) async {
+  Future<List<Event>> getCompletedEventsByEmail(email) async {
+    try {
+      var response = await http.post(
+        Uri.parse("${AppConstants.IP}/getCompletedEventsByEmail"),
+        body: jsonEncode({
+          "organizerEmail": email,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      var result = jsonDecode(response.body)["result"];
+
+      List<Event> events = [];
+
+      for (var eventJson in result) {
+        Event event = Event.fromJson(eventJson);
+        events.add(event);
+      }
+
+      return events;
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to Fetch ongoing events');
+    }
+  }
+
+  static Future<dynamic> markPresent(userId, eventId) async {
     try {
       var response = await http.post(
         Uri.parse("${AppConstants.IP}/markPresent"),
@@ -280,7 +309,7 @@ class EventService {
         },
       );
 
-      var result = jsonDecode(response.body)["message"];
+      var result = jsonDecode(response.body);
       print(result);
 
       return result;

@@ -24,6 +24,7 @@ router.post("/editProfile", userController.editProfile);
 
 // Atharva's API
 router.post("/user/getUserByEmail", userController.getUserByEmail);
+router.post("/user/getUserById", userController.getUserById);
 router.post(
   "/recycler/getRecyclerByEmail",
   recyclerController.getRecyclerByEmail
@@ -76,6 +77,10 @@ router.post(
 router.post(
   "/getOngoingEventsByEmail",
   eventController.getOngoingEventsByEmail
+);
+router.post(
+  "/getCompletedEventsByEmail",
+  eventController.getCompletedEventsByEmail
 );
 
 // ? Reporting Module

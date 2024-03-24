@@ -1,15 +1,15 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:pict_frontend/pages/Auth/signup_screen.dart';
+import 'package:pict_frontend/pages/Organizer/organizer_dashboard.dart';
 // import 'package:pict_frontend/pages/Events/events_new/events_home.dart';
 import 'package:pict_frontend/pages/Organizer/organizer_home_screen.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
 import 'package:pict_frontend/pages/User/user_dashboard.dart';
-import 'package:pict_frontend/pages/User/user_home_screen.dart';
+
 import 'package:pict_frontend/services/auth_service.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
 import 'package:pict_frontend/utils/session/SharedPreference.dart';
 
@@ -41,7 +41,6 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppConstants.bgColorAuth,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 20.0),
@@ -74,7 +73,7 @@ class _SignInPageState extends State<SignInPage> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 35,
-                    color: Colors.green,
+                    color: TColors.primaryGreen,
                   ),
                 ),
                 const SizedBox(
@@ -86,7 +85,9 @@ class _SignInPageState extends State<SignInPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? TColors.black
+                        : TColors.white,
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Form(
@@ -99,12 +100,11 @@ class _SignInPageState extends State<SignInPage> {
                         ),
 
                         // ? Email Field
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
                           child: Text(
                             "Your Email Address: ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
+                            style: Theme.of(context).textTheme.bodyMedium,
                             textAlign: TextAlign.start,
                           ),
                         ),
@@ -120,34 +120,34 @@ class _SignInPageState extends State<SignInPage> {
                           },
                           controller: _emailController,
                           keyboardType: TextInputType.multiline,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.normal),
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            border: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.black12),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.black12),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.black12),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            hintText: "Enter Your Email Address",
-                            hintStyle: const TextStyle(
-                                fontWeight: FontWeight.normal, fontSize: 14),
-                          ),
+                          // style: const TextStyle(
+                          //     fontSize: 18, fontWeight: FontWeight.normal),
+                          // decoration: InputDecoration(
+                          //   contentPadding: const EdgeInsets.symmetric(
+                          //       horizontal: 10, vertical: 10),
+                          //   border: OutlineInputBorder(
+                          //     borderSide:
+                          //         const BorderSide(color: Colors.black12),
+                          //     borderRadius: BorderRadius.circular(5),
+                          //   ),
+                          //   enabledBorder: OutlineInputBorder(
+                          //     borderSide:
+                          //         const BorderSide(color: Colors.black12),
+                          //     borderRadius: BorderRadius.circular(5),
+                          //   ),
+                          //   focusedBorder: OutlineInputBorder(
+                          //     borderSide:
+                          //         const BorderSide(color: Colors.black12),
+                          //     borderRadius: BorderRadius.circular(5),
+                          //   ),
+                          //   errorBorder: OutlineInputBorder(
+                          //     borderSide: const BorderSide(color: Colors.red),
+                          //     borderRadius: BorderRadius.circular(5),
+                          //   ),
+                          //   hintText: "Enter Your Email Address",
+                          //   hintStyle: const TextStyle(
+                          //       fontWeight: FontWeight.normal, fontSize: 14),
+                          // ),
                         ),
 
                         const SizedBox(
@@ -155,14 +155,11 @@ class _SignInPageState extends State<SignInPage> {
                         ),
 
                         // ? Password Field
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
                           child: Text(
                             "Your Password: ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium,
                             textAlign: TextAlign.start,
                           ),
                         ),
@@ -180,32 +177,36 @@ class _SignInPageState extends State<SignInPage> {
                             fontSize: 18,
                             fontWeight: FontWeight.normal,
                           ),
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            border: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.black12),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.black12),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.black12),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            hintText: "Enter Your Password",
-                            hintStyle: const TextStyle(
-                                fontWeight: FontWeight.normal, fontSize: 14),
-                          ),
+                          // decoration:
+                          //     Theme.of(context).brightness == Brightness.dark
+                          //         ? Theme.of(context).inputDecorationTheme
+                          //         : Theme.of(context).inputDecorationTheme,
+                          // decoration: InputDecoration(
+                          //   contentPadding: const EdgeInsets.symmetric(
+                          //       horizontal: 10, vertical: 10),
+                          //   border: OutlineInputBorder(
+                          //     borderSide:
+                          //         const BorderSide(color: Colors.black12),
+                          //     borderRadius: BorderRadius.circular(5),
+                          //   ),
+                          //   enabledBorder: OutlineInputBorder(
+                          //     borderSide:
+                          //         const BorderSide(color: Colors.black12),
+                          //     borderRadius: BorderRadius.circular(5),
+                          //   ),
+                          //   focusedBorder: OutlineInputBorder(
+                          //     borderSide:
+                          //         const BorderSide(color: Colors.black12),
+                          //     borderRadius: BorderRadius.circular(5),
+                          //   ),
+                          //   errorBorder: OutlineInputBorder(
+                          //     borderSide: const BorderSide(color: Colors.red),
+                          //     borderRadius: BorderRadius.circular(5),
+                          //   ),
+                          //   hintText: "Enter Your Password",
+                          //   hintStyle: const TextStyle(
+                          //       fontWeight: FontWeight.normal, fontSize: 14),
+                          // ),
                         ),
 
                         const SizedBox(
@@ -256,7 +257,7 @@ class _SignInPageState extends State<SignInPage> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const OrganizerHomePage(),
+                                              const OrganizerDashboard(),
                                         ),
                                       );
                                     }
@@ -269,7 +270,7 @@ class _SignInPageState extends State<SignInPage> {
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 1,
                                     backgroundColor: Colors.red,
-                                    textColor: Colors.white,
+                                    textColor: Colors.black,
                                     fontSize: 16.0,
                                   );
                                 } else {
@@ -279,15 +280,15 @@ class _SignInPageState extends State<SignInPage> {
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 1,
                                     backgroundColor: Colors.red,
-                                    textColor: Colors.white,
+                                    textColor: Colors.black,
                                     fontSize: 16.0,
                                   );
                                 }
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              backgroundColor: Colors.green,
+                              foregroundColor: Colors.black,
+                              backgroundColor: TColors.primaryGreen,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
                               ),

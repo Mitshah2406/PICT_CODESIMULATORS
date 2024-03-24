@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
+import 'package:pict_frontend/providers/theme_notifier.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
 import 'package:pict_frontend/widgets/counters.dart';
 import 'package:pict_frontend/widgets/customShape.dart';
@@ -68,29 +70,35 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               children: [
                 AppBar(
                   centerTitle: true,
-                  backgroundColor: Colors.green,
+                  backgroundColor: TColors.primaryGreen,
                   actions: [
-                    IconButton(
-                      onPressed: () {
-                        // if (Get.isDarkMode) {
-                        //   Get.changeTheme(ThemeManager.lightTheme);
-                        // } else {
-                        //   Get.changeTheme(ThemeManager.darkTheme);
-                        // }
-                        // ;
-                      },
-                      icon: const Icon(
-                        Icons.dark_mode,
-                        color: Colors.white,
-                      ),
-                    )
+                    Consumer(builder: (context, ref, child) {
+                      final theme = ref.watch(themeModeProvider);
+                      return IconButton(
+                          onPressed: () {
+                            ref.read(themeModeProvider.notifier).state =
+                                theme == ThemeMode.light
+                                    ? ThemeMode.dark
+                                    : ThemeMode.light;
+                          },
+                          icon: Icon(
+                            theme == ThemeMode.dark
+                                ? Icons.light_mode
+                                : Icons.dark_mode,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.black
+                                    : Colors.white,
+                          ));
+                    })
                   ],
-                  title: const Text(
+                  title: Text(
                     "Your Profile",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.black
+                              : Colors.white,
+                        ),
                   ),
                 ),
                 ClipPath(
@@ -98,7 +106,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
                   child: SizedBox(
                     height: 200,
                     child: Container(
-                      color: Colors.green,
+                      color: TColors.primaryGreen,
                     ),
                   ),
                 ),

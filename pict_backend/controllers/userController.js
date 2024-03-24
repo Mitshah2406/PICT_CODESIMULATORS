@@ -13,6 +13,18 @@ exports.getUserByEmail = async (req, res) => {
     return res.status(500).json({ response });
   }
 };
+exports.getUserById = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    let user = new User();
+    let response = await user.getUserById(userId);
+
+    return res.status(200).json(response);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ response });
+  }
+};
 
 exports.editProfile = async (req, res) => {
   try {
