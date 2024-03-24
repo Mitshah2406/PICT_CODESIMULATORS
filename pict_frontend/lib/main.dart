@@ -9,7 +9,7 @@ import 'package:pict_frontend/providers/theme_notifier.dart';
 import 'package:pict_frontend/utils/firebase/firebase_api.dart';
 import 'package:pict_frontend/utils/theme/theme.dart';
 
-void main() async {
+void main() async { 
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
