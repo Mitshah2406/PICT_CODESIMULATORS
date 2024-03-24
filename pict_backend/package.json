@@ -29,13 +29,13 @@
     "jimp": "^0.22.12",
     "md5": "^2.3.0",
     "moment": "^2.29.4",
-    "mongodb": "^4.7.0",
+    "mongodb": "^4.17.2",
+    "morgan": "^1.10.0",
     "nodemailer": "^6.7.7",
     "nodemon": "^2.0.18",
     "path-browserify": "^1.0.1",
     "sanitize-html": "^2.7.0",
-    "webpack": "^5.73.0",
-    "morgan": "^1.10.0"
+    "webpack": "^5.73.0"
   },
   "devDependencies": {
     "webpack-cli": "^4.10.0"
