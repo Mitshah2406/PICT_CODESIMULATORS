@@ -113,7 +113,7 @@ class _EventsHomePageState extends ConsumerState<EventsHomePage> {
                         MaterialPageRoute(
                           builder: (context) => EventList(
                             userId: _id!,
-                            name: "All Ongoing Events",
+                            name: "All Upcoming Events",
                             events: allUpcomingEvent!,
                             userImage: _userImage!,
                           ),

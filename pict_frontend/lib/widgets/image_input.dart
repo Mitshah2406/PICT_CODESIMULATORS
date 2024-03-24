@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 
 class ImageInput extends StatefulWidget {
   const ImageInput({super.key, required this.image});
@@ -37,8 +38,17 @@ class _ImageInputState extends State<ImageInput> {
   Widget build(BuildContext context) {
     Widget content = TextButton.icon(
       onPressed: _takePicture,
-      icon: const Icon(Icons.camera),
-      label: const Text("Add Image to Report"),
+      icon: const Icon(
+        Icons.camera,
+        color: TColors.primaryGreen,
+      ),
+      label: Text(
+        "Add Image to Report",
+        style: Theme.of(context)
+            .textTheme
+            .bodyMedium!
+            .copyWith(color: TColors.primaryGreen),
+      ),
     );
 
     if (_selectedImage != null) {
@@ -60,7 +70,7 @@ class _ImageInputState extends State<ImageInput> {
           color: Theme.of(context).colorScheme.primary,
         ),
       ),
-      height: 250,
+      height: 180,
       width: double.infinity,
       child: content,
     );

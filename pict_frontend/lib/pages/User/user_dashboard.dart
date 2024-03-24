@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:pict_frontend/pages/Events/events.dart';
 import 'package:pict_frontend/pages/Events/events_home.dart';
 import 'package:pict_frontend/pages/Report/reports.dart';
+import 'package:pict_frontend/pages/Report/report_home.dart';
 import 'package:pict_frontend/pages/User/user_home_screen.dart';
 import 'package:pict_frontend/pages/User/user_profile.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
@@ -23,7 +24,7 @@ class _UserDashboardState extends ConsumerState<UserDashboard> {
   final tabs = [
     const HomePage(),
     const ReportsPage(),
-    const ReportsPage(),
+    const ReportPage(),
     const EventsHomePage(),
     const UserProfilePage(),
   ];
@@ -64,6 +65,7 @@ class _UserDashboardState extends ConsumerState<UserDashboard> {
       body: tabs[_currentIndex],
       bottomNavigationBar: CurvedNavigationBar(
         index: _currentIndex,
+        height: 55,
         backgroundColor: Colors.transparent,
         buttonBackgroundColor: Colors.green,
         color: Colors.green,

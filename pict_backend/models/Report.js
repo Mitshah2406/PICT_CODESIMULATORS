@@ -13,10 +13,12 @@ Report.prototype.cleanUp = function () {
     uploaderName: this.data.uploaderName,
     uploaderEmail: this.data.uploaderEmail,
     description: this.data.description,
-    lat: this.data.lat,
-    lon: this.data.lon,
+    location: {
+      lat: this.data.lat,
+      lon: this.data.lon,
+      formattedAddress: this.data.formattedAddress,
+    },
     reportAttachment: this.data.reportAttachment,
-    formattedAddress: this.data.formattedAddress,
     reportStatus: "pending", //options: 1. pending (by default) 2. resolved  3. rejected (fake report)
     createdOn: new Date(),
   };
@@ -77,12 +79,19 @@ Report.prototype.getReportsByStatus = async function (reportStatus) {
 };
 
 Report.prototype.getAllUserReports = async function (userId, filter) {
-  let data = await reportCollection
-    .find({ uploaderId: new ObjectID(userId), reportStatus: filter })
-    .sort({ _id: -1 })
-    .toArray();
-
-  return data;
+  if (filter == "") {
+    let data = await reportCollection
+      .find({ uploaderId: new ObjectID(userId) })
+      .sort({ _id: -1 })
+      .toArray();
+    return data;
+  } else {
+    let data = await reportCollection
+      .find({ uploaderId: new ObjectID(userId), reportStatus: filter })
+      .sort({ _id: -1 })
+      .toArray();
+    return data;
+  }
 };
 
 Report.prototype.getAllUserPendingReports = async function (userId) {
@@ -118,6 +127,35 @@ Report.prototype.getCountOfAllUserReports = async function (userId) {
   });
 
   return data;
+};
+
+Report.prototype.searchReport = async function (searchTerm) {
+  if (searchTerm.length > 0) {
+    let data = await reportCollection
+      .aggregate([
+        {
+          $search: {
+            index: "searchReport",
+            text: {
+              query: searchTerm,
+              path: {
+                wildcard: "*",
+              },
+              fuzzy: {
+                maxEdits: 2,
+                prefixLength: 0,
+                maxExpansions: 50,
+              },
+            },
+          },
+        },
+      ])
+      .toArray();
+
+    return data;
+  }
+
+  return null;
 };
 
 module.exports = Report;

@@ -59,7 +59,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                     children: const [
                       TextSpan(
-                          text: 'Eco', style: TextStyle(color: Colors.black)),
+                        text: 'Eco',
+                        style: TextStyle(color: Colors.black),
+                      ),
                       TextSpan(
                         text: 'Saathi',
                         style: TextStyle(color: Colors.green),

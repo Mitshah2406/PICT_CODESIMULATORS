@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
-import 'package:pict_frontend/providers/report_notifier.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
 import 'package:pict_frontend/widgets/counters.dart';
 import 'package:pict_frontend/widgets/customShape.dart';
 import 'package:pict_frontend/widgets/profileOptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class UserProfilePage extends ConsumerStatefulWidget {
   const UserProfilePage({super.key});
@@ -107,7 +105,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ],
             ),
             Positioned.fill(
-              bottom: 350,
+              bottom: 380,
               child: Align(
                 alignment: Alignment.center,
                 child: _userImage!.isNotEmpty
@@ -136,7 +134,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ),
             ),
             Positioned.fill(
-              bottom: 160,
+              bottom: 190,
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -149,7 +147,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ),
             ),
             Positioned.fill(
-              bottom: 110,
+              bottom: 140,
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -163,7 +161,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ),
             ),
             Positioned.fill(
-              bottom: -50,
+              bottom: -20,
               child: Align(
                 alignment: Alignment.center,
                 child: Counters(

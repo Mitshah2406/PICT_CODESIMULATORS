@@ -14,7 +14,7 @@ import 'package:pict_frontend/services/auth_service.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
 import 'package:pict_frontend/utils/session/SharedPreference.dart';
 
-String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+// String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});

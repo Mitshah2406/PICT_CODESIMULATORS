@@ -26,6 +26,14 @@ class ReportNotifier extends StateNotifier<List<Report>> {
     return response;
   }
 
+  Future<List<Report>> getSearchReport(String query) async {
+    final response = await ReportService.getSearchReport(query);
+
+    print(response);
+
+    return response;
+  }
+
   Future<int> getCountOfAllUserReports(String userId) async {
     final response = await ReportService.getCountOfUserReports(userId);
 

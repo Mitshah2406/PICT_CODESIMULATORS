@@ -63,8 +63,8 @@ class Report {
 }
 
 class Location {
-  double? lat;
-  double? lon;
+  String? lat;
+  String? lon;
   String? formattedAddress;
 
   Location({

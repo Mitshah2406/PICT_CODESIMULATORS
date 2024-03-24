@@ -41,8 +41,6 @@ class ReportService {
 
       var result = jsonDecode(responseData)["result"];
 
-      print(result);
-
       return result;
     } catch (e) {
       print("Error occurred: $e");
@@ -70,6 +68,42 @@ class ReportService {
         Report report = Report.fromJson(reportJson);
         reports.add(report);
       }
+
+      // print("Reportttt");
+      // print(reports.map((e) => print(e.description)));
+
+      return reports;
+    } catch (e) {
+      print(e);
+      throw Exception("Failed to get User reports");
+    }
+  }
+
+  static Future<List<Report>> getSearchReport(query) async {
+    try {
+      var response = await http.post(
+        Uri.parse(
+          "${AppConstants.IP}/report/searchReport",
+        ),
+        body: jsonEncode({"searchTerm": query}),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      var result = jsonDecode(response.body)["result"];
+
+      List<Report> reports = [];
+
+      for (var reportJson in result) {
+        Report report = Report.fromJson(reportJson);
+        reports.add(report);
+      }
+
+      print(response.body);
+      print(reports);
+      // print("Reportttt");
+      // print(reports.map((e) => print(e.description)));
 
       return reports;
     } catch (e) {

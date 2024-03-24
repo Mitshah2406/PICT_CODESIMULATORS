@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pict_frontend/models/Report.dart';
 import 'package:pict_frontend/pages/Report/reports.dart';
 import 'package:pict_frontend/providers/report_notifier.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/widgets/image_input.dart';
 import 'package:pict_frontend/widgets/location_input.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -118,38 +120,46 @@ class _AddReportPageState extends ConsumerState<AddReportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Report Dumpsites"),
+        title: Text(
+          "Report Dumpsites",
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                color: TColors.primaryGreen,
+              ),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
                 controller: _descriptionController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                   labelText: "Enter description",
-                  labelStyle: TextStyle(fontSize: 18),
+                  labelStyle:
+                      TextStyle(fontSize: 14, color: Colors.grey.shade600),
                 ),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
-                  fontSize: 20,
+                style: const TextStyle(
+                  color: TColors.black,
+                  fontSize: 16,
                 ),
                 maxLength: 50,
-                // validator: (value) {
-                //   if (value == null ||
-                //       value.isEmpty ||
-                //       value.length > 50 ||
-                //       value.length <= 2) {
-                //     return "Please Enter a valid desc";
-                //   }
-
-                //   return null;
-                // },
+              ),
+              Text(
+                "Camera photo",
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: TColors.black,
+                    ),
+                textAlign: TextAlign.left,
               ),
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
               ImageInput(
                 image: (image) {
@@ -159,18 +169,40 @@ class _AddReportPageState extends ConsumerState<AddReportPage> {
               const SizedBox(
                 height: 10,
               ),
+              Text(
+                "Location",
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: TColors.black,
+                    ),
+                textAlign: TextAlign.left,
+              ),
               LocationInput(
                 onSelectLocation: (pickedLocation) {
                   location = pickedLocation;
                 },
               ),
               const SizedBox(
-                height: 16,
+                height: 5,
               ),
-              TextButton.icon(
-                onPressed: _addReport,
-                icon: const Icon(Icons.report),
-                label: const Text("Submit Report"),
+              Center(
+                child: ElevatedButton.icon(
+                  onPressed: _addReport,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: TColors.primaryGreen,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 10,
+                    ),
+                  ),
+                  label: Text(
+                    "Submit Report",
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: TColors.white,
+                          fontWeight: FontWeight.w400,
+                        ),
+                  ),
+                  icon: const Icon(Icons.report),
+                ),
               )
             ],
           ),

@@ -74,10 +74,18 @@ User.prototype.editProfile = async function ({
         userEmail: userEmail,
         userImage: userImage,
       },
+    },
+    {
+      returnDocument: "after",
     }
   );
 
-  return true;
+  console.log(data);
+
+  return {
+    message: true,
+    userImage: data.value.userImage,
+  };
 };
 
 module.exports = User;
