@@ -237,13 +237,17 @@ class _EventListState extends State<EventList> {
                                         )
                                       : ElevatedButton(
                                           onPressed: () {
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //     builder: (context) =>
-                                            //         const EventDetailsPage(),
-                                            //   ),
-                                            // );
+                                            Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                builder: (context) =>
+                                                    EventDetailsPage(
+                                                  event: event,
+                                                  userId: widget.userId,
+                                                  userImage: widget.userImage,
+                                                ),
+                                              ),
+                                            );
                                           },
                                           style: ElevatedButton.styleFrom(
                                             padding: const EdgeInsets.symmetric(

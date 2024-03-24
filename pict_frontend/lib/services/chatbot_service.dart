@@ -1,17 +1,17 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:wastebot/models/ChatBot.dart';
-import 'package:wastebot/utils/constants.dart';
+import 'package:pict_frontend/models/ChatBot.dart';
+import 'package:pict_frontend/utils/constants/app_constants.dart';
 
-class ChatRepo {
+class ChatBotService {
   static Future<String> chatTextGenerationRepo(
       List<ChatMessageModel> previousMessages) async {
     try {
       Dio dio = Dio();
 
       final response = await dio.post(
-          "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=${apiKey}",
+          "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=${AppConstants.apiKey}",
           data: {
             "contents": previousMessages.map((e) => e.toMap()).toList(),
             "generationConfig": {

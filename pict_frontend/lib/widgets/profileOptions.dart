@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';

@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pict_frontend/pages/ChatBot/chatbot.dart';
 // import 'package:pict_frontend/pages/Events/events.dart';
 import 'package:pict_frontend/pages/Events/events_home.dart';
 import 'package:pict_frontend/pages/Report/reports.dart';
@@ -24,7 +25,7 @@ class _UserDashboardState extends ConsumerState<UserDashboard> {
 
   final tabs = [
     const HomePage(),
-    const ReportsPage(),
+    const ChatBot(),
     const ReportPage(),
     const EventsHomePage(),
     const UserProfilePage(),

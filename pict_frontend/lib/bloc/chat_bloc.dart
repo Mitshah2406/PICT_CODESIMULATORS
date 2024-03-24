@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:wastebot/models/ChatBot.dart';
-import 'package:wastebot/repos/chat.dart';
+import 'package:pict_frontend/models/ChatBot.dart';
+import 'package:pict_frontend/services/chatbot_service.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
@@ -22,7 +22,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         role: "user", parts: [ChatPartModel(text: event.inputMessage)]));
     emit(ChatSuccessState(messages: messages));
     generating = true;
-    String generatedText = await ChatRepo.chatTextGenerationRepo(messages);
+    String generatedText =
+        await ChatBotService.chatTextGenerationRepo(messages);
     if (generatedText.length > 0) {
       messages.add(ChatMessageModel(
           role: 'model', parts: [ChatPartModel(text: generatedText)]));

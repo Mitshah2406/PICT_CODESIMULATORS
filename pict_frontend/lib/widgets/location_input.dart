@@ -1,12 +1,5 @@
-import 'dart:convert';
-
-// import 'package:favourite_places/models/place.dart';
-// import 'package:favourite_places/screens/map.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart' as http;
 import 'package:pict_frontend/models/Report.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/geolocation/geolocation_service.dart';

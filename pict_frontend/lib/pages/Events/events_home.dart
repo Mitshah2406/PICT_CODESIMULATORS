@@ -17,14 +17,12 @@ class EventsHomePage extends ConsumerStatefulWidget {
 }
 
 class _EventsHomePageState extends ConsumerState<EventsHomePage> {
-  String? _name;
   String? _id;
   String? _userImage;
 
   Future<Null> getSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _name = prefs.getString("name");
       _id = prefs.getString("userId");
       _userImage = prefs.getString("image");
     });
@@ -33,7 +31,6 @@ class _EventsHomePageState extends ConsumerState<EventsHomePage> {
   @override
   void initState() {
     _id = "";
-    _name = "";
     _userImage = "";
     getSession();
 

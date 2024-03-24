@@ -67,7 +67,7 @@ class FirebaseApi {
   }
 
   Future<void> initLocalNotifications() async {
-    final settings = await _localNotifications.initialize(
+    await _localNotifications.initialize(
       const InitializationSettings(
         android: AndroidInitializationSettings('@mipmap/ic_launcher'),
       ),

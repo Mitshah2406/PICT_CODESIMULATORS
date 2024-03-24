@@ -1,7 +1,5 @@
 import 'package:beep_player/beep_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
@@ -23,16 +21,12 @@ class OrganizerDashboard extends ConsumerStatefulWidget {
 }
 
 class _OrganizerDashboardState extends ConsumerState<OrganizerDashboard> {
-  String? _name;
-  String? _id;
   String? _email;
 
   Future<Null> getSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _name = prefs.getString("name");
       _email = prefs.getString("email");
-      _id = prefs.getString("organizerId");
     });
     // await GeolocationService.determinePosition();
   }
@@ -53,8 +47,6 @@ class _OrganizerDashboardState extends ConsumerState<OrganizerDashboard> {
 
   @override
   void initState() {
-    _name = "";
-    _id = "";
     _email = "";
     getSession();
     BeepPlayer.load(_beepFile);
@@ -163,8 +155,6 @@ class _OrganizerDashboardState extends ConsumerState<OrganizerDashboard> {
                           itemCount: events.length,
                           itemBuilder: (context, index) {
                             final event = events[index];
-                            final ongoingEvents;
-                            final completedEvents;
                             Color color = index % 2 == 0
                                 ? TColors.primaryYellow
                                 : TColors.accentGreen;

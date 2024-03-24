@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
 import 'package:pict_frontend/utils/logging/logger.dart';
 import 'package:pict_frontend/widgets/dotted_line.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
@@ -27,14 +23,12 @@ class EventTicketPage extends StatefulWidget {
 class _EventTicketPageState extends State<EventTicketPage> {
   String? _name;
   String? _id;
-  String? _userImage;
 
   Future<Null> getSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _name = prefs.getString("name");
       _id = prefs.getString("userId");
-      _userImage = prefs.getString("image");
     });
     LoggerHelper.info(_name!);
   }
@@ -43,7 +37,6 @@ class _EventTicketPageState extends State<EventTicketPage> {
   void initState() {
     _id = "";
     _name = "";
-    _userImage = "";
     getSession();
 
     super.initState();

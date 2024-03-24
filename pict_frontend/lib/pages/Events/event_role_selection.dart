@@ -20,24 +20,18 @@ class _EventRoleSelectionPageState extends State<EventRoleSelectionPage> {
 
   List<String> roles = ['participant', 'volunteer'];
 
-  String? _name;
   String? _id;
-  String? _userImage;
 
   Future<Null> getSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _name = prefs.getString("name");
       _id = prefs.getString("userId");
-      _userImage = prefs.getString("image");
     });
   }
 
   @override
   void initState() {
     _id = "";
-    _name = "";
-    _userImage = "";
     getSession();
     super.initState();
   }
@@ -174,17 +168,7 @@ class OptionRadio extends StatefulWidget {
 }
 
 class OptionRadioPage extends State<OptionRadio> {
-  // QuestionController controllerCopy =QuestionController();
-
   int id = 1;
-  late bool _isButtonDisabled;
-
-  @override
-  void initState() {
-    _isButtonDisabled = false;
-  }
-
-  final int _selected = 0;
 
   @override
   Widget build(BuildContext context) {

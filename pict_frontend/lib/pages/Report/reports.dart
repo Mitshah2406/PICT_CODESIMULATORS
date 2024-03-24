@@ -310,7 +310,17 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
                                             Row(
                                               children: [
                                                 ElevatedButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      CupertinoPageRoute(
+                                                        builder: (context) =>
+                                                            ReportDetail(
+                                                          report: report,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
                                                   style:
                                                       ElevatedButton.styleFrom(
                                                     padding: const EdgeInsets
