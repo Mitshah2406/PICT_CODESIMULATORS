@@ -434,15 +434,15 @@ exports.markPresent = async (req, res) => {
         if (result == "ok") {
           return res
             .status(200)
-            .json({ message: "Present Marked Successfully" });
+            .json({ message: "Present Marked Successfully", status: "ok" });
         }
       } else {
         // Means, The user has already attended the event.
-        return res.status(200).json({ message: "Already Present" });
+        return res.status(200).json({ message: "Already Present", status: "ok" });
       }
     } else {
       // Means, The user has not registered in the event.
-      return res.status(200).json({ message: "Not Registered" });
+      return res.status(200).json({ message: "Not Registered", status: "bad" });
     }
   } catch (e) {
     console.log(e);

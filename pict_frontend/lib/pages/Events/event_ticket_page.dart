@@ -276,7 +276,7 @@ class _EventTicketPageState extends State<EventTicketPage> {
                     height: 80,
                     child: SfBarcodeGenerator(
                       barColor: TColors.black,
-                      value: event.id.toString(),
+                      value: _id,
                       showValue: true,
                       textStyle: const TextStyle(
                           color: TColors.primaryGreen,
