@@ -695,12 +695,7 @@ try{
     res.status(500).send("Error fetching ongoing events");
   }
 };
-exports.viewOngoingEventsPage = async (req, res) => {
-  if (!req.session.authority) {
-    res.redirect("/authority/login-page");
-  }
 
-}
 exports.viewCompletedEventsPage= async(req,res)=>{
 try{
     const completedEvents = await new Event().getAllCompletedEvents()
