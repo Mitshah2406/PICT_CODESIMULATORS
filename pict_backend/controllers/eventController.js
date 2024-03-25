@@ -167,6 +167,8 @@ exports.addEvent = async function (req, res) {
   }
 };
 
+
+
 exports.deleteEventById = async (req, res) => {
   try {
     console.log("Hit");

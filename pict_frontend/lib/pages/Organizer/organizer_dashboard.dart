@@ -2,11 +2,13 @@ import 'package:beep_player/beep_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
 import 'package:pict_frontend/services/event_service.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/custom_appbar_shape.dart';
 import 'package:pict_frontend/utils/logging/logger.dart';
+import 'package:pict_frontend/utils/session/SharedPreference.dart';
 import 'package:pict_frontend/widgets/tab_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
@@ -114,7 +116,40 @@ class _OrganizerDashboardState extends ConsumerState<OrganizerDashboard> {
                         fontSize: 26),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text(
+                              "Are you sure you want to logout?",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            content: const Text(
+                                "Once logged out, you need to login again"),
+                            actions: [
+                              TextButton(
+                                onPressed: () async {
+                                  print("Hello");
+                                  String res = await Utils.logout();
+
+                                  if (res == "ok") {
+                                    Navigator.pushReplacement(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return const SignInPage();
+                                    }));
+                                  }
+                                },
+                                child: const Text("Okay"),
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    },
                     icon: Icon(
                       Icons.logout,
                       color: Theme.of(context).brightness == Brightness.dark
