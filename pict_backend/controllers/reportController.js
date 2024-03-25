@@ -1,9 +1,12 @@
+const e = require("connect-flash");
 let Report = require("../models/Report");
 let User = require("../models/User");
 let path = require("path");
 let moment= require('moment')
 exports.addReport = async (req, res) => {
   try {
+    console.log(req.body);
+
     if (req.files.reportAttachment) {
       const reportAttachment = req.files.reportAttachment;
       // console.log(logoFile.name);
@@ -145,6 +148,17 @@ exports.getCountOfAllUserReports = async (req, res) => {
 
     let count = await report.getCountOfAllUserReports(userId);
     res.status(200).json({ result: count });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+exports.searchReport = async (req, res) => {
+  try {
+    let report = new Report();
+
+    let result = await report.searchReport(req.body.searchTerm);
+    res.status(200).json({ result: result });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });

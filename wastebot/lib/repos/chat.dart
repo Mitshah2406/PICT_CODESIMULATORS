@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:wastebot/models/chat_message_model.dart';
+import 'package:wastebot/models/ChatBot.dart';
 import 'package:wastebot/utils/constants.dart';
 
 class ChatRepo {

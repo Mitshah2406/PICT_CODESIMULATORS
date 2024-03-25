@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wastebot/bloc/chat_bloc.dart';
-import 'package:wastebot/models/chat_message_model.dart';
+import 'package:wastebot/models/ChatBot.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

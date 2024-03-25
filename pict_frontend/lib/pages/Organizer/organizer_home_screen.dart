@@ -22,7 +22,6 @@ class OrganizerHomePage extends ConsumerStatefulWidget {
 
 class _OrganizerHomePageState extends ConsumerState<OrganizerHomePage> {
   String? _name;
-  String? _id;
   String? _email;
 
   Future<Null> getSession() async {
@@ -30,7 +29,6 @@ class _OrganizerHomePageState extends ConsumerState<OrganizerHomePage> {
     setState(() {
       _name = prefs.getString("name");
       _email = prefs.getString("email");
-      _id = prefs.getString("organizerId");
     });
     // await GeolocationService.determinePosition();
   }
@@ -45,7 +43,6 @@ class _OrganizerHomePageState extends ConsumerState<OrganizerHomePage> {
   @override
   void initState() {
     _name = "";
-    _id = "";
     _email = "";
     getSession();
     BeepPlayer.load(_beepFile);

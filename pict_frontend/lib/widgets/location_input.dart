@@ -1,13 +1,7 @@
-import 'dart:convert';
-
-// import 'package:favourite_places/models/place.dart';
-// import 'package:favourite_places/screens/map.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart' as http;
 import 'package:pict_frontend/models/Report.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/geolocation/geolocation_service.dart';
 
 class LocationInput extends StatefulWidget {
@@ -50,8 +44,8 @@ class _LocationInputState extends State<LocationInput> {
 
     setState(() {
       location = Location(
-        lat: lat,
-        lon: lng,
+        lat: lat.toString(),
+        lon: lng.toString(),
         formattedAddress: formattedAddress,
       );
       findingLocation = false;
@@ -75,15 +69,15 @@ class _LocationInputState extends State<LocationInput> {
   Widget build(BuildContext context) {
     Widget previewContent = Text(
       "No Choosen Location",
-      style: TextStyle(
-        color: Theme.of(context).colorScheme.onBackground,
-      ),
+      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            color: TColors.primaryGreen,
+          ),
     );
 
     if (findingLocation) {
-      previewContent = Center(
+      previewContent = const Center(
         child: CircularProgressIndicator(
-          color: Theme.of(context).colorScheme.primary,
+          color: TColors.black,
         ),
       );
     }
@@ -97,8 +91,28 @@ class _LocationInputState extends State<LocationInput> {
       );
     }
 
+    print("Hello");
+    print(location?.formattedAddress.toString());
+
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(
+          height: 5,
+        ),
+        Text(
+          location?.formattedAddress.toString() ??
+              "Your location will appear here...",
+          maxLines: null,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(color: TColors.black),
+          textAlign: TextAlign.start,
+        ),
+        const SizedBox(
+          height: 5,
+        ),
         Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -107,48 +121,32 @@ class _LocationInputState extends State<LocationInput> {
             ),
           ),
           width: double.infinity,
-          height: 250,
+          height: 130,
           child: previewContent,
         ),
         const SizedBox(
-          height: 10,
+          height: 20,
         ),
-        location?.formattedAddress != null
-            ? RichText(
-                text: TextSpan(
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      // letterSpacing: .5,
-                    ),
+        Center(
+          child: ElevatedButton.icon(
+            onPressed: _getCurrentLocation,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: TColors.primaryGreen,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+            ),
+            label: Text(
+              "Get Location",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: TColors.white,
+                    fontWeight: FontWeight.w400,
                   ),
-                  children: [
-                    const TextSpan(
-                      text: 'Your Address: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextSpan(
-                      text: location?.formattedAddress.toString(),
-                      style: const TextStyle(color: Colors.black),
-                    )
-                  ],
-                ),
-              )
-            : Text(""),
-        const SizedBox(
-          height: 10,
+            ),
+            icon: const Icon(Icons.location_on_outlined),
+          ),
         ),
-        TextButton.icon(
-          onPressed: _getCurrentLocation,
-          icon: const Icon(Icons.location_on_outlined),
-          label: const Text("Get Current Location"),
-        )
       ],
     );
   }

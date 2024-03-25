@@ -88,6 +88,10 @@ router.post(
   "/getOngoingEventsByEmail",
   eventController.getOngoingEventsByEmail
 );
+router.post(
+  "/getCompletedEventsByEmail",
+  eventController.getCompletedEventsByEmail
+);
 
 // ? Reporting Module
 
@@ -124,6 +128,8 @@ router.post(
   "/report/getCountOfAllUserReports",
   reportController.getCountOfAllUserReports
 );
+
+router.post("/report/searchReport", reportController.searchReport);
 
 //waste pickup schedule module
 router.post(

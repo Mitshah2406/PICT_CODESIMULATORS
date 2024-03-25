@@ -47,11 +47,15 @@ exports.editProfile = async (req, res) => {
     let user = new User();
     let response = await user.editProfile(req.body);
 
-    return res
-      .status(200)
-      .json({ result: response, imagePath: req.body.userImage });
+    console.log(response);
+
+    if (response.message) {
+      return res
+        .status(200)
+        .json({ result: response.message, imagePath: response.userImage });
+    }
   } catch (error) {
-    console.log(e);
+    console.log(error);
     return res.status(500).json({ message: "Internal Sever Error" });
   }
 };

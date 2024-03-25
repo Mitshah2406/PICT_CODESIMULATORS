@@ -1,10 +1,4 @@
-// To parse this JSON data, do
-//
-//     final report = reportFromJson(jsonString);
-
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
 
 Report reportFromJson(String str) => Report.fromJson(json.decode(str));
 
@@ -63,8 +57,8 @@ class Report {
 }
 
 class Location {
-  double? lat;
-  double? lon;
+  String? lat;
+  String? lon;
   String? formattedAddress;
 
   Location({

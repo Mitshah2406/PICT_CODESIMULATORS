@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pict_frontend/pages/User/user_dashboard.dart';
 import 'package:pict_frontend/pages/User/user_profile.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
 import 'package:pict_frontend/services/auth_service.dart';
@@ -38,6 +39,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
 
   @override
   void initState() {
+    // selectedImage = File(widget.userImage!);
     List<String> nameArr = widget.name!.split(" ");
     String firstName = nameArr[0];
     String lastName = nameArr[1];
@@ -65,13 +67,16 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
       //     _emailController.text);
 
       Map<dynamic, dynamic> res = await AuthServices.editProfile(
-        _userFirstNameController.text,
-        _userLastNameController.text,
-        _emailController.text,
-        selectedImage!.path,
-      );
+          _userFirstNameController.text,
+          _userLastNameController.text,
+          _emailController.text,
+          selectedImage?.path);
+
+      print("Ress");
+      print(res);
 
       if (res["result"] == true) {
+        print("yess ");
         Fluttertoast.showToast(
           msg: "Profile saved successfully",
           toastLength: Toast.LENGTH_SHORT,
@@ -81,16 +86,17 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
           textColor: Colors.white,
           fontSize: 16.0,
         );
+
+        print(res);
+
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('name',
             "${_userFirstNameController.text} ${_userLastNameController.text}");
         await prefs.setString('image', res["imagePath"].toString());
 
-        print("Navigating to UserProfilePage...");
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-          print("Navigated to UserProfilePage");
-          return const UserProfilePage();
+          return const UserDashboard();
         }));
       } else {
         Fluttertoast.showToast(
@@ -285,6 +291,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                         ElevatedButton(
                           onPressed: _saveCredentials,
                           style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.all(10),
                             backgroundColor:
                                 Theme.of(context).colorScheme.primaryContainer,
                           ),

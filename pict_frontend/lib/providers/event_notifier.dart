@@ -50,6 +50,11 @@ final getOngoingEventsByEmail =
   final eventService = ref.watch(eventServiceProvider);
   return await eventService.getOngoingEventsByEmail(email);
 });
+final getCompletedEventsByEmail =
+    FutureProvider.family<List<Event>, String>((ref, email) async {
+  final eventService = ref.watch(eventServiceProvider);
+  return await eventService.getCompletedEventsByEmail(email);
+});
 
 final getUpcomingEventsCount = FutureProvider<int>((ref) async {
   final eventService = ref.watch(eventServiceProvider);

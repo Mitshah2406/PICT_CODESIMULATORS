@@ -113,7 +113,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ],
             ),
             Positioned.fill(
-              bottom: 350,
+              bottom: 380,
               child: Align(
                 alignment: Alignment.center,
                 child: _userImage!.isNotEmpty
@@ -142,7 +142,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ),
             ),
             Positioned.fill(
-              bottom: 160,
+              bottom: 190,
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -155,7 +155,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ),
             ),
             Positioned.fill(
-              bottom: 110,
+              bottom: 140,
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -169,7 +169,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
               ),
             ),
             Positioned.fill(
-              bottom: -50,
+              bottom: -20,
               child: Align(
                 alignment: Alignment.center,
                 child: Counters(

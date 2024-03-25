@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/models/Report.dart';
 import 'package:pict_frontend/services/report_service.dart';
@@ -22,6 +20,14 @@ class ReportNotifier extends StateNotifier<List<Report>> {
 
   Future<List<Report>> getAllUserReports(String userId, String filter) async {
     final response = await ReportService.getAllUserReports(userId, filter);
+
+    return response;
+  }
+
+  Future<List<Report>> getSearchReport(String query) async {
+    final response = await ReportService.getSearchReport(query);
+
+    print(response);
 
     return response;
   }
