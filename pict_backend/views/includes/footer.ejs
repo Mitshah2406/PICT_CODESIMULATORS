@@ -195,49 +195,42 @@
       </div>
     </div>
   </div>
+
+
+  <script>
+    function initAutocomplete() {
+        var input = document.getElementById('address');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+            console.log(place); // You can access place details here
+        });
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClqxBorXWEHq-SPtqCL1m0pSVpB9JZFGA&libraries=places&callback=initAutocomplete"
+    async defer></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClqxBorXWEHq-SPtqCL1m0pSVpB9JZFGA&callback=initMap"></script>  
   
   <!-- Library Bundle Script -->
   <script src="/js/core/libs.min.js"></script>
-  
-  <!-- External Library Bundle Script -->
   <script src="/js/core/external.min.js"></script>
-  
-  <!-- Widgetchart Script -->
   <script src="/js/charts/widgetcharts.js"></script>
-  
-  <!-- mapchart Script -->
   <script src="/js/charts/vectore-chart.js"></script>
   <script src="/js/charts/dashboard.js" ></script>
-  
-  <!-- fslightbox Script -->
   <script src="/js/plugins/fslightbox.js"></script>
-  
-  <!-- Settings Script -->
   <script src="/js/plugins/setting.js"></script>
-  
-  <!-- Slider-tab Script -->
   <script src="/js/plugins/slider-tabs.js"></script>
-  
-  <!-- Form Wizard Script -->
   <script src="/js/plugins/form-wizard.js"></script>
-  
-  <!-- AOS Animation Plugin-->
   <script src="/vendor/aos/dist/aos.js"></script>
-  
-  <!-- App Script -->
   <script src="/js/hope-ui.js" defer></script>
   <script src="/main-bundled.js" defer></script>
   <script src="/js/custom-js.js" defer></script>
-  
-  <!-- asif added this script file here -->
    <script src="/js/quill.js"></script>
   <script src="/js/richText.js"></script> 
   <script src="/js/papaparse.min.js"></script>
    <script src="/js/richText.js"></script>
    <script src="/js/parse.js"></script>
-  
-  
-  
   </body>
   </html>
   

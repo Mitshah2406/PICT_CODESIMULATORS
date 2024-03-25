@@ -1,5 +1,195 @@
-<%- include('./includes/header.ejs') %>
+<%- include('./includes/header.ejs',{authority:authority}) %>
 
-Hello
+<div class="row" style="margin-left: 20px;">
+    <div class="row">
+        <div class="col-lg-3">
+        <div class="card">
+           <div class="card-body">
+              <div class="d-flex justify-content-between">
+                 <!-- <div class=" rounded p-3">
+                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg"  width="24"   fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                 </div> -->
+                 <div>
+                    <span>Total Events</span>
+                 </div>
+              </div>
+              <div class="text-center">
+                    <h2 class="counter"><%= eventCount.totalEventsCounts%></h2>
+                 <!-- <div>
+                    <span class="text-success">
+                       <svg class="icon-10" xmlns="http://www.w3.org/2000/svg"  width="10"   viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                       </svg>
+                       10%
+                    </span>
+                    <span>Increased</span>
+                 </div> -->
+              </div>
+           </div>
+           <div id="chart-1"></div>
+        </div>
+        </div>
+        <div class="col-lg-3">
+        <div class="card">
+           <div class="card-body">
+              <div class="d-flex justify-content-between">
+                 <!-- <div class=" rounded p-3">
+                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg"  width="24"   fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                 </div> -->
+                 <div>
+                    <span>Ongoing Events</span>
+                 </div>
+              </div>
+              <div class="text-center">
+                    <h2 class="counter"><%= eventCount.ongoingEventsCount%></h2>
+                 <!-- <div>
+                    <span class="text-success">
+                       <svg class="icon-10" xmlns="http://www.w3.org/2000/svg"  width="10"   viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                       </svg>
+                       10%
+                    </span>
+                    <span>Increased</span>
+                 </div> -->
+              </div>
+           </div>
+           <div id="chart-2"></div>
+        </div>
+        </div>
+        <div class="col-lg-3">
+        <div class="card">
+           <div class="card-body">
+              <div class="d-flex justify-content-between">
+                 <!-- <div class=" rounded p-3">
+                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg"  width="24"   fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                 </div> -->
+                 <div>
+                    <span>Upcoming Events</span>
+                 </div>
+              </div>
+              <div class="text-center">
+                    <h2 class="counter"><%= eventCount.upcomingEventsCount%></h2>
+                 <!-- <div>
+                    <span class="text-success">
+                       <svg class="icon-10" xmlns="http://www.w3.org/2000/svg"  width="10"   viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                       </svg>
+                       10%
+                    </span>
+                    <span>Increased</span>
+                 </div> -->
+              </div>
+           </div>
+           <div id="chart-3"></div>
+        </div>
+        </div>
+        <div class="col-lg-3">
+        <div class="card">
+           <div class="card-body">
+              <div class="d-flex justify-content-between">
+                 <!-- <div class=" rounded p-3">
+                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg"  width="24"   fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                 </div> -->
+                 <div>
+                    <span>Completed Events</span>
+                 </div>
+              </div>
+              <div class="text-center">
+                    <h2 class="counter"><%= eventCount.completedEventsCount%></h2>
+                 <!-- <div>
+                    <span class="text-success">
+                       <svg class="icon-10" xmlns="http://www.w3.org/2000/svg"  width="10"   viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                       </svg>
+                       10%
+                    </span>
+                    <span>Increased</span>
+                 </div> -->
+              </div>
+           </div>
+           <div id="chart-4"></div>
+        </div>
+        </div>
+     </div>
+    <div class="col-sm-12">
+       <div class="card">
+          <div class="card-header d-flex justify-content-between">
+             <div class="header-title">
+                <h4 class="card-title">View  Events</h4>
+             </div>
+          </div>
+          <div class="card-body">
+            <p>Top 3 upcoming Events</p>
+            <div class="table-responsive">
+                <table id="basic-table" class="table table-striped mb-0" role="grid">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% upcomingEvents.forEach(event => { %>
+                        <tr>
+                            <td><%= event.eventName %></td>
+                            <td><%= moment(event.eventStartDate).format('MMMM DD, YYYY') %></td>
+                            <td><%= moment(event.eventEndDate).format('MMMM DD, YYYY ') %></td>
+                            <td>
+                                <!-- HREF TO OPEN INDIVIDUAL EVENT PAGE -->
+                                <a href="/events/view-event-by-id/<%= event._id %>">
+                                    <img src="/images/icons/eyeIcon.png" alt="" srcset="">
+                                </a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+          <div class="card-body">
+            <p>Top 3 Ongoing Events</p>
+            <div class="table-responsive">
+                <table id="basic-table" class="table table-striped mb-0" role="grid">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% ongoingEvents.forEach(event => { %>
+                        <tr>
+                            <td><%= event.eventName %></td>
+                            <td><%= moment(event.eventStartDate).format('MMMM DD, YYYY') %></td>
+                            <td><%= moment(event.eventEndDate).format('MMMM DD, YYYY ') %></td>
+                            <td>
+                                <!-- HREF TO OPEN INDIVIDUAL EVENT PAGE -->
+                                <a href="/events/view-event-by-id/<%= event._id %>">
+                                    <img src="/images/icons/eyeIcon.png" alt="" srcset="">
+                                </a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+             </div>
+    </div>
 
-<%- include('./includes/footer.ejs') %>
+</div>
+
+      
+      <%- include('./includes/footer.ejs') %>

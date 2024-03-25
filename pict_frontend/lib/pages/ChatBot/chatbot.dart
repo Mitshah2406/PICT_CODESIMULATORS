@@ -110,7 +110,15 @@ class _ChatBotState extends State<ChatBot> {
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: TColors.primaryGreen.withOpacity(0.4),
+                              color: messages[index].role == "user"
+                                  ? Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? TColors.white
+                                      : TColors.primaryYellow.withOpacity(.7)
+                                  : Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? TColors.accentGreen
+                                      : TColors.primaryGreen.withOpacity(.6),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,8 +130,8 @@ class _ChatBotState extends State<ChatBot> {
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: messages[index].role == "user"
-                                        ? TColors.darkerGrey
-                                        : TColors.buttonPrimary,
+                                        ? TColors.info
+                                        : TColors.error,
                                   ),
                                 ),
                                 const Divider(
@@ -134,7 +142,11 @@ class _ChatBotState extends State<ChatBot> {
                                 ),
                                 Text(
                                   messages[index].parts.first.text,
-                                  style: const TextStyle(height: 1.2),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          height: 1.2, color: TColors.black),
                                 ),
                               ],
                             ),
@@ -145,15 +157,11 @@ class _ChatBotState extends State<ChatBot> {
                     if (chatBloc.generating)
                       Row(
                         children: [
-                          Container(
+                          SizedBox(
                             height: 100,
                             width: 100,
                             child: Lottie.asset('assets/loader.json'),
                           ),
-                          // const SizedBox(width: 20),
-                          // const Text(
-                          //   "Loading...",
-                          // )
                         ],
                       ),
                     Container(
@@ -167,19 +175,16 @@ class _ChatBotState extends State<ChatBot> {
                               style: const TextStyle(color: Colors.black),
                               cursorColor: Theme.of(context).primaryColor,
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
                                 fillColor: Colors.white,
-                                hintText: "Ask Something from AI",
+                                hintText: "Ask Something From WasteBot",
                                 hintStyle:
                                     TextStyle(color: Colors.grey.shade400),
                                 filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).primaryColor),
-                                ),
+                                // focusedBorder: OutlineInputBorder(
+                                //   borderRadius: BorderRadius.circular(100),
+                                //   //   borderSide: BorderSide(
+                                //   //       color: Theme.of(context).),
+                                // ),
                               ),
                             ),
                           ),

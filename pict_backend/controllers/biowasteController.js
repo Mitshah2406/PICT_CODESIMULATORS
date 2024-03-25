@@ -68,7 +68,7 @@ exports.getBiowasteResources = async (req, res) => {
 // Add resources
 exports.addResourcesPage = function (req, res) {
   if (req.session.authority) {
-    res.render("Biowaste/addResources");
+    res.render("Biowaste/addResources",{authority:req.session.authority});
   } else {
     res.redirect("/authority/login-page");
   }
@@ -82,7 +82,7 @@ exports.getResourcesPage = async (req, res) => {
   try {
     const resources = new Biowaste();
     const resourceData = await resources.getBiowasteResources();
-    res.render("Biowaste/viewResources", { resources: resourceData });
+    res.render("Biowaste/viewResources", { resources: resourceData,authority: req.session.authority, });
   } catch (error) {
     console.error("Error fetching resources:", error);
     res.status(500).send("Error fetching resources");

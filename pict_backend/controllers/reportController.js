@@ -2,6 +2,7 @@ const e = require("connect-flash");
 let Report = require("../models/Report");
 let User = require("../models/User");
 let path = require("path");
+let moment= require('moment')
 exports.addReport = async (req, res) => {
   try {
     console.log(req.body);
@@ -152,7 +153,6 @@ exports.getCountOfAllUserReports = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 exports.searchReport = async (req, res) => {
   try {
     let report = new Report();
@@ -164,3 +164,99 @@ exports.searchReport = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
+
+
+
+// Frontend Controller
+exports.viewAllReportsPage = async (req,res)=>{
+  try {
+    const report = new Report();
+    const reportsData = await report.getAllReports();
+    res.render("Reports/viewReports", { reports: reportsData,authority: req.session.authority, });
+  } catch (error) {
+    console.error("Error fetching resources:", error);
+    res.status(500).send("Error fetching resources");
+  }
+}
+exports.viewReportsByIdPage=async(req,res)=>{
+  try{
+    const reportId= req.params.reportId;
+    const report = await new Report().getReportById(reportId);
+    res.render('Reports/viewIndivitualReports',{result:report,authority: req.session.authority,moment:moment})
+  }
+  catch(err){
+    console.error(err);
+    res.status(500).send("Error fetching indivitual event")
+  }
+}
+
+exports.viewAllRejetedReportsPage=async(req,res)=>{
+  try{
+    const report = await new Report().getReportsByStatus("rejected");
+    res.render('Reports/viewRejectedReports',{rejectedReports:report,authority: req.session.authority,moment:moment})
+  }
+  catch(err){
+    console.error(err);
+    res.status(500).send("Error fetching indivitual event")
+  }
+}
+exports.viewAllResolvedReportsPage=async(req,res)=>{
+  try{
+    const report = await new Report().getReportsByStatus("resolved");
+    res.render('Reports/viewResolvedReports',{resolvedReports:report,authority: req.session.authority,moment:moment})
+  }
+  catch(err){
+    console.error(err);
+    res.status(500).send("Error fetching indivitual event")
+  }
+}
+exports.viewAllPendingReportsPage=async(req,res)=>{
+  try{
+    const report = await new Report().getReportsByStatus("pending");
+    res.render('Reports/viewPendingReports',{pendingReports:report,authority: req.session.authority,moment:moment})
+  }
+  catch(err){
+    console.error(err);
+    res.status(500).send("Error fetching indivitual event")
+  }
+}
+exports.rejectReport=async(req,res)=>{
+  const reportId= req.params.reportId;
+  try{
+    const status = await  new Report().changeReportStatus(reportId,"rejected")
+    if(status == "updated"){
+      req.flash("success", "Report status changed  to rejected successfully!");
+      return res.redirect('/reports/view-pending-reports')
+    }
+    else{
+      req.flash("error", "Server Error");
+      return res.redirect("/reports/view-pending-reports");
+    }
+  }
+  catch (err) {
+    console.log(err);
+    req.flash("error", "Server Error");
+    return res.redirect("/reports/view-pending-reports");
+  }
+}
+exports.resolveReport=async(req,res)=>{
+  const reportId= req.params.reportId;
+  try{
+    const status = await  new Report().changeReportStatus(reportId,"resolved")
+    if(status == "updated"){
+      req.flash("success", "Report status changed  to resolved successfully!");
+      return res.redirect('/reports/view-pending-reports')
+    }
+    else{
+      req.flash("error", "Server Error");
+      return res.redirect("/reports/view-pending-reports");
+    }
+  }
+  catch (err) {
+    console.log(err);
+    req.flash("error", "Server Error");
+    return res.redirect("/reports/view-pending-reports");
+  }
+}

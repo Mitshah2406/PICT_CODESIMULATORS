@@ -1,0 +1,56 @@
+<%- include('../includes/header.ejs',{authority:authority}) %>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">View All Pending Reports</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <%- include('../includes/flash.ejs') %>
+                <p>All The pending reports are displayed here</p>
+                <div class="table-responsive">
+                    <table id="datatable" class="table table-striped" data-toggle="data-table">
+                        <thead>
+                            <tr>
+                                <th>Uploader Name</th>
+                                <th>Description</th>
+                                <th>Report Status</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% pendingReports.forEach(report => { %>
+                            <tr>
+                                <td><%= report.uploaderName %></td>
+                                <td><%= report.description %></td>
+                                <td><%= report.reportStatus %></td>
+                                <td>
+                                    
+                                    
+                                        <form method="post" action="/reports/reject-report/<%= report._id %>">
+
+                                            <button class="btn btn-danger">
+                                                Reject
+                                            </button>
+                                        </form>
+                                        <form method="post" action="/reports/resolve-report/<%= report._id %>" >
+
+                                            <button class="btn btn-success mt-3">
+                                                Resolved
+                                            </button>
+                                            
+                                        </form>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../includes/footer.ejs') %>
