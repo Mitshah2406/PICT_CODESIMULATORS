@@ -88,3 +88,27 @@ exports.getResourcesPage = async (req, res) => {
     res.status(500).send("Error fetching resources");
   }
 };
+
+exports.getVideoResource = async (req, res) => {
+  try {
+    let resource = new Biowaste();
+    let data = await resource.getVideoResource();
+
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("Internal server error");
+  }
+};
+
+exports.getBlogResources = async (req, res) => {
+  try {
+    let resource = new Biowaste();
+    let data = await resource.getBlogResources();
+
+    return res.status(200).json({ result: data });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("Internal server error");
+  }
+};

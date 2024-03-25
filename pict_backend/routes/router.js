@@ -185,6 +185,10 @@ router.post("/getPresentParticipants", eventController.getPresentParticipants);
 // Certificate generation
 router.post("/generateCertificate", eventController.generateCertificate);
 
+// ? BioWaste Module
+router.get("/getVideoResources", biowasteController.getVideoResource);
+router.get("/getBlogResources", biowasteController.getBlogResources);
+
 //          ------ Frontend  routes ------
 
 // login route
@@ -194,6 +198,7 @@ router.get("/", authorityController.homePage);
 // Bio waste routes
 router.get("/biowaste/add-resources-page", biowasteController.addResourcesPage);
 router.get("/biowaste/get-resources-page", biowasteController.getResourcesPage);
+
 // Events Routes
 router.get("/events/view-all-events", eventController.viewAllEventsPage);
 router.get(
