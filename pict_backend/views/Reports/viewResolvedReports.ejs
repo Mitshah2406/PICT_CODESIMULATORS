@@ -1,0 +1,44 @@
+<%- include('../includes/header.ejs',{authority:authority}) %>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">View All Resolved Reports</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <p>All The resolved reports are displayed here</p>
+                <div class="table-responsive">
+                    <table id="datatable" class="table table-striped" data-toggle="data-table">
+                        <thead>
+                            <tr>
+                                <th>Uploader Name</th>
+                                <th>Description</th>
+                                <th>Report Status</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% resolvedReports.forEach(report => { %>
+                            <tr>
+                                <td><%= report.uploaderName %></td>
+                                <td><%= report.description %></td>
+                                <td><%= report.reportStatus %></td>
+                                <td>
+                                    <!-- HREF TO OPEN INDIVIDUAL EVENT PAGE -->
+                                    <a href="/reports/view-report-by-id/<%= report._id %>">
+                                        <img src="/images/icons/eyeIcon.png" alt="" srcset="">
+                                    </a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../includes/footer.ejs') %>

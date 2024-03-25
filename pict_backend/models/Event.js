@@ -31,12 +31,8 @@ Event.prototype.cleanUp = function () {
     eventAddress: this.data.eventAddress,
     eventCity: this.data.eventCity,
     noOfVolunteersNeeded: Number(this.data.noOfVolunteersNeeded),
-<<<<<<< HEAD
-    CertificateTemplate: this.data.participationCertificateTemplate,
-=======
     participationCertificateTemplate:
       this.data.participationCertificateTemplate,
->>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
     volunteerCertificateTemplate: this.data.volunteerCertificateTemplate,
     volunteerResponsibilities: this.data.volunteerResponsibilities,
     volunteers: [],

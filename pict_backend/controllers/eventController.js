@@ -141,7 +141,6 @@ exports.addEvent = async function (req, res) {
     let result = await event.addEvent();
 
     if (result.status == "ok") {
-<<<<<<< HEAD
       
       axios.post('http://localhost:4000/account/signUp', {
         accountFirstName: req.body.organizerName,
@@ -167,26 +166,6 @@ exports.addEvent = async function (req, res) {
 
           req.flash('error', 'Internal server error');
           return res.redirect('/events/add-events-page');
-=======
-      axios
-        .post("http://localhost:4000/account/signUp", {
-          accountFirstName: req.body.organizerName,
-          accountLastName: req.body.organizerName,
-          accountEmail: req.body.organizerEmail,
-          accountMobileNo: req.body.organizerNumber,
-          accountPassword: "qwerty",
-          role: "organizer",
-        })
-        .then(function (response) {
-          console.log(response.data);
-          return res
-            .status(200)
-            .json({ message: "Event Added Successfully", eventId: result.id });
-        })
-        .catch(function (error) {
-          console.log(error);
-          return res.status(500).json({ message: "Internal Server Error" });
->>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
         });
     }
 
@@ -673,7 +652,6 @@ exports.getUpcomingEventsOfMonth = async function (req, res) {
 };
 
 // Frontend Controller
-<<<<<<< HEAD
 exports.viewAllEventsPage= async(req,res)=>{
 try{
   const events=await new Event().getAllEvents();
@@ -688,75 +666,35 @@ try{
     const upcomingEvents = await new Event().getAllUpcomingEvents();
     res.render('Events/viewUpcomingEvents',{upcomingEvents:upcomingEvents,authority: req.session.authority,moment:moment});
   }catch(err){
-=======
-exports.viewAllEventsPage = async (req, res) => {
-  if (!req.session.authority) {
-    return req.redirect("/authority/login-page");
-  }
-  try {
-    const events = await new Event().getAllEvents();
-    res.render("Events/viewAllEvents", { events: events });
-  } catch (err) {
->>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
     console.error(err);
     res.status(500).send("Error fetching events");
   }
-<<<<<<< HEAD
 }
 exports.viewOngoingEventsPage= async(req,res)=>{
 try{
     const ongoingEvents = await new Event().getAllOngoingEvents()
     res.render('Events/viewOngoingEvents',{ongoingEvents:ongoingEvents,authority: req.session.authority,moment:moment})
-=======
-};
-exports.viewUpcomingEventsPage = async (req, res) => {
-  if (!req.session.authority) {
-    return req.redirect("/authority/login-page");
   }
-  try {
-    const upcomingEvents = await new Event().getAllUpcomingEvents();
-    res.render("Events/viewUpcomingEvents", { upcomingEvents: upcomingEvents });
-  } catch (err) {
+  catch (err) {
     console.error(err);
-    res.status(500).send("Error fetching upcoming  events");
->>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
+    res.status(500).send("Error fetching ongoing events");
   }
 };
 exports.viewOngoingEventsPage = async (req, res) => {
   if (!req.session.authority) {
     res.redirect("/authority/login-page");
   }
-<<<<<<< HEAD
 
 }
 exports.viewCompletedEventsPage= async(req,res)=>{
 try{
     const completedEvents = await new Event().getAllCompletedEvents()
     res.render('Events/viewCompletedEvents',{completedEvents:completedEvents,authority: req.session.authority,moment:moment})
-=======
-  try {
-    const ongoingEvents = await new Event().getAllOngoingEvents();
-    res.render("Events/viewOngoingEvents", { ongoingEvents: ongoingEvents });
-  } catch (err) {
+  }
+ catch (err) {
     console.error(err);
-    res.status(500).send("Error fetching ongoing events");
+    res.status(500).send("Error fetching completed events");
   }
-};
-exports.viewCompletedEventsPage = async (req, res) => {
-  if (!req.session.authority) {
-    res.redirect("/authority/login-page");
->>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e
-  }
-  try {
-    const completedEvents = await new Event().getAllCompletedEvents();
-    res.render("Events/viewCompletedEvents", {
-      completedEvents: completedEvents,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error fetching ongoing events");
-  }
-<<<<<<< HEAD
 
 }
 exports.viewEventsByIdPage=async(req,res)=>{
@@ -773,25 +711,3 @@ catch(err){
 exports.addEventsPage=async(req,res)=>{
 res.render('Events/addEvents',{authority: req.session.authority,moment:moment});
 }
-=======
-};
-exports.viewEventsByIdPage = async (req, res) => {
-  if (!req.session.authority) {
-    res.redirect("authority/login-page");
-  }
-  try {
-    const eventId = req.params.eventId;
-    const event = await new Event().getEventById(eventId);
-    res.render("Events/viewIndivitualEvents", { result: event });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error fetching indivitual event");
-  }
-};
-exports.addEventsPage = async (req, res) => {
-  if (!req.session.authority) {
-    res.redirect("authority/login-page");
-  }
-  res.render("Events/addEvents");
-};
->>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e

@@ -66,26 +66,9 @@ exports.getBiowasteResources = async (req, res) => {
 
 // Frontend Controllers
 // Add resources
-<<<<<<< HEAD
-exports.addResourcesPage = function (req,res){
-    res.render('Biowaste/addResources',{authority: req.session.authority})
-}
-// Get resources
-exports.getResourcesPage = async (req,res)=>{
- try {
-    const resources = new Biowaste();
-    const resourceData = await resources.getBiowasteResources();
-    res.render('Biowaste/viewResources', { resources: resourceData , authority: req.session.authority,});
-} catch (error) {
-    console.error('Error fetching resources:', error);
-    res.status(500).send('Error fetching resources');
-}
-}
-
-=======
 exports.addResourcesPage = function (req, res) {
   if (req.session.authority) {
-    res.render("Biowaste/addResources");
+    res.render("Biowaste/addResources",{authority:req.session.authority});
   } else {
     res.redirect("/authority/login-page");
   }
@@ -99,10 +82,9 @@ exports.getResourcesPage = async (req, res) => {
   try {
     const resources = new Biowaste();
     const resourceData = await resources.getBiowasteResources();
-    res.render("Biowaste/viewResources", { resources: resourceData });
+    res.render("Biowaste/viewResources", { resources: resourceData,authority: req.session.authority, });
   } catch (error) {
     console.error("Error fetching resources:", error);
     res.status(500).send("Error fetching resources");
   }
 };
->>>>>>> 6c207d9154006a0c62ef3a7c5146434eb1f6420e

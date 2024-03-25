@@ -189,39 +189,7 @@ router.post("/getPresentParticipants", eventController.getPresentParticipants);
 // Certificate generation
 router.post("/generateCertificate", eventController.generateCertificate);
 
-//          ------ Frontend  routes ------
 
-// login route
-router.get("/authority/login-page", authorityController.loginPage);
-// Home page route
-router.get("/", authorityController.homePage);
-// Bio waste routes
-router.get("/biowaste/add-resources-page", biowasteController.addResourcesPage);
-router.get("/biowaste/get-resources-page", biowasteController.getResourcesPage);
-// Events Routes
-router.get("/events/view-all-events", eventController.viewAllEventsPage);
-router.get(
-  "/events/view-upcoming-events",
-  eventController.viewUpcomingEventsPage
-);
-router.get(
-  "/events/view-ongoing-events",
-  eventController.viewOngoingEventsPage
-);
-router.get(
-  "/events/view-completed-events",
-  eventController.viewCompletedEventsPage
-);
-router.get(
-  "/events/view-event-by-id/:eventId",
-  eventController.viewEventsByIdPage
-);
-router.get("/events/add-events-page", eventController.addEventsPage);
-//404
-
-router.get("*", (req, res) => {
-  res.status(404).send("404: Page not found");
-});
 
 // ? Item Listing Module (Buy & Sell)
 router.post("/addItem", itemlistingContoller.addItem);
@@ -337,11 +305,18 @@ router.get("/events/view-ongoing-events",requireAuth,eventController.viewOngoing
 router.get("/events/view-completed-events",requireAuth,eventController.viewCompletedEventsPage)
 router.get("/events/view-event-by-id/:eventId",requireAuth,eventController.viewEventsByIdPage)
 router.get("/events/add-events-page" ,requireAuth,eventController.addEventsPage)
-
+// Report Routes
+router.get("/reports/view-all-reports",requireAuth,reportController.viewAllReportsPage)
+router.get("/reports/view-report-by-id/:reportId",requireAuth,reportController.viewReportsByIdPage)
+router.get("/reports/view-rejected-reports",requireAuth,reportController.viewAllRejetedReportsPage)
+router.get("/reports/view-resolved-reports",requireAuth,reportController.viewAllResolvedReportsPage)
+router.get("/reports/view-pending-reports",requireAuth,reportController.viewAllPendingReportsPage)
+router.post("/reports/reject-report/:reportId",requireAuth,reportController.rejectReport)
+router.post("/reports/resolve-report/:reportId",requireAuth,reportController.resolveReport)
 //404
 
 router.get("*", (req, res) => {
   res.status(404).send("404: Page not found");
 });
-
+  
 module.exports = router;
