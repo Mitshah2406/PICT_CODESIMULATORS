@@ -3,18 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
-import 'package:pict_frontend/pages/Auth/signup_screen.dart';
 import 'package:pict_frontend/pages/Organizer/organizer_dashboard.dart';
-// import 'package:pict_frontend/pages/Events/events_new/events_home.dart';
-import 'package:pict_frontend/pages/Organizer/organizer_home_screen.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
-import 'package:pict_frontend/pages/Report/addReport.dart';
 import 'package:pict_frontend/pages/User/user_dashboard.dart';
-import 'package:pict_frontend/pages/User/user_home_screen.dart';
-import 'package:pict_frontend/pages/User/user_profile.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
-// import 'package:notes/pages/Dashboard.dart';
-// import 'package:notes/pages/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
