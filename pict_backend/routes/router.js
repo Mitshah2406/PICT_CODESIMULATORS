@@ -9,6 +9,10 @@ const reportController = require("../controllers/reportController");
 const wastePickupScheduleController = require("../controllers/wastePickupScheduleController");
 const authorityController = require("../controllers/authorityController");
 const biowasteController = require("../controllers/biowasteController");
+const binController = require("../controllers/binController")
+const depotController = require("../controllers/depotController")
+const driverController = require("../controllers/driverController")
+const truckController = require("../controllers/truckController")
 // ? Authentication module
 
 // Check authorization
@@ -137,65 +141,6 @@ router.post(
   wastePickupScheduleController.addWastePickupSchedule
 );
 
-// ---------Routes for govt. authority-----------
-
-//          ---- Backend routes -----
-
-// login route
-router.post("/login", authorityController.login);
-router.get("/logout", authorityController.logout);
-// -- Bio Waste Resources --
-// add bio resource
-router.post("/biowaste/addResources", biowasteController.addResources);
-router.get("/biowaste/getResources", biowasteController.getBiowasteResources);
-
-// Event's Routes
-router.post("/addEvent", eventController.addEvent);
-router.post("/deleteEventById/:eventId", eventController.deleteEventById);
-router.get("/getEvents", eventController.getEvents);
-router.get("/getEventById/:eventId", eventController.getEventById);
-router.get("/getUpcomingEvents", eventController.getUpcomingEvents);
-router.get("/getCompletedEvents", eventController.getCompletedEvents);
-router.get("/getOngoingEvents", eventController.getOngoingEvents);
-router.get("/getTotalEventsCount", eventController.getTotalEventsCount);
-router.get(
-  "/getAllUpcomingEventsCount",
-  eventController.getAllUpcomingEventsCount
-);
-router.get(
-  "/getAllCompletedEventsCount",
-  eventController.getAllCompletedEventsCount
-);
-router.get(
-  "/getAllOngoingEventsCount",
-  eventController.getAllOngoingEventsCount
-);
-
-// Get latest 3 registered events of users
-router.post(
-  "/getLatest3UserRegisteredEvents",
-  eventController.getLatest3UserRegisteredEvents
-);
-
-// Getting upcoming events of this month
-router.get(
-  "/getUpcomingEventsOfMonth",
-  eventController.getUpcomingEventsOfMonth
-);
-
-// Get All registered participants in the specific event, which will be shown on the webApp
-router.post(
-  "/getRegisteredParticipants",
-  eventController.getRegisteredParticipants
-);
-
-// Get All present participants in the specific event, and there will be the generate certificate button when clicked the certificate will be generated for that user.
-router.post("/getPresentParticipants", eventController.getPresentParticipants);
-
-// Certificate generation
-router.post("/generateCertificate", eventController.generateCertificate);
-
-
 
 // ? Item Listing Module (Buy & Sell)
 router.post("/addItem", itemlistingContoller.addItem);
@@ -247,6 +192,30 @@ router.post("/pickup/addWastePickupSchedule", wastePickupScheduleController.addW
 
 
 
+// Bin Module
+router.get('/bin/getAllBins',binController.getAllBins)
+router.post('/bin/addBin' , binController.addBin);
+router.get('/bin/getBinLocationById/:binId',binController.getBinLocationById)
+router.get('/bin/getBinFillLevelById/:binId',binController.getBinFillLevelById)
+router.post('/bin/addWaste/:binId',binController.addWaste)
+router.get('/bin/collectWaste/:binId',binController.collectWaste)
+// Depot Module
+router.get('/depot/getAllDepots',depotController.getAllDepots)
+router.post('/depot/addDepot' , depotController.addDepot);
+router.get('/depot/getDepotLocationById/:depotId',depotController.getDepotLocationById)
+router.get('/depot/getDepotCapacityById/:depotId',depotController.getDepotCapacityById)
+// Driver Module
+router.post('driver/login',driverController.login)
+router.get("driver/getTruckId/:driverId",driverController.getTruckId)
+router.post("driver/setTruckId/:driverId",driverController.setTruckId)
+// Truck Module
+router.get('/truck/getAllTrucks', truckController.getAllTrucks);
+router.get('/truck/getTruckById/:truckId', truckController.getTruckById);
+router.post('/truck/addWaste/:truckId', truckController.addWaste);
+router.post('/truck/collectBin/:truckId', truckController.collectBin);
+router.get('/truck/pendingBins/:truckId', truckController.pendingBins);
+router.post('/truck/resetBinsCollectedStatus/:truckId', truckController.resetBinsCollectedStatus);
+router.get('/truck/getPendingBinsWithLocations/:truckId', truckController.getPendingBinsWithLocations);
 
 
 // ---------Routes for govt. authority-----------
