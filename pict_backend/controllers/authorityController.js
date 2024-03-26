@@ -1,12 +1,12 @@
 const Authority = require('../models/Authority')
-
-
+const Event = require("../models/Event");
+var moment = require('moment');
 // Backend Controller
 
 // Authority login
 exports.login = async (req, res) => {
   try {
-      const { authorityEmail, authorityPassword } = req.body;
+      const { authorityName, authorityEmail, authorityPassword } = req.body;
       let authority = new Authority();
       let response = await authority.login(authorityEmail, authorityPassword);
       
@@ -15,7 +15,7 @@ exports.login = async (req, res) => {
           return res.redirect('/authority/login-page'); // Redirect back to the sign-in page
       }
 
-      req.session.authority = { authorityEmail: response.authorityEmail };
+      req.session.authority = { authorityEmail: response.authorityEmail, authorityName:response.authorityName };
       req.session.save(function () {
           res.redirect('/');
       });
@@ -46,11 +46,28 @@ exports.loginPage = function (req,res){
   res.render('Authorization/signIn', { errors, success });
 }
 // Home page
-exports.homePage = function (req,res){
-  if(req.session.authority){
-    res.render('home')
+exports.homePage = async (req,res)=>{
+  console.log(req.session.authority)
+  try{
+    const upcomingEvents = await new Event().getAllUpcomingEvents();
+    const top3UpcomingEvents = upcomingEvents.slice(0, 3);
+    const ongoingEvents = await new Event().getAllOngoingEvents();
+    const top3OngoingEvents = ongoingEvents.slice(0, 3);
+    const totalEventsCounts = await new Event().getTotalEventsCount()
+    const upcomingEventsCount =  await new Event().getAllUpcomingEventsCount()
+    const ongoingEventsCount =await new Event().getAllOngoingEventsCount()
+    const completedEventsCount =await new Event().getAllCompletedEventsCount()
+    const eventCount = {
+      totalEventsCounts,
+      ongoingEventsCount,
+      upcomingEventsCount,
+      completedEventsCount
+    }
+    console.log(eventCount)
+    res.render('home',{authority:req.session.authority,upcomingEvents: top3UpcomingEvents,ongoingEvents:top3OngoingEvents,eventCount,moment:moment})
+  }catch(err){
+    console.error(err);
+    res.status(500).send("Error fetching events");
   }
-  else{
-    res.redirect('/authority/login-page')
-  }
+  
 }

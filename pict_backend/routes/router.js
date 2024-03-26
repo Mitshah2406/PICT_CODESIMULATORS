@@ -11,6 +11,16 @@ const authorityController = require("../controllers/authorityController");
 const biowasteController = require("../controllers/biowasteController");
 // ? Authentication module
 
+// Check authorization
+const requireAuth = (req, res, next) => {
+  if (!req.session.authority) {
+    // If the doctor is not in session, redirect to the login page
+    return res.redirect("/authority/login-page");
+  }
+  // If the doctor is authenticated, proceed to the next middleware
+  next();
+};
+
 // Create a new account, and segregating based on the roles
 router.post("/account/signUp", accountController.signUp);
 
@@ -54,7 +64,7 @@ router.post(
 
 // Get Count of user who is present in the events
 router.post(
-  "/getUserEventParticipationCountById",
+  "/getUserEventCountById",
   eventController.getUserEventParticipationCountById
 );
 
@@ -185,6 +195,10 @@ router.post("/getPresentParticipants", eventController.getPresentParticipants);
 // Certificate generation
 router.post("/generateCertificate", eventController.generateCertificate);
 
+// ? BioWaste Module
+router.get("/getVideoResources", biowasteController.getVideoResource);
+router.get("/getBlogResources", biowasteController.getBlogResources);
+
 //          ------ Frontend  routes ------
 
 // login route
@@ -194,6 +208,7 @@ router.get("/", authorityController.homePage);
 // Bio waste routes
 router.get("/biowaste/add-resources-page", biowasteController.addResourcesPage);
 router.get("/biowaste/get-resources-page", biowasteController.getResourcesPage);
+
 // Events Routes
 router.get("/events/view-all-events", eventController.viewAllEventsPage);
 router.get(
@@ -248,5 +263,163 @@ router.post(
   "/checkIfItemAlreadyExist",
   itemlistingContoller.checkIfItemAlreadyExist
 );
+
+// Reporting Module
+
+//add report for unhygenic place with a attachment
+router.post("/report/addReport", reportController.addReport);
+//get all reports
+router.get("/report/getAllReports", reportController.getAllReports);
+// get single report by id
+router.get("/report/getReportById/:reportId", reportController.getReportById);
+// change report status accordingly to pending(by default), resolved, rejected(if fake report)
+router.post("/report/changeReportStatus", reportController.changeReportStatus);
+// get reports by status (pending, resolved, rejected)
+router.get(
+  "/report/getReportsByStatus/:reportStatus",
+  reportController.getReportsByStatus
+);
+
+//waste pickup schedule module
+router.post(
+  "/pickup/addWastePickupSchedule",
+  wastePickupScheduleController.addWastePickupSchedule
+);
+
+// ---------Routes for govt. authority-----------
+
+//          ---- Backend routes -----
+
+// login route
+router.post("/login", authorityController.login);
+router.get("/logout", authorityController.logout);
+// -- Bio Waste Resources --
+// add bio resource
+router.post("/biowaste/addResources", biowasteController.addResources);
+router.get("/biowaste/getResources", biowasteController.getBiowasteResources);
+
+// Event's Routes
+router.post("/addEvent", eventController.addEvent);
+router.post("/deleteEventById/:eventId", eventController.deleteEventById);
+router.get("/getEvents", eventController.getEvents);
+router.get("/getEventById/:eventId", eventController.getEventById);
+router.get("/getUpcomingEvents", eventController.getUpcomingEvents);
+router.get("/getCompletedEvents", eventController.getCompletedEvents);
+router.get("/getOngoingEvents", eventController.getOngoingEvents);
+router.get("/getTotalEventsCount", eventController.getTotalEventsCount);
+router.get(
+  "/getAllUpcomingEventsCount",
+  eventController.getAllUpcomingEventsCount
+);
+router.get(
+  "/getAllCompletedEventsCount",
+  eventController.getAllCompletedEventsCount
+);
+router.get(
+  "/getAllOngoingEventsCount",
+  eventController.getAllOngoingEventsCount
+);
+
+// Get All registered participants in the specific event, which will be shown on the webApp
+router.post(
+  "/getRegisteredParticipants",
+  eventController.getRegisteredParticipants
+);
+
+// Get All present participants in the specific event, and there will be the generate certificate button when clicked the certificate will be generated for that user.
+router.post("/getPresentParticipants", eventController.getPresentParticipants);
+
+// Certificate generation
+router.post("/generateCertificate", eventController.generateCertificate);
+
+//          ------ Frontend  routes ------
+
+// login route
+router.get("/authority/login-page", authorityController.loginPage);
+// Home page route
+router.get("/", requireAuth, authorityController.homePage);
+// Bio waste routes
+router.get(
+  "/biowaste/add-resources-page",
+  requireAuth,
+  biowasteController.addResourcesPage
+);
+router.get(
+  "/biowaste/get-resources-page",
+  requireAuth,
+  biowasteController.getResourcesPage
+);
+// Events Routes
+router.get(
+  "/events/view-all-events",
+  requireAuth,
+  eventController.viewAllEventsPage
+);
+router.get(
+  "/events/view-upcoming-events",
+  requireAuth,
+  eventController.viewUpcomingEventsPage
+);
+router.get(
+  "/events/view-ongoing-events",
+  requireAuth,
+  eventController.viewOngoingEventsPage
+);
+router.get(
+  "/events/view-completed-events",
+  requireAuth,
+  eventController.viewCompletedEventsPage
+);
+router.get(
+  "/events/view-event-by-id/:eventId",
+  requireAuth,
+  eventController.viewEventsByIdPage
+);
+router.get(
+  "/events/add-events-page",
+  requireAuth,
+  eventController.addEventsPage
+);
+// Report Routes
+router.get(
+  "/reports/view-all-reports",
+  requireAuth,
+  reportController.viewAllReportsPage
+);
+router.get(
+  "/reports/view-report-by-id/:reportId",
+  requireAuth,
+  reportController.viewReportsByIdPage
+);
+router.get(
+  "/reports/view-rejected-reports",
+  requireAuth,
+  reportController.viewAllRejetedReportsPage
+);
+router.get(
+  "/reports/view-resolved-reports",
+  requireAuth,
+  reportController.viewAllResolvedReportsPage
+);
+router.get(
+  "/reports/view-pending-reports",
+  requireAuth,
+  reportController.viewAllPendingReportsPage
+);
+router.post(
+  "/reports/reject-report/:reportId",
+  requireAuth,
+  reportController.rejectReport
+);
+router.post(
+  "/reports/resolve-report/:reportId",
+  requireAuth,
+  reportController.resolveReport
+);
+//404
+
+router.get("*", (req, res) => {
+  res.status(404).send("404: Page not found");
+});
 
 module.exports = router;

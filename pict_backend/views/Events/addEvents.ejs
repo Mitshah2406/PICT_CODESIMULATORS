@@ -1,16 +1,18 @@
-<%- include('../includes/header.ejs') %>
-
+<%- include('../includes/header.ejs',{authority:authority}) %>
 
 <div class="row">                
     <div class="col-sm-12 col-lg-12">
         <div class="card">
+            <%- include('../includes/flash.ejs') %>
             <div class="card-header d-flex justify-content-between">
-            <div class="header-title">
-                <h4 class="card-title">Simple Wizard</h4>
+                <div class="header-title">
+                    <h4 class="card-title">Add New Events</h4>
+                    
             </div>
             </div>
             <div class="card-body">
-            <form id="form-wizard1" class="mt-3 text-center">
+            <form id="form-wizard1" class="mt-3 text-center" action="/addEvent" method="POST" enctype="multipart/form-data">
+
                 <ul id="top-tab-list" class="p-0 row list-inline">
                     <li class="mb-2 col-lg-3 col-md-6 text-start active" id="account">
                         <a href="javascript:void();">
@@ -19,7 +21,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                                 </svg>                                        
                             </div>
-                            <span class="dark-wizard">Account</span>
+                            <span class="dark-wizard">Event</span>
                         </a>
                     </li>
                     <li id="personal" class="mb-2 col-lg-3 col-md-6 text-start">
@@ -29,7 +31,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
                             </div>
-                            <span class="dark-wizard">Personal</span>
+                            <span class="dark-wizard">Organizer</span>
                         </a>
                     </li>
                     <li id="payment" class="mb-2 col-lg-3 col-md-6 text-start">
@@ -40,19 +42,10 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             </div>
-                            <span class="dark-wizard">Image</span>
+                            <span class="dark-wizard">Additional</span>
                         </a>
                     </li>
-                    <li id="confirm" class="mb-2 col-lg-3 col-md-6 text-start">
-                        <a href="javascript:void();">
-                            <div class="iq-icon me-3">
-                                <svg class="svg-icon icon-20" xmlns="http://www.w3.org/2000/svg"  width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                            </div>
-                            <span class="dark-wizard">Finish</span>
-                        </a>
-                    </li>
+                   
                 </ul>
                 <!-- fieldsets -->
 <!-- Update the value attribute of each input field with the corresponding JSON data -->
@@ -62,21 +55,43 @@
     <div class="form-card text-start">
         <div class="row">
             <div class="col-7">
-                <h3 class="mb-4">Account Information:</h3>
+                <h3 class="mb-4">Event Details:</h3>
             </div>
             <div class="col-5">
-                <h2 class="steps">Step 1 - 4</h2>
+                <h2 class="steps">Step 1 - 3</h2>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-label">Email: *</label>
-                    <input type="email" class="form-control" name="organizerEmail" placeholder="Email Id" value="mit2424@gmail.com" />
+                    <label class="form-label">Event Name: </label>
+                    <input type="text" class="form-control" name="eventName" placeholder="abc" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Start Date: </label>
+                    <input type="date" class="form-control" name="startDate" placeholder="19-07-2024" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Start Time: </label>
+                    <input type="time" class="form-control" name="startTime" placeholder="09:00" />
                 </div>
             </div>
-            <!-- Add other input fields with corresponding JSON data -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Event Description: </label>
+                    <input type="text" class="form-control" name="eventDescription" placeholder="this is event description" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">End Date: </label>
+                    <input type="date" class="form-control" name="endDate" placeholder="19-10-2024" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">End Time: </label>
+                    <input type="time" class="form-control" name="endTime" placeholder="11:00" />
+                </div>
+            </div>
         </div>
+        
     </div>
     <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Next">Next</button>
 </fieldset>
@@ -86,47 +101,124 @@
     <div class="form-card text-start">
         <div class="row">
             <div class="col-7">
-                <h3 class="mb-4">Personal Information:</h3>
+                <h3 class="mb-4">Organizer Information:</h3>
             </div>
             <div class="col-5">
-                <h2 class="steps">Step 2 - 4</h2>
+                <h2 class="steps">Step 2 - 3</h2>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-label">Organizer Name: *</label>
-                    <input type="text" class="form-control" name="organizerName" placeholder="Organizer Name" value="atharva" />
+                    <label class="form-label">Organizer Name: </label>
+                    <input type="text" class="form-control" name="organizerName" placeholder="Taher" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Organizer Email: </label>
+                    <input type="email" class="form-control" name="organizerEmail" placeholder="taherafsar41@gmail.com" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Organizer Number: </label>
+                    <input type="number" class="form-control" name="organizerNumber" placeholder="8356994540" />
                 </div>
             </div>
-            <!-- Add other input fields with corresponding JSON data -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Collab Organization Name: </label>
+                    <input type="text" class="form-control" name="collabOrganizationName" placeholder="NSS" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Collab Organization Email: </label>
+                    <input type="text" class="form-control" name="collabOrgEmail" placeholder="nss@gmail.com" />
+                </div>
+            </div>
         </div>
+        
     </div>
     <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Next">Next</button>
     <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Previous</button>
 </fieldset>
 
-<!-- Image Upload -->
+<!-- Additional Details -->
 <fieldset>
     <div class="form-card text-start">
         <div class="row">
             <div class="col-7">
-                <h3 class="mb-4">Image Upload:</h3>
+                <h3 class="mb-4">Additional Details</h3>
             </div>
             <div class="col-5">
-                <h2 class="steps">Step 3 - 4</h2>
+                <h2 class="steps">Step 3 - 3</h2>
             </div>
         </div>
-        <div class="form-group">
-            <label class="form-label">Upload Your Photo:</label>
-            <input type="file" class="form-control" name="eventPoster" accept="image/*">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Event Poster</label>
+                    <input type="file" class="form-control" name="eventPoster" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"> Particpation Certificate Template</label>
+                    <input type="file" class="form-control" name="participationCertificateTemplate" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Whatsapp Link: </label>
+                    <input type="text" class="form-control" name="whatsAppLink" placeholder="http://chat.whatsapp.com" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Volunteer Responsiblities </label>
+                    <input type="text" class="form-control" name="volunteerResponsibilities" placeholder="accounting , managing" />
+                </div>
+                <div class="form-group">
+                    <label for="city" class="form-label"
+                            >City</label
+                          >
+
+                          <input
+                          disabled
+                            type="text"
+                            class="form-control"
+                            id=""
+                            placeholder=" "
+                            name="city"
+                          />
+                    
+                </div>
+
+               
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Event Attachment</label>
+                    <input type="file" class="form-control" name="eventAttachment" accept="image/*" multiple>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"> Volunteer Certificate Template</label>
+                    <input type="file" class="form-control" name="volunteerCertificateTemplate" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of Volunteers Needed </label>
+                    <input type="number" class="form-control" name="noOfVolunteersNeeded" placeholder="50" />
+                </div>
+                <div class="form-group">
+                    <label for="address" class="form-label"
+                            >Address</label
+                          >
+
+                          <input
+                            type="text"
+                            class="form-control"
+                            id=""
+                            name="address"
+                            placeholder="address"
+                          />
+                    
+                </div>
+
+            </div>
         </div>
-        <div class="form-group">
-            <label class="form-label">Upload Signature Photo:</label>
-            <input type="file" class="form-control" name="signaturePhoto" accept="image/*">
-        </div>
+        
     </div>
-    <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Submit">Submit</button>
+    <button type="submit" name="next" id="submitBtn" class="btn btn-primary next action-button float-end" value="Submit">Submit</button>
     <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Previous</button>
 </fieldset>
 

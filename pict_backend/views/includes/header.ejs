@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+      <title>EcoSaathi</title>
       <!-- copy btn -->
       <style>
         .input-group {
@@ -221,32 +221,19 @@
           display: block;
         }
       </style>
-      <!-- copy btn end  -->
-      <!-- Favicon -->
       <link rel="shortcut icon" href="/images/favicon.ico" />
-      
-      <!-- Library / Plugin Css Build -->
       <link rel="stylesheet" href="/css/core/libs.min.css" />
-      
-      <!-- Aos Animation Css -->
       <link rel="stylesheet" href="/vendor/aos/dist/aos.css" />
-      
-      <!-- Hope Ui Design System Css -->
       <link rel="stylesheet" href="/css/hope-ui.min.css?v=1.2.0" />
-      
-      <!-- Custom Css -->
       <link rel="stylesheet" href="/css/custom.min.css?v=1.2.0" />
-      
-      <!-- Dark Css -->
       <link rel="stylesheet" href="/css/dark.min.css"/>
-      
-      <!-- Customizer Css -->
       <link rel="stylesheet" href="/css/customizer.min.css" />
-      
-      <!-- RTL Css -->
       <link rel="stylesheet" href="/css/rtl.min.css"/>
       <link rel="stylesheet" href="/css/quill.snow.css">
-      
+
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClqxBorXWEHq-SPtqCL1m0pSVpB9JZFGA&libraries=places"></script>
+
+    
   </head>
   <body class="  ">
     <!-- loader Start -->
@@ -260,13 +247,8 @@
     <div class="sidebar-header d-flex align-items-center justify-content-start">
         <a href="../dashboard/index.html" class="navbar-brand">
             <!--Logo start-->
-            <svg width="30" class="" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="-0.757324" y="19.2427" width="28" height="4" rx="2" transform="rotate(-45 -0.757324 19.2427)" fill="currentColor"/>
-                <rect x="7.72803" y="27.728" width="28" height="4" rx="2" transform="rotate(-45 7.72803 27.728)" fill="currentColor"/>
-                <rect x="10.5366" y="16.3945" width="16" height="4" rx="2" transform="rotate(45 10.5366 16.3945)" fill="currentColor"/>
-                <rect x="10.5562" y="-0.556152" width="28" height="4" rx="2" transform="rotate(45 10.5562 -0.556152)" fill="currentColor"/>
-            </svg>
-            <!--logo End-->            <h4 class="logo-title">TCE</h4>
+            <img src="/images/logo.png" height="40px" width="40px" alt="">
+            <!--logo End-->            <h4 class="logo-title">EcoSathi</h4>
         </a>
         <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
             <i class="icon">
@@ -298,7 +280,7 @@
                         <span class="item-name">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#horizontal-menu" role="button" aria-expanded="false" aria-controls="horizontal-menu">
                         <i class="icon">
                             
@@ -345,7 +327,7 @@
                             </a>
                         </li>
                        
-                    </ul>
+                  </ul>  </li> -->
 
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#utilities-error" role="button" aria-expanded="false" aria-controls="utilities-error">
@@ -466,6 +448,95 @@
                                     <span class="item-name">View Ongoing Events</span>
                                 </a>
                             </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link " href="/events/view-completed-events">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">View Completed Events</span>
+                                </a>
+                            </li> -->
+                            </ul>
+
+                      </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-reports" role="button" aria-expanded="false" aria-controls="sidebar-reports">
+                              <i class="icon">
+                                  <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M11.9488 14.54C8.49884 14.54 5.58789 15.1038 5.58789 17.2795C5.58789 19.4562 8.51765 20.0001 11.9488 20.0001C15.3988 20.0001 18.3098 19.4364 18.3098 17.2606C18.3098 15.084 15.38 14.54 11.9488 14.54Z" fill="currentColor"></path>
+                                      <path opacity="0.4" d="M11.949 12.467C14.2851 12.467 16.1583 10.5831 16.1583 8.23351C16.1583 5.88306 14.2851 4 11.949 4C9.61293 4 7.73975 5.88306 7.73975 8.23351C7.73975 10.5831 9.61293 12.467 11.949 12.467Z" fill="currentColor"></path>
+                                      <path opacity="0.4" d="M21.0881 9.21923C21.6925 6.84176 19.9205 4.70654 17.664 4.70654C17.4187 4.70654 17.1841 4.73356 16.9549 4.77949C16.9244 4.78669 16.8904 4.802 16.8725 4.82902C16.8519 4.86324 16.8671 4.90917 16.8895 4.93889C17.5673 5.89528 17.9568 7.0597 17.9568 8.30967C17.9568 9.50741 17.5996 10.6241 16.9728 11.5508C16.9083 11.6462 16.9656 11.775 17.0793 11.7948C17.2369 11.8227 17.3981 11.8371 17.5629 11.8416C19.2059 11.8849 20.6807 10.8213 21.0881 9.21923Z" fill="currentColor"></path>
+                                      <path d="M22.8094 14.817C22.5086 14.1722 21.7824 13.73 20.6783 13.513C20.1572 13.3851 18.747 13.205 17.4352 13.2293C17.4155 13.232 17.4048 13.2455 17.403 13.2545C17.4003 13.2671 17.4057 13.2887 17.4316 13.3022C18.0378 13.6039 20.3811 14.916 20.0865 17.6834C20.074 17.8032 20.1698 17.9068 20.2888 17.8888C20.8655 17.8059 22.3492 17.4853 22.8094 16.4866C23.0637 15.9589 23.0637 15.3456 22.8094 14.817Z" fill="currentColor"></path>
+                                      <path opacity="0.4" d="M7.04459 4.77973C6.81626 4.7329 6.58077 4.70679 6.33543 4.70679C4.07901 4.70679 2.30701 6.84201 2.9123 9.21947C3.31882 10.8216 4.79355 11.8851 6.43661 11.8419C6.60136 11.8374 6.76343 11.8221 6.92013 11.7951C7.03384 11.7753 7.09115 11.6465 7.02668 11.551C6.3999 10.6234 6.04263 9.50765 6.04263 8.30991C6.04263 7.05904 6.43303 5.89462 7.11085 4.93913C7.13234 4.90941 7.14845 4.86348 7.12696 4.82926C7.10906 4.80135 7.07593 4.78694 7.04459 4.77973Z" fill="currentColor"></path>
+                                      <path d="M3.32156 13.5127C2.21752 13.7297 1.49225 14.1719 1.19139 14.8167C0.936203 15.3453 0.936203 15.9586 1.19139 16.4872C1.65163 17.4851 3.13531 17.8066 3.71195 17.8885C3.83104 17.9065 3.92595 17.8038 3.91342 17.6832C3.61883 14.9167 5.9621 13.6046 6.56918 13.3029C6.59425 13.2885 6.59962 13.2677 6.59694 13.2542C6.59515 13.2452 6.5853 13.2317 6.5656 13.2299C5.25294 13.2047 3.84358 13.3848 3.32156 13.5127Z" fill="currentColor"></path>
+                                  </svg>
+                              </i>
+                              <span class="item-name">Reports</span>
+                              <i class="right-icon">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                  </svg>
+                              </i>
+                          </a>
+                          <ul class="sub-nav collapse" id="sidebar-reports" data-bs-parent="#sidebar-menu">
+                            <li class="nav-item">
+                              <a class="nav-link " href="/reports/view-all-reports">
+                                  <i class="icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                          <g>
+                                          <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                          </g>
+                                      </svg>
+                                  </i>
+                                  <i class="sidenav-mini-icon"> A </i>
+                                  <span class="item-name">View All Reports</span>
+                              </a>
+                          </li>
+                              <li class="nav-item">
+                                  <a class="nav-link " href="/reports/view-rejected-reports">
+                                      <i class="icon">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                              <g>
+                                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                              </g>
+                                          </svg>
+                                      </i>
+                                      <i class="sidenav-mini-icon"> A </i>
+                                      <span class="item-name">View All Rejected Reports</span>
+                                  </a>
+                              </li>
+
+                              <li class="nav-item">
+                                <a class="nav-link " href="/reports/view-resolved-reports">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">View All Resolved Reports</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/reports/view-pending-reports">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">View All Pending Events</span>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link " href="/events/view-completed-events">
                                     <i class="icon">
@@ -549,7 +620,7 @@
                     <div class="p-0 card-body">
                         <a href="#" class="iq-sub-card">
                           <div class="d-flex align-items-center">
-                              <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="/images/shapes/01.png" alt="">
+                              <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="/images/avatars/01.png" alt="">
                               <div class="ms-3 w-100">
                                 <h6 class="mb-0 ">New Campaign Assigned!</h6>
                                 <div class="d-flex justify-content-between align-items-center">
@@ -703,7 +774,37 @@
 
       
     </nav>         
-
+    <div class="iq-navbar-header" style="height: 215px;">
+      <div class="container-fluid iq-container">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="flex-wrap d-flex justify-content-between align-items-center">
+                      <div>
+                        <h1>Hello <%= authority.authorityName  %>!</h1>
+                          <p>EcoSaathi is here to manage waste in your area</p>
+                      </div>
+                      <div>
+                          <a href="" class="btn btn-link btn-soft-light">
+                              <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M11.8251 15.2171H12.1748C14.0987 15.2171 15.731 13.985 16.3054 12.2764C16.3887 12.0276 16.1979 11.7713 15.9334 11.7713H14.8562C14.5133 11.7713 14.2362 11.4977 14.2362 11.16C14.2362 10.8213 14.5133 10.5467 14.8562 10.5467H15.9005C16.2463 10.5467 16.5263 10.2703 16.5263 9.92875C16.5263 9.58722 16.2463 9.31075 15.9005 9.31075H14.8562C14.5133 9.31075 14.2362 9.03619 14.2362 8.69849C14.2362 8.35984 14.5133 8.08528 14.8562 8.08528H15.9005C16.2463 8.08528 16.5263 7.8088 16.5263 7.46728C16.5263 7.12575 16.2463 6.84928 15.9005 6.84928H14.8562C14.5133 6.84928 14.2362 6.57472 14.2362 6.23606C14.2362 5.89837 14.5133 5.62381 14.8562 5.62381H15.9886C16.2483 5.62381 16.4343 5.3789 16.3645 5.13113C15.8501 3.32401 14.1694 2 12.1748 2H11.8251C9.42172 2 7.47363 3.92287 7.47363 6.29729V10.9198C7.47363 13.2933 9.42172 15.2171 11.8251 15.2171Z" fill="currentColor"></path>
+                                  <path opacity="0.4" d="M19.5313 9.82568C18.9966 9.82568 18.5626 10.2533 18.5626 10.7823C18.5626 14.3554 15.6186 17.2627 12.0005 17.2627C8.38136 17.2627 5.43743 14.3554 5.43743 10.7823C5.43743 10.2533 5.00345 9.82568 4.46872 9.82568C3.93398 9.82568 3.5 10.2533 3.5 10.7823C3.5 15.0873 6.79945 18.6413 11.0318 19.1186V21.0434C11.0318 21.5715 11.4648 22.0001 12.0005 22.0001C12.5352 22.0001 12.9692 21.5715 12.9692 21.0434V19.1186C17.2006 18.6413 20.5 15.0873 20.5 10.7823C20.5 10.2533 20.066 9.82568 19.5313 9.82568Z" fill="currentColor"></path>
+                              </svg>
+                              Announcements
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="iq-header-img">
+        <img src="/images/dashboard/top-header.png" alt="header" class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
+        <img src="/images/dashboard/top-header1.png" alt="header" class="theme-color-purple-img img-fluid w-100 h-100 animated-scaleX">
+        <img src="/images/dashboard/top-header2.png" alt="header" class="theme-color-blue-img img-fluid w-100 h-100 animated-scaleX">
+        <img src="/images/dashboard/top-header3.png" alt="header" class="theme-color-green-img img-fluid w-100 h-100 animated-scaleX">
+        <img src="/images/dashboard/top-header4.png" alt="header" class="theme-color-yellow-img img-fluid w-100 h-100 animated-scaleX">
+        <img src="/images/dashboard/top-header5.png" alt="header" class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX">
+    </div>
+  </div> 
 
     
    
