@@ -3,8 +3,8 @@ const Depot = require("../models/Depot")
 // Backend routes for depot
 exports.getAllDepots = async function(req,res){
     try{
-        let depot = Depot()
-        depots = await depot.getAllDepots
+        let depot = new Depot()
+        depots = await depot.getAllDepots();
         res.status(200).json(depots);
     } catch(err) {
         console.log(err);

@@ -1,5 +1,5 @@
 const Truck = require("../models/Truck");
-
+const Bin = require("../models/Bin")
 // Backend Routes for trucks
 exports.getAllTrucks = async function(req, res) {
     try {

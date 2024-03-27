@@ -23,7 +23,8 @@ let Truck = function (data) {
     }
 }
 Truck.prototype.getAllTrucks = async function(){
-    const trucks = await trucksCollection.find()
+    const truckCursor = await trucksCollection.find()
+    const trucks = await truckCursor.toArray();
     return trucks
 }
 Truck.prototype.getTruckById = async function(truckId) {

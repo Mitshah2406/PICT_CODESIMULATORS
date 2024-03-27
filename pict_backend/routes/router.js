@@ -297,16 +297,16 @@ router.post('/depot/addDepot' , depotController.addDepot);
 router.get('/depot/getDepotLocationById/:depotId',depotController.getDepotLocationById)
 router.get('/depot/getDepotCapacityById/:depotId',depotController.getDepotCapacityById)
 // Driver Module
-router.post('driver/login',driverController.login)
-router.get("driver/getTruckId/:driverId",driverController.getTruckId)
-router.post("driver/setTruckId/:driverId",driverController.setTruckId)
+router.post('/driver/login',driverController.login)
+router.get("/driver/getTruckId/:driverId",driverController.getTruckId)
+router.post("/driver/setTruckId/:driverId",driverController.setTruckId)
 // Truck Module
 router.get('/truck/getAllTrucks', truckController.getAllTrucks);
 router.get('/truck/getTruckById/:truckId', truckController.getTruckById);
 router.post('/truck/addWaste/:truckId', truckController.addWaste);
 router.post('/truck/collectBin/:truckId', truckController.collectBin);
 router.get('/truck/pendingBins/:truckId', truckController.pendingBins);
-router.post('/truck/resetBinsCollectedStatus/:truckId', truckController.resetBinsCollectedStatus);
+router.get('/truck/resetBinsCollectedStatus/:truckId', truckController.resetBinsCollectedStatus);
 router.get('/truck/getPendingBinsWithLocations/:truckId', truckController.getPendingBinsWithLocations);
 
 router.post(

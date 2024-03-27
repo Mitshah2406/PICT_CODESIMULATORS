@@ -1,5 +1,6 @@
 const driverCollection = require("../db").db().collection("drivers");
 const ObjectID = require("mongodb").ObjectID;
+const bcrypt = require("bcrypt");
 
 
 let Driver = function (data) {
@@ -47,3 +48,4 @@ Driver.prototype.setTruckId=async function(driverId,truckId){
     return updatedDriver;
 }
   
+module.exports = Driver;
