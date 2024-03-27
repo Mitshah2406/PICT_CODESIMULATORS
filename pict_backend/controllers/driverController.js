@@ -7,14 +7,11 @@ exports.login = async (req, res) => {
         let response = await driver.login(driverEmail, driverPassword);
         
         if (response === "Invalid Credentials") {
-            req.flash('error', 'Invalid credentials. Please try again.');
-            return res.redirect('/driver/login-page'); // Redirect back to the sign-in page
+          return res.status(401).json({ error:"Invalid Credentials" });
         }
   
         req.session.driver = { driverEmail: response.driverEmail, driverName:response.driverName };
-        req.session.save(function () {
-            res.redirect('/');
-        });
+        return res.status(200).json({ success:"You are logged in" });
     } catch (err) {
         console.log(err);
         return res.status(500).json({ message: "Internal Server Error" });

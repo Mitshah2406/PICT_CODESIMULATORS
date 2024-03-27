@@ -284,35 +284,11 @@ router.post("/pickup/addWastePickupSchedule", wastePickupScheduleController.addW
 
 
 
-// Bin Module
-router.get('/bin/getAllBins',binController.getAllBins)
-router.post('/bin/addBin' , binController.addBin);
-router.get('/bin/getBinLocationById/:binId',binController.getBinLocationById)
-router.get('/bin/getBinFillLevelById/:binId',binController.getBinFillLevelById)
-router.post('/bin/addWaste/:binId',binController.addWaste)
-router.get('/bin/collectWaste/:binId',binController.collectWaste)
-// Depot Module
-router.get('/depot/getAllDepots',depotController.getAllDepots)
-router.post('/depot/addDepot' , depotController.addDepot);
-router.get('/depot/getDepotLocationById/:depotId',depotController.getDepotLocationById)
-router.get('/depot/getDepotCapacityById/:depotId',depotController.getDepotCapacityById)
-// Driver Module
-router.post('driver/login',driverController.login)
-router.get("driver/getTruckId/:driverId",driverController.getTruckId)
-router.post("driver/setTruckId/:driverId",driverController.setTruckId)
-// Truck Module
-router.get('/truck/getAllTrucks', truckController.getAllTrucks);
-router.get('/truck/getTruckById/:truckId', truckController.getTruckById);
-router.post('/truck/addWaste/:truckId', truckController.addWaste);
-router.post('/truck/collectBin/:truckId', truckController.collectBin);
-router.get('/truck/pendingBins/:truckId', truckController.pendingBins);
-router.post('/truck/resetBinsCollectedStatus/:truckId', truckController.resetBinsCollectedStatus);
-router.get('/truck/getPendingBinsWithLocations/:truckId', truckController.getPendingBinsWithLocations);
 
-router.post(
-  "/pickup/addWastePickupSchedule",
-  wastePickupScheduleController.addWastePickupSchedule
-);
+// router.post(
+//   "/pickup/addWastePickupSchedule",
+//   wastePickupScheduleController.addWastePickupSchedule
+// );
 
 // ---------Routes for govt. authority-----------
 
@@ -444,6 +420,40 @@ router.post(
   requireAuth,
   reportController.resolveReport
 );
+
+// Bin Module
+router.get('/bin/getAllBins', binController.getAllBins)
+router.post('/bin/addBin', binController.addBin);
+router.get('/bin/getBinLocationById/:binId', binController.getBinLocationById)
+router.get('/bin/getBinFillLevelById/:binId', binController.getBinFillLevelById)
+router.post('/bin/addWaste/:binId', binController.addWaste)
+router.get('/bin/collectWaste/:binId', binController.collectWaste)
+router.get("/bin/getReverseGeoCodedLocationsOfAllBins", binController.getReverseGeoCodedLocationsOfAllBins)
+// Depot Module
+router.get('/depot/getAllDepots', depotController.getAllDepots)
+router.post('/depot/addDepot', depotController.addDepot);
+router.get('/depot/getDepotLocationById/:depotId', depotController.getDepotLocationById)
+router.get('/depot/getDepotCapacityById/:depotId', depotController.getDepotCapacityById)
+// Driver Module
+router.post('/driver/login', driverController.login)
+router.get("/driver/getTruckId/:driverId", driverController.getTruckId)
+router.post("/driver/setTruckId/:driverId", driverController.setTruckId)
+// Truck Module
+router.get('/truck/getAllTrucks', truckController.getAllTrucks);
+router.get('/truck/getTruckById/:truckId', truckController.getTruckById);
+router.post('/truck/addWaste/:truckId', truckController.addWaste);
+router.post('/truck/collectBin/:truckId', truckController.collectBin);
+router.get('/truck/pendingBins/:truckId', truckController.pendingBins);
+router.get('/truck/resetBinsCollectedStatus/:truckId', truckController.resetBinsCollectedStatus);
+router.get('/truck/getPendingBinsWithLocations/:truckId', truckController.getPendingBinsWithLocations);
+
+//route optimization
+router.get("/getRoutes", truckController.getRoutes);
+
+router.get("/map", async (req,res)=>{
+  let data = await truckController.getRoutes();
+  res.render("RouteOptimization/map", {data: data})
+})
 //404
 
 router.get("*", (req, res) => {

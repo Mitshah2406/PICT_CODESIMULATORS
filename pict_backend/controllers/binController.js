@@ -1,14 +1,16 @@
-const Bin = require("../models/Bin")
+const Bin = require("../models/Bin");
+const Depot = require("../models/Depot");
+
 
 // Backend Routes for bin
 exports.getAllBins = async function(req,res){
     try{
-        let bin = Bin()
+        let bin = new Bin()
         bins = await bin.getAllBins()
         res.status(200).json(bins);
     } catch(err) {
         console.log(err);
-        res.status(400).json({'error':'Error in getting bin info'});
+        res.status(400).json({error:'Error in getting bin info'});
     }
 }
 exports.addBin= async function(req,res){
@@ -70,3 +72,18 @@ exports.collectWaste = async function(req, res) {
         res.status(400).json({'error':'Error in collecting waste from the bin'});
     }
 };
+
+exports.getReverseGeoCodedLocationsOfAllBins = async function(req, res) {
+    try {
+        let bin = new Bin();
+        let depot = new Depot();
+        let locations = await bin.getReverseGeoCodedLocationsOfAllBins();
+        let depotLoc = await depot.getAllDepots();
+        let newArr = depotLoc.concat(locations);
+        console.log(newArr);
+        res.status(200).json(locations);
+    } catch (error) {
+        console.log(err);
+        res.status(400).json({ 'error': 'Error in collecting waste from the bin' });
+    }
+}

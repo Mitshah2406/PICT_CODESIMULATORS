@@ -1,6 +1,6 @@
-const depotCollection = require("../db").db().collection("depot")
+const depotCollection = require("../db").db().collection("depots")
 const ObjectID = require("mongodb").ObjectID;
-
+const axios = require('axios')
 let Depot = function(data){
     this.data = data;
     this.errors = [];
@@ -10,21 +10,18 @@ Depot.prototype.cleanUp = function (){
     this.data={
         depotName: this.data.depotName,
         depotLocation: {
-            lat: this.data.lat,
-            lon: this.data.lon,
-            fotmattedAddress:this.data.formattedAddress
+            lat: this.data.depotLocation.lat,
+            lon: this.data.depotLocation.lon,
+            formattedAddress:this.data.depotLocation.formattedAddress
           },
-        capacity: this.data.capacity,
+        depotCapacity: this.data.depotCapacity,
         createdDate: new Date(),
     }
 }
 Depot.prototype.reverseGeocode = async function(lat, lon) {
     const apiKey = 'AIzaSyBw7fIXJz5sA9IEcczMJ9FIzK91jvFIsno';
-    const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}
-&location_type=ROOFTOP&result_type=street_address&key=${apiKey}`
+    const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${apiKey}`
     const response = await axios.get(apiUrl);
-    console.log(response)
-
     try {
         if (response.data && response.data.results && response.data.results.length > 0) {
             return response.data.results[0].formatted_address;
@@ -36,7 +33,8 @@ Depot.prototype.reverseGeocode = async function(lat, lon) {
     }
 }
 Depot.prototype.getAllDepots = async function(){
-    const depots = await depotCollection.find()
+    const depotCursor = await depotCollection.find()
+    const depots = await depotCursor.toArray();
     return depots
 }
 Depot.prototype.addDepot=async function (){
@@ -63,3 +61,4 @@ Depot.prototype.getDepotCapacityById=async function (depotId){
     const depotCapacity = depot.depotCapacity
       return depotCapacity;
   }
+module.exports = Depot;
