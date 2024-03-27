@@ -7,7 +7,8 @@ def create_data():
   """Creates the data."""
   data = {}
   data['API_key'] = 'AIzaSyBw7fIXJz5sA9IEcczMJ9FIzK91jvFIsno'
-  data['addresses'] = ['3610+Hacks+Cross+Rd+Memphis+TN', # depot
+  data['addresses'] = [
+    '3610+Hacks+Cross+Rd+Memphis+TN', # depot
                        '1921+Elvis+Presley+Blvd+Memphis+TN',
                        '149+Union+Avenue+Memphis+TN',
                        '1034+Audubon+Drive+Memphis+TN',
@@ -74,12 +75,6 @@ def send_request(origin_addresses, dest_addresses, API_key):
 
   return response
 
-# def build_distance_matrix(response):
-#   distance_matrix = []
-#   for row in response['rows']:
-#     row_list = [row['elements'][j]['distance']['value'] for j in range(len(row['elements']))]
-#     distance_matrix.append(row_list)
-#   return distance_matrix
 def build_distance_matrix(response):
     response_data = response.json()  # Extract JSON data from the response
     distance_matrix = []
@@ -88,9 +83,6 @@ def build_distance_matrix(response):
         distance_matrix.append(row_list)
     return distance_matrix
 
-########
-# Main #
-########
 def main():
   """Entry point of the program"""
   # Create the data.

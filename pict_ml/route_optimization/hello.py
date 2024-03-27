@@ -28,10 +28,10 @@ def create_data_model():
       [662, 1210, 754, 1358, 1244, 708, 480, 856, 514, 468, 354, 844, 730, 536, 194, 798, 0],
         # fmt: on
     ]
-    data["demands"] = [0, 1, 1, 2, 4, 2, 4, 8, 8, 1, 2, 1, 2, 4, 4, 8, 8]
-    data["vehicle_capacities"] = [15, 15, 15, 15]
-    data["num_vehicles"] = 4
-    data["depot"] = 0
+    data["fill_levels"] = [0, 1, 1, 2, 4, 2, 4, 8, 8, 1, 2, 1, 2, 4, 4, 8, 8]
+    data["truck_capacities"] = [15, 15, 15, 15]
+    data["num_trucks"] = 4
+    data["garbage_depot"] = 0
     return data
 
 
@@ -40,14 +40,14 @@ def print_solution(data, manager, routing, solution):
     print(f"Objective: {solution.ObjectiveValue()}")
     total_distance = 0
     total_load = 0
-    for vehicle_id in range(data["num_vehicles"]):
+    for vehicle_id in range(data["num_trucks"]):
         index = routing.Start(vehicle_id)
         plan_output = f"Route for vehicle {vehicle_id}:\n"
         route_distance = 0
         route_load = 0
         while not routing.IsEnd(index):
             node_index = manager.IndexToNode(index)
-            route_load += data["demands"][node_index]
+            route_load += data["fill_levels"][node_index]
             plan_output += f" {node_index} Load({route_load}) -> "
             previous_index = index
             index = solution.Value(routing.NextVar(index))
@@ -71,7 +71,7 @@ def main():
 
     # Create the routing index manager.
     manager = pywrapcp.RoutingIndexManager(
-        len(data["distance_matrix"]), data["num_vehicles"], data["depot"]
+        len(data["distance_matrix"]), data["num_trucks"], data["garbage_depot"]
     )
 
     # Create Routing Model.
@@ -93,15 +93,15 @@ def main():
     # Add Capacity constraint.
     def demand_callback(from_index):
         """Returns the demand of the node."""
-        # Convert from routing variable Index to demands NodeIndex.
+        # Convert from routing variable Index to fill_levels NodeIndex.
         from_node = manager.IndexToNode(from_index)
-        return data["demands"][from_node]
+        return data["fill_levels"][from_node]
 
     demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
     routing.AddDimensionWithVehicleCapacity(
         demand_callback_index,
         0,  # null capacity slack
-        data["vehicle_capacities"],  # vehicle maximum capacities
+        data["truck_capacities"],  # vehicle maximum capacities
         True,  # start cumul to zero
         "Capacity",
     )

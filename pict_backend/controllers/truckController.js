@@ -1,5 +1,7 @@
 const Truck = require("../models/Truck");
 const Bin = require("../models/Bin")
+const axios = require("axios")
+require('dotenv').config();
 // Backend Routes for trucks
 exports.getAllTrucks = async function(req, res) {
     try {
@@ -87,3 +89,17 @@ exports.getPendingBinsWithLocations = async function(req, res) {
         res.status(400).json({'error':'Error in fetching pending bins with locations'});
     }
 };
+
+
+exports.getRoutes = async function(req, res) {
+    try {
+        let bin = new Bin();
+        let binData = await bin.getAllBins(); 
+        let result = await axios.post(`${process.env.DJANGO_SERVER}/getRouteData`, binData)
+
+        console.log(result);
+        res.status(200).json(result.data);
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -3,7 +3,9 @@ from flask import Flask, request, jsonify, render_template
 from PIL import Image
 import google.generativeai as genai
 import os
-
+import requests
+import json
+import urllib.request
 # Configure Google API key
 os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
@@ -33,6 +35,15 @@ def process_image():
         image = Image.open(file)
         response = get_gemini_response(image)
         return jsonify({'response': response})
+
+@app.route('/get_distance_matrix', methods=['POST'])
+def get_distance_matrix():
+    addresses = request.json['addresses']
+    # addresses = data['addresses']
+    # data = create_data()
+    # API_key = data['API_key']
+    # distance_matrix = create_distance_matrix(data)
+    # print(distance_matrix)
 
 # Run the Flask app
 if __name__ == '__main__':

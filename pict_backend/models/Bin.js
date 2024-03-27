@@ -23,6 +23,7 @@ Bin.prototype.cleanUp=function(){
 Bin.prototype.reverseGeocode = async function(lat,lon) {
     const apiKey = 'AIzaSyBw7fIXJz5sA9IEcczMJ9FIzK91jvFIsno';
     const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${apiKey}`
+  
     const response = await axios.get(apiUrl);
     try {
         if (response.data && response.data.results && response.data.results.length > 0) {
@@ -96,5 +97,9 @@ Bin.prototype.collectWaste = async function(binId) {
             }
         );
         return updatedBin;
+}
+Bin.prototype.getReverseGeoCodedLocationsOfAllBins = async function(){
+    const bins = await binCollection.find().toArray();
+    return bins
 }
 module.exports = Bin;
