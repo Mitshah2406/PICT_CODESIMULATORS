@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:pict_frontend/config/firebase_api.dart';
 import 'package:pict_frontend/firebase_options.dart';
+import 'package:pict_frontend/intro_screen.dart';
 import 'package:pict_frontend/pages/noti_screen.dart';
 import 'package:pict_frontend/pages/splash_screen.dart';
 import 'package:pict_frontend/providers/theme_notifier.dart';

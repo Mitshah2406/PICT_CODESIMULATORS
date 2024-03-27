@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:introduction_screen/introduction_screen.dart';
+import 'package:pict_frontend/intro_screen.dart';
 import 'package:pict_frontend/pages/Auth/signin_screen.dart';
 import 'package:pict_frontend/pages/Organizer/organizer_dashboard.dart';
 import 'package:pict_frontend/pages/Recycler/recycler_home_screen.dart';
@@ -77,28 +79,36 @@ class _SplashScreenState extends State<SplashScreen> {
       var result = await SharedPreferences.getInstance();
       bool? data = result.getBool("isloggedIn");
       String? role = result.getString("role");
+      bool? isVisited = result.getBool("isVisited");
 
-      if (data != null && data == true) {
-        if (role == "user") {
+      if (isVisited != null && isVisited == true) {
+        if (data != null && data == true) {
+          if (role == "user") {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
+              return const UserDashboard();
+            }));
+          } else if (role == "organizer") {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
+              return const OrganizerDashboard();
+            }));
+          } else if (role == "recycler") {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
+              return const RecyclerHomePage();
+            }));
+          }
+        } else {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return const UserDashboard();
-          }));
-        } else if (role == "organizer") {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) {
-            return const OrganizerDashboard();
-          }));
-        } else if (role == "recycler") {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) {
-            return const RecyclerHomePage();
+            return const SignInPage();
           }));
         }
       } else {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-          return const SignInPage();
+          return const IntroScreen();
         }));
       }
     });
