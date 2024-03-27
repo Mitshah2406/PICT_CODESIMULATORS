@@ -7,10 +7,10 @@ exports.addResources = async (req, res) => {
   try {
     let multipleNames = [];
     if (req.files) {
-      if (req.files.images) {
+      if (req.files.resources) {
         console.log(req.files);
-        if (Array.isArray(req.files.images)) {
-          let files = req.files.images;
+        if (Array.isArray(req.files.resources)) {
+          let files = req.files.resources;
           // console.log(files);
           const promises = files.map((file) => {
             const fileName = new Date().getTime().toString() + "-" + file.name;
@@ -24,9 +24,9 @@ exports.addResources = async (req, res) => {
             return file.mv(savePath);
           });
           await Promise.all(promises);
-          req.body.images = multipleNames;
+          req.body.resources = multipleNames;
         } else if (!Array.isArray(req.files)) {
-          let file = req.files.images;
+          let file = req.files.resources;
           const fileName = new Date().getTime().toString() + "-" + file.name;
           const savePath = path.join(
             __dirname,
@@ -35,7 +35,7 @@ exports.addResources = async (req, res) => {
             fileName
           );
           await file.mv(savePath);
-          req.body.images = fileName;
+          req.body.resources = fileName;
         }
       }
     }
