@@ -208,7 +208,7 @@ router.get("/getBlogResources", biowasteController.getBlogResources);
 // login route
 router.get("/authority/login-page", authorityController.loginPage);
 // Home page route
-router.get("/", authorityController.homePage);
+router.get("/",requireAuth, authorityController.homePage);
 // Bio waste routes
 router.get("/biowaste/add-resources-page", biowasteController.addResourcesPage);
 router.get("/biowaste/get-resources-page", biowasteController.getResourcesPage);
