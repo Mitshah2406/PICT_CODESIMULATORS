@@ -87,5 +87,17 @@ User.prototype.editProfile = async function ({
     userImage: data.value.userImage,
   };
 };
+User.prototype.updatePoints = async function (userId, newData) {
+  try {
+    let updatedUser = await usersCollection.findOneAndUpdate(
+      { _id: userId }, // Filter
+      { $set: { reward: newData } }, 
+  );
+    return updatedUser;
+  } catch (error) {
+    console.error("Error updating user:", error);
+    throw error;
+  }
+};
 
 module.exports = User;

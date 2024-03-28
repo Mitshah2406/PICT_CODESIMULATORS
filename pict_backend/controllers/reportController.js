@@ -1,11 +1,22 @@
 const e = require("connect-flash");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 let Report = require("../models/Report");
 let User = require("../models/User");
 let path = require("path");
-let moment= require('moment')
+let moment = require("moment");
+const genAI = new GoogleGenerativeAI("AIzaSyCH12f11jfOO7_E3GJnwVXzQb8hbiXTHlU");
+let fs = require('fs')
+function fileToGenerativePart(path, mimeType) {
+  return {
+    inlineData: {
+      data: Buffer.from(fs.readFileSync(path)).toString("base64"),
+      mimeType,
+    },
+  };
+}
 exports.addReport = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
 
     if (req.files.reportAttachment) {
       const reportAttachment = req.files.reportAttachment;
@@ -20,24 +31,54 @@ exports.addReport = async (req, res) => {
       );
       await reportAttachment.mv(savePath1);
       req.body.reportAttachment = fileName1;
+
+      // For text-and-image input (multimodal), use the gemini-pro-vision model
+      const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+
+      const prompt = "Is this an unhygenic dumpsite? reply it in a yes or no";
+
+      const imageParts = [
+        fileToGenerativePart(savePath1, "image/png"), 
+      ];
+
+      const result = await model.generateContent([prompt, ...imageParts]);
+      const response = await result.response;
+      const text = response.text().toLowerCase(); // Convert text to lowercase for comparison
+      console.log("Validation response:", text);
+
+      // Check the validation response
+      if (text === "no") {
+        let user = new User();
+        let userData = await user.getUserById(req.body.uploaderId);
+        req.body.uploaderEmail = userData.userEmail;
+        req.body.uploaderName =
+          userData.userFirstName + " " + userData.userLastName;
+        let data = req.body;
+        console.log("Report Data");
+        console.log(data);
+        let report = new Report(data);
+        let response = await report.addReport();
+        res.status(200).json({ result: response });
+      } else {
+        let user = new User();
+        let userData = await user.getUserById(req.body.uploaderId);
+        req.body.uploaderEmail = userData.userEmail;
+        req.body.uploaderName =
+        userData.userFirstName + " " + userData.userLastName;
+        req.body.reportStatus = "rejected";
+        req.body.message = "rejected by ml";
+        let report = new Report(req.body);
+        let response = await report.addReport();
+        res.status(200).json({ result: response });
+      }
+    } else {
+      res.status(400).json({ error: "No report attachment provided" });
     }
-    let user = new User();
-    let userData = await user.getUserById(req.body.uploaderId);
-    req.body.uploaderEmail = userData.userEmail;
-    req.body.uploaderName =
-      userData.userFirstName + " " + userData.userLastName;
-    let data = req.body;
-    console.log("Report Data");
-    console.log(data);
-    let report = new Report(data);
-    let response = await report.addReport();
-    res.status(200).json({ result: response });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 exports.getAllReports = async (req, res) => {
   try {
     let report = new Report();
@@ -64,11 +105,23 @@ exports.getReportById = async (req, res) => {
 exports.changeReportStatus = async (req, res) => {
   try {
     let { reportId, reportStatus } = req.body;
-    console.log(req.body);
-    let report = new Report();
-    let response = await report.changeReportStatus(reportId, reportStatus);
+    if (reportStatus === "resolved") {
+      let report = new Report();
+      let reportData = await report.getReportById(reportId);
+      let user = new User();
+      let userData = await user.getUserById(reportData.uploaderId);
+      userData.reward += 10;
+      await user.updatePoints(userData._id, userData.reward);
+      response = await report.changeReportStatus(reportId, reportStatus);
+    } else {
+      if (reportStatus === "rejected") {
+        req.body.message = "rejected by Authority";
+      }
+      response = await report.changeReportStatus(reportId, reportStatus);
+    }
+
     res.status(200).json(response);
-  } catch (error) {
+  }catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
@@ -165,98 +218,105 @@ exports.searchReport = async (req, res) => {
   }
 };
 
-
-
-
-
 // Frontend Controller
-exports.viewAllReportsPage = async (req,res)=>{
+exports.viewAllReportsPage = async (req, res) => {
   try {
     const report = new Report();
     const reportsData = await report.getAllReports();
-    res.render("Reports/viewReports", { reports: reportsData,authority: req.session.authority, });
+    res.render("Reports/viewReports", {
+      reports: reportsData,
+      authority: req.session.authority,
+    });
   } catch (error) {
     console.error("Error fetching resources:", error);
     res.status(500).send("Error fetching resources");
   }
-}
-exports.viewReportsByIdPage=async(req,res)=>{
-  try{
-    const reportId= req.params.reportId;
+};
+exports.viewReportsByIdPage = async (req, res) => {
+  try {
+    const reportId = req.params.reportId;
     const report = await new Report().getReportById(reportId);
-    res.render('Reports/viewIndivitualReports',{result:report,authority: req.session.authority,moment:moment})
-  }
-  catch(err){
+    res.render("Reports/viewIndivitualReports", {
+      result: report,
+      authority: req.session.authority,
+      moment: moment,
+    });
+  } catch (err) {
     console.error(err);
-    res.status(500).send("Error fetching indivitual event")
+    res.status(500).send("Error fetching indivitual event");
   }
-}
+};
 
-exports.viewAllRejetedReportsPage=async(req,res)=>{
-  try{
+exports.viewAllRejetedReportsPage = async (req, res) => {
+  try {
     const report = await new Report().getReportsByStatus("rejected");
-    res.render('Reports/viewRejectedReports',{rejectedReports:report,authority: req.session.authority,moment:moment})
-  }
-  catch(err){
+    res.render("Reports/viewRejectedReports", {
+      rejectedReports: report,
+      authority: req.session.authority,
+      moment: moment,
+    });
+  } catch (err) {
     console.error(err);
-    res.status(500).send("Error fetching indivitual event")
+    res.status(500).send("Error fetching indivitual event");
   }
-}
-exports.viewAllResolvedReportsPage=async(req,res)=>{
-  try{
+};
+exports.viewAllResolvedReportsPage = async (req, res) => {
+  try {
     const report = await new Report().getReportsByStatus("resolved");
-    res.render('Reports/viewResolvedReports',{resolvedReports:report,authority: req.session.authority,moment:moment})
-  }
-  catch(err){
+    res.render("Reports/viewResolvedReports", {
+      resolvedReports: report,
+      authority: req.session.authority,
+      moment: moment,
+    });
+  } catch (err) {
     console.error(err);
-    res.status(500).send("Error fetching indivitual event")
+    res.status(500).send("Error fetching indivitual event");
   }
-}
-exports.viewAllPendingReportsPage=async(req,res)=>{
-  try{
+};
+exports.viewAllPendingReportsPage = async (req, res) => {
+  try {
     const report = await new Report().getReportsByStatus("pending");
-    res.render('Reports/viewPendingReports',{pendingReports:report,authority: req.session.authority,moment:moment})
-  }
-  catch(err){
+    res.render("Reports/viewPendingReports", {
+      pendingReports: report,
+      authority: req.session.authority,
+      moment: moment,
+    });
+  } catch (err) {
     console.error(err);
-    res.status(500).send("Error fetching indivitual event")
+    res.status(500).send("Error fetching indivitual event");
   }
-}
-exports.rejectReport=async(req,res)=>{
-  const reportId= req.params.reportId;
-  try{
-    const status = await  new Report().changeReportStatus(reportId,"rejected")
-    if(status == "updated"){
+};
+exports.rejectReport = async (req, res) => {
+  const reportId = req.params.reportId;
+  try {
+    const status = await new Report().changeReportStatus(reportId, "rejected");
+    if (status == "updated") {
       req.flash("success", "Report status changed  to rejected successfully!");
-      return res.redirect('/reports/view-pending-reports')
-    }
-    else{
+      return res.redirect("/reports/view-pending-reports");
+    } else {
       req.flash("error", "Server Error");
       return res.redirect("/reports/view-pending-reports");
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     req.flash("error", "Server Error");
     return res.redirect("/reports/view-pending-reports");
   }
-}
-exports.resolveReport=async(req,res)=>{
-  const reportId= req.params.reportId;
-  try{
-    const status = await  new Report().changeReportStatus(reportId,"resolved")
-    if(status == "updated"){
+};
+exports.resolveReport = async (req, res) => {
+  const reportId = req.params.reportId;
+  try {
+    const status = await new Report().changeReportStatus(reportId, "resolved");
+    if (status == "updated") {
       req.flash("success", "Report status changed  to resolved successfully!");
-      return res.redirect('/reports/view-pending-reports')
-    }
-    else{
+      return res.redirect("/reports/view-pending-reports");
+    } else {
       req.flash("error", "Server Error");
       return res.redirect("/reports/view-pending-reports");
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     req.flash("error", "Server Error");
     return res.redirect("/reports/view-pending-reports");
   }
-}
+};
