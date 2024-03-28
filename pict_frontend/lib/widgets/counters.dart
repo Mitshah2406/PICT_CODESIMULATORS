@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/providers/report_notifier.dart';
+import 'package:pict_frontend/providers/user_notifier.dart';
 
 class Counters extends ConsumerStatefulWidget {
   Counters(
@@ -14,16 +15,21 @@ class Counters extends ConsumerStatefulWidget {
 
 class _CountersState extends ConsumerState<Counters> {
   late Future<int> reportsCount;
+  late Future<int> rewardsCount;
 
   @override
   Widget build(BuildContext context) {
     reportsCount = Future.value(0);
+    rewardsCount = Future.value(0);
 
     if (widget.userId != '') {
       setState(() {
         reportsCount = ref
             .read(reportNotifier.notifier)
             .getCountOfAllUserReports(widget.userId.toString());
+        rewardsCount = ref
+            .read(userNotifier.notifier)
+            .getCountOfUserRewards(widget.userId.toString());
       });
     }
 
@@ -76,9 +82,22 @@ class _CountersState extends ConsumerState<Counters> {
               const SizedBox(
                 height: 5,
               ),
-              const Text(
-                "0",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              FutureBuilder<int>(
+                future: rewardsCount,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    final count = snapshot.data!;
+                    return Text(
+                      count.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
+                    );
+                  }
+                },
               ),
               const SizedBox(
                 height: 3,
