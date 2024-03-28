@@ -16,6 +16,7 @@
                                 <th>Uploader Name</th>
                                 <th>Description</th>
                                 <th>Report Status</th>
+                                <th>Message</th>
                                 <th>View</th>
                             </tr>
                         </thead>
@@ -25,6 +26,7 @@
                                 <td><%= report.uploaderName %></td>
                                 <td><%= report.description %></td>
                                 <td><%= report.reportStatus %></td>
+                                <td><%= report.message %></td>
                                 <td>
                                     <!-- HREF TO OPEN INDIVIDUAL EVENT PAGE -->
                                     <a href="/reports/view-report-by-id/<%= report._id %>">
