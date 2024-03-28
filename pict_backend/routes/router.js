@@ -262,6 +262,9 @@ router.post(
   itemlistingContoller.checkIfItemAlreadyExist
 );
 
+// Predict Item price
+router.post("/predictItemPrice",itemlistingContoller.predictItemPrice)
+
 // Reporting Module
 
 //add report for unhygenic place with a attachment

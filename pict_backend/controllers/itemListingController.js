@@ -1,6 +1,16 @@
 const ItemListing = require("../models/ItemListing");
 const path = require("path");
-
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const genAI = new GoogleGenerativeAI("AIzaSyCH12f11jfOO7_E3GJnwVXzQb8hbiXTHlU");
+let fs = require('fs')
+function fileToGenerativePart(path, mimeType) {
+  return {
+    inlineData: {
+      data: Buffer.from(fs.readFileSync(path)).toString("base64"),
+      mimeType,
+    },
+  };
+}
 exports.addItem = async (req, res) => {
   try {
     // We need to hit the GEN AI API to get the price estimation based on images
@@ -189,3 +199,38 @@ exports.checkIfItemAlreadyExist = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+exports.predictItemPrice = async (req,res)=>{
+  try{
+
+    const itemAttachment = req.files.itemAttachment;
+    // console.log(logoFile.name);
+    const fileName1 =
+    new Date().getTime().toString() + "-" + itemAttachment.name;
+    const savePath1 = path.join(
+      __dirname,
+      "../public/",
+      "itemAttachments",
+      fileName1
+      );
+      await itemAttachment.mv(savePath1);
+      req.body.itemAttachment = fileName1;
+      const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+      
+      const prompt = "predict the second hand used price of this item give me one word answer as a number in rupees or dollars:";
+      
+      const imageParts = [
+        fileToGenerativePart(savePath1, "image/png"), 
+      ];
+      
+      const result = await model.generateContent([prompt, ...imageParts]);
+      const response = await result.response;
+      const text = response.text().toLowerCase(); 
+      console.log("Validation response:", text);
+      res.status(200).json({ result: text });
+    }
+    catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+}
