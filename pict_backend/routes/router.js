@@ -18,10 +18,9 @@ const truckController = require("../controllers/truckController");
 // Check authorization
 const requireAuth = (req, res, next) => {
   if (!req.session.authority) {
-    // If the doctor is not in session, redirect to the login page
     return res.redirect("/authority/login-page");
   }
-  // If the doctor is authenticated, proceed to the next middleware
+
   next();
 };
 
@@ -268,6 +267,9 @@ router.post(
   "/checkIfItemAlreadyExist",
   itemlistingContoller.checkIfItemAlreadyExist
 );
+
+// Predict Item price
+router.post("/predictItemPrice",itemlistingContoller.predictItemPrice)
 
 // Reporting Module
 
