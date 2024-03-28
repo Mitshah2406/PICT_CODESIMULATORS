@@ -208,7 +208,7 @@ router.get("/getBlogResources", biowasteController.getBlogResources);
 // login route
 router.get("/authority/login-page", authorityController.loginPage);
 // Home page route
-router.get("/", authorityController.homePage);
+router.get("/",requireAuth, authorityController.homePage);
 // Bio waste routes
 router.get("/biowaste/add-resources-page", biowasteController.addResourcesPage);
 router.get("/biowaste/get-resources-page", biowasteController.getResourcesPage);
@@ -448,11 +448,11 @@ router.get('/truck/resetBinsCollectedStatus/:truckId', truckController.resetBins
 router.get('/truck/getPendingBinsWithLocations/:truckId', truckController.getPendingBinsWithLocations);
 
 //route optimization
-router.get("/getRoutes", truckController.getRoutes);
+router.get("/getRoutes", truckController.getRoutesJson);
 
 router.get("/map", async (req,res)=>{
   let data = await truckController.getRoutes();
-  res.render("RouteOptimization/map", {data: data})
+  res.render("RouteOptimization/map")
 })
 //404
 

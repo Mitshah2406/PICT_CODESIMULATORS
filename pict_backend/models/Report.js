@@ -19,7 +19,8 @@ Report.prototype.cleanUp = function () {
       formattedAddress: this.data.formattedAddress,
     },
     reportAttachment: this.data.reportAttachment,
-    reportStatus: "pending", //options: 1. pending (by default) 2. resolved  3. rejected (fake report)
+    reportStatus: this.data.reportStatus, //options: 1. pending (by default) 2. resolved  3. rejected (fake report)
+    message:this.data.message,
     createdOn: new Date(),
   };
 };
@@ -29,7 +30,10 @@ Report.prototype.addReport = async function () {
   try {
     console.log("Function called");
     console.log(this.data);
-
+    if (!this.data.reportStatus) {
+      // Set reportStatus to "pending" if not provided
+      this.data.reportStatus = "pending";
+    }
     let data = await reportCollection.insertOne(this.data);
     console.log(data.insertedId);
     if (data.acknowledged) {

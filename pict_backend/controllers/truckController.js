@@ -89,16 +89,26 @@ exports.getPendingBinsWithLocations = async function(req, res) {
         res.status(400).json({'error':'Error in fetching pending bins with locations'});
     }
 };
+exports.getRoutesJson = async function (req,res) {
+    try {
+        let bin = new Bin();
+        let binData = await bin.getAllBins();
+        let dataa = await axios.post(`${process.env.DJANGO_SERVER}/getRouteData`, binData)
 
+       res.status(200).json(dataa.data)
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-exports.getRoutes = async function(req, res) {
+exports.getRoutes = async function() {
     try {
         let bin = new Bin();
         let binData = await bin.getAllBins(); 
-        let result = await axios.post(`${process.env.DJANGO_SERVER}/getRouteData`, binData)
+        let dataa = await axios.post(`${process.env.DJANGO_SERVER}/getRouteData`, binData)
 
-        console.log(result);
-        res.status(200).json(result.data);
+        console.log(dataa.data);
+        return dataa.data
     } catch (error) {
         console.log(error);
     }
