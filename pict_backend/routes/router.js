@@ -448,11 +448,11 @@ router.get('/truck/resetBinsCollectedStatus/:truckId', truckController.resetBins
 router.get('/truck/getPendingBinsWithLocations/:truckId', truckController.getPendingBinsWithLocations);
 
 //route optimization
-router.get("/getRoutes", truckController.getRoutes);
+router.get("/getRoutes", truckController.getRoutesJson);
 
 router.get("/map", async (req,res)=>{
   let data = await truckController.getRoutes();
-  res.render("RouteOptimization/map", {data: data})
+  res.render("RouteOptimization/map")
 })
 //404
 
