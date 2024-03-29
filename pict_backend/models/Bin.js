@@ -106,9 +106,11 @@ Bin.prototype.updateBinFillLevel = async function(binId, input) {
     let bin = await binCollection.findOne({ _id: new ObjectID(binId) });
     let newBinFillLevel;
     if (input === 0) {
+        console.log("I am at 0")
         newBinFillLevel = 0;
     } else if (input === 1) {
-        newBinFillLevel = 0;
+        console.log("i am at 1")
+        newBinFillLevel = 1;
     } else {
         throw new Error('Invalid input. Input must be either 0 or 1.');
     }
