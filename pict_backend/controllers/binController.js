@@ -87,3 +87,17 @@ exports.getReverseGeoCodedLocationsOfAllBins = async function(req, res) {
         res.status(400).json({ 'error': 'Error in collecting waste from the bin' });
     }
 }
+exports.updateBinFillLevel = async function(req, res) {
+    console.log("HITTT")
+    const binId = req.params.binId;
+    const input = parseInt(req.body.binFillLevel);
+    
+    try {
+        let bin = new Bin();
+        const updatedFillLevelInfo = await bin.updateBinFillLevel(binId, input);
+        res.status(200).json(updatedFillLevelInfo);
+    } catch(err) {
+        console.log(err);
+        res.status(400).json({ 'error': 'Error in updating bin fill level' });
+    }
+};

@@ -446,6 +446,7 @@ router.get(
   "/bin/getReverseGeoCodedLocationsOfAllBins",
   binController.getReverseGeoCodedLocationsOfAllBins
 );
+router.put("/bin/updateBinFillLevel/:binId", binController.updateBinFillLevel);
 // Depot Module
 router.get("/depot/getAllDepots", depotController.getAllDepots);
 router.post("/depot/addDepot", depotController.addDepot);
