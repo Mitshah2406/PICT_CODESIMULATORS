@@ -41,7 +41,7 @@ def getRouteData(request):
     #  print(fill_levels)
      distance_matrix_data['addresses']=address
      data={}
-     data['fill_levels']=[0,0,0,0,0,0,0,0,0,0,0,0,3,4]
+     data['fill_levels']= fill_levels
      data['distance_matrix']=create_distance_matrix(distance_matrix_data)
      
      data["truck_capacities"] = [10, 10, 10,10]
@@ -172,7 +172,9 @@ def print_solution(data, manager, routing, solution, depot_data, all_bin_data):
             if(node_index==0):
                 route_array.append(depot_data[0]) 
             else:
-               route_array.append(all_bin_data[node_index-1])
+               if(data['fill_levels'][node_index]>0):  
+                route_array.append(all_bin_data[node_index-1])
+               
             route.append(node_index)
             plan_output += f" {node_index} Load({route_load}) -> "
             previous_index = index
@@ -191,8 +193,8 @@ def print_solution(data, manager, routing, solution, depot_data, all_bin_data):
         print(plan_output)
         total_distance += route_distance
         total_load += route_load
-    print("Mit Shah\n\n\n")
-    print(total_all_truck_routes_details)
+    # print("Mit Shah\n\n\n")
+    # print(total_all_truck_routes_details)
     # resultant_data = {
         # "total_distance": total_distance,
         # "total_garbage_picked": total_load,

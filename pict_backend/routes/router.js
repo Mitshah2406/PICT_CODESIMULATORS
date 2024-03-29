@@ -25,6 +25,8 @@ const requireAuth = (req, res, next) => {
   next();
 };
 
+router.get("/user/getAllUserImages", userController.getAllUserImages);
+
 // Create a new account, and segregating based on the roles
 router.post("/account/signUp", accountController.signUp);
 
@@ -490,6 +492,9 @@ router.get("/getSingleRoute/:index", truckController.getSingleRoute);
 //   let data = await truckController.getRoutes();
 //   res.render("RouteOptimization/map");
 // });
+
+
+
 //404
 
 router.get("*", (req, res) => {

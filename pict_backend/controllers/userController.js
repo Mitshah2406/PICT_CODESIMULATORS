@@ -72,3 +72,16 @@ exports.getCountOfUserRewards = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+exports.getAllUserImages = async (req, res) => {
+  try {
+    let user = new User();
+    const userImages = await user.getAllUserImages();
+    if (userImages.length === 0) {
+      return res.status(404).json({ error: "No user images found" });
+    }
+    return res.status(200).json({ userImages });
+  } catch (error) {
+    console.error("Error getting user images:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
