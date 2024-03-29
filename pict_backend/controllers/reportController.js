@@ -34,9 +34,17 @@ exports.addReport = async (req, res) => {
 
       // For text-and-image input (multimodal), use the gemini-pro-vision model
       const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
-
+      // model.safetySettings(
+      //   Collections.singletonList(
+      //     SafetySetting.newBuilder()
+      //       .setCategory(HarmCategory.HARM_CATEGORY_YOUR_CATEGORY)
+      //       .setThreshold(SafetySetting.HarmBlockThreshold.BLOCK_NONE)
+      //       .build()
+      //   )
+      // );
       // const prompt = "Is this an unhygenic dumpsite? reply it in a yes or no";
-      const prompt = "Is this place messy? reply it in a yes or no";
+      const prompt =
+        "is this something which should be put in a dustbin? reply it in a yes or no";
 
       const imageParts = [fileToGenerativePart(savePath1, "image/png")];
 
@@ -112,7 +120,7 @@ exports.changeReportStatus = async (req, res) => {
       let reportData = await report.getReportById(reportId);
       let user = new User();
       let userData = await user.getUserById(reportData.uploaderId);
-      console.log(userData.reward,"dtfgvhbj")
+      console.log(userData.reward, "dtfgvhbj");
       userData.reward += 10;
       await user.updatePoints(userData._id, userData.reward);
       response = await report.changeReportStatus(reportId, reportStatus);
@@ -307,15 +315,14 @@ exports.rejectReport = async (req, res) => {
   }
 };
 exports.resolveReport = async (req, res) => {
-  console.log("Yahoo")
+  console.log("Yahoo");
   const reportId = req.params.reportId;
   try {
-
     let report = new Report();
     let reportData = await report.getReportById(reportId);
     let user = new User();
     let userData = await user.getUserById(reportData.uploaderId);
-    console.log(userData.reward,"dtfgvhbj")
+    console.log(userData.reward, "dtfgvhbj");
     userData.reward += 10;
     await user.updatePoints(userData._id, userData.reward);
     const status = await report.changeReportStatus(reportId, "resolved");

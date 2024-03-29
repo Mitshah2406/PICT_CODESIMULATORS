@@ -70,6 +70,7 @@ class GeolocationService {
           "${place.name} ${place.subLocality}, ${place.locality}, ${place.administrativeArea}, ${place.country} ${place.postalCode}"
     };
     prefs.setString("location", location.toString());
+    prefs.setString("cityName", "${place.locality} ${place.subLocality!}");
   }
 
   static Future<Map<String, String>> getLocationFromSession() async {

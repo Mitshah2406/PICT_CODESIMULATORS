@@ -274,7 +274,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                 ),
-                                child: const Text("Show QR"),
+                                child: const Text("Show Ticket"),
                               )
                             : ElevatedButton(
                                 onPressed: () {

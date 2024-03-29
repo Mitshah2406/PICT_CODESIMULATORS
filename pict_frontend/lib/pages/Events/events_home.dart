@@ -193,6 +193,12 @@ class _EventsHomePageState extends ConsumerState<EventsHomePage> {
                           ),
                           child: latest3registeredEvent.when(
                             data: (events) {
+                              if (events.isEmpty) {
+                                return const Center(
+                                  child: Text("No Events!"),
+                                );
+                              }
+
                               return Stack(
                                 alignment: Alignment.center,
                                 children: events.asMap().entries.map((entry) {

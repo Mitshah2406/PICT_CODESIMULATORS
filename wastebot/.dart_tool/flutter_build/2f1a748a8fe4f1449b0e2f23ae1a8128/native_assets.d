@@ -1,0 +1,1 @@
+ C:\\Users\\athar\\Desktop\\PICT_CODESIMULATORS\\wastebot\\.dart_tool\\flutter_build\\2f1a748a8fe4f1449b0e2f23ae1a8128\\native_assets.yaml: 

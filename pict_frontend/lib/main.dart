@@ -36,6 +36,7 @@ class MyApp extends ConsumerWidget {
         NotiScreen.notificationRoute: (context) => const NotiScreen(),
       },
       debugShowCheckedModeBanner: false,
+      // debugShowMaterialGrid: true,
       home: const SplashScreen(),
       themeMode: themeMode,
       theme: TAppTheme.lightTheme,

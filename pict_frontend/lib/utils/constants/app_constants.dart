@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppConstants {
   static const String port = "4000";
-  static const String IP = "http://192.168.131.208:$port";
+  static const String IP = "http://10.10.12.201:$port";
 
   static Color bgColorAuth = const Color(0xfff7f6fb);
   static const String registerIcon = "assets/images/register.svg";

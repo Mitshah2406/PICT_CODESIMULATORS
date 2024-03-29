@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/pages/ChatBot/chatbot.dart';
 // import 'package:pict_frontend/pages/Events/events.dart';
 import 'package:pict_frontend/pages/Events/events_home.dart';
+import 'package:pict_frontend/pages/Gamification/gamification_home.dart';
 import 'package:pict_frontend/pages/Report/reports.dart';
 import 'package:pict_frontend/pages/Report/report_home.dart';
 import 'package:pict_frontend/pages/User/user_home_screen.dart';
@@ -25,7 +26,7 @@ class _UserDashboardState extends ConsumerState<UserDashboard> {
 
   final tabs = [
     const HomePage(),
-    const ChatBot(),
+    const GamificationHomePage(),
     const ReportPage(),
     const EventsHomePage(),
     const UserProfilePage(),
