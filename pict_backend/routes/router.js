@@ -13,6 +13,7 @@ const binController = require("../controllers/binController");
 const depotController = require("../controllers/depotController");
 const driverController = require("../controllers/driverController");
 const truckController = require("../controllers/truckController");
+const taskController = require("../controllers/taskController");
 // ? Authentication module
 
 // Check authorization
@@ -472,6 +473,13 @@ router.get(
   "/truck/getPendingBinsWithLocations/:truckId",
   truckController.getPendingBinsWithLocations
 );
+
+
+// Task routes
+
+router.get("/task/getAllTasks", taskController.getAllTasks);
+router.get("/task/getRandomTask", taskController.getRandomTask);
+router.post("/task/addBulkTasks", taskController.addBulkTasks);
 
 //route optimization
 router.get("/viewMap", truckController.viewMap);
