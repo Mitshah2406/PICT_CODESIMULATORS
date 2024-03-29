@@ -91,13 +91,19 @@ User.prototype.updatePoints = async function (userId, newData) {
   try {
     let updatedUser = await usersCollection.findOneAndUpdate(
       { _id: userId }, // Filter
-      { $set: { reward: newData } }, 
-  );
+      { $set: { reward: newData } }
+    );
     return updatedUser;
   } catch (error) {
     console.error("Error updating user:", error);
     throw error;
   }
+};
+
+User.prototype.getCountOfUserRewards = async function (userId) {
+  let data = await usersCollection.findOne({ _id: new ObjectID(userId) });
+
+  return data.reward;
 };
 
 module.exports = User;

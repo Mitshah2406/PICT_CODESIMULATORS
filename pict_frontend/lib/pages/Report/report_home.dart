@@ -31,6 +31,7 @@ class _ReportPageState extends ConsumerState<ReportPage> {
   String? _name;
   String? _email;
   String? _userImage;
+  bool isLoading = false;
 
   Future<Null> getSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -52,14 +53,18 @@ class _ReportPageState extends ConsumerState<ReportPage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _descriptionController.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _descriptionController.dispose();
+  // }
 
   void _addReport() async {
     if (_formKey.currentState!.validate()) {
+      // setState(() {
+      //   isLoading = true;
+      // });
+
       final enteredDescription = _descriptionController.text;
 
       if (_selectedImage == null || location == null) {
@@ -117,9 +122,17 @@ class _ReportPageState extends ConsumerState<ReportPage> {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return const ReportsPage();
         }));
-        _selectedImage = null;
-        location = null;
+
+        setState(() {
+          _descriptionController.text = "";
+          _selectedImage = null;
+          location = null;
+        });
       }
+
+      // setState(() {
+      //   isLoading = false;
+      // });
       // Navigator.of(context).pop();
     }
   }
@@ -214,6 +227,11 @@ class _ReportPageState extends ConsumerState<ReportPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     TextFormField(
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Please provide description";
+                                        }
+                                      },
                                       maxLines: null,
                                       keyboardType: TextInputType.multiline,
                                       controller: _descriptionController,
@@ -282,6 +300,8 @@ class _ReportPageState extends ConsumerState<ReportPage> {
                                           ),
                                         ),
                                         label: Text(
+                                          // isLoading
+                                          // ? "Validating Report..."
                                           "Submit Report",
                                           style: Theme.of(context)
                                               .textTheme

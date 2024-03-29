@@ -59,3 +59,16 @@ exports.editProfile = async (req, res) => {
     return res.status(500).json({ message: "Internal Sever Error" });
   }
 };
+
+exports.getCountOfUserRewards = async (req, res) => {
+  try {
+    let user = new User();
+    let userId = req.body.userId;
+
+    let count = await user.getCountOfUserRewards(userId);
+    res.status(200).json({ result: count });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
