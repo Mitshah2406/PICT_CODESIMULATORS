@@ -88,8 +88,8 @@ class _EventTicketPageState extends State<EventTicketPage> {
               height: 600,
               decoration: BoxDecoration(
                 color: Theme.of(context).brightness == Brightness.dark
-                    ? TColors.white
-                    : TColors.black,
+                    ? TColors.black
+                    : TColors.white,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Column(

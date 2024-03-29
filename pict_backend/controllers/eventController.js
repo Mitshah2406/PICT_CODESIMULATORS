@@ -141,6 +141,7 @@ exports.addEvent = async function (req, res) {
     let result = await event.addEvent();
 
     if (result.status == "ok") {
+      console.log("Account created");
       axios
         .post("http://localhost:4000/account/signUp", {
           accountFirstName: req.body.organizerName,
@@ -153,12 +154,10 @@ exports.addEvent = async function (req, res) {
         .then(function (response) {
           console.log(response.data);
           if (!req.session.authority) {
-            return res
-              .status(200)
-              .json({
-                message: "Event Added Successfully",
-                eventId: result.id,
-              });
+            return res.status(200).json({
+              message: "Event Added Successfully",
+              eventId: result.id,
+            });
           } else {
             req.flash("success", "Data added  successfully");
             return res.redirect("/events/add-events-page");

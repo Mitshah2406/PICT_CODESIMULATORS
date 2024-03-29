@@ -28,8 +28,8 @@ Event.prototype.cleanUp = function () {
     organizerNumber: this.data.organizerNumber,
     whatsAppLink: this.data.whatsAppLink,
     // areVolunteersNeeded: Boolean(this.data.areVolunteersNeeded), take this to conditionally show the volunteers fields on fronted (FOR TAHER)
-    eventAddress: this.data.eventAddress,
-    eventCity: this.data.eventCity,
+    eventAddress: "PICT Campus, Dankiwadi",
+    eventCity: "Pune",
     noOfVolunteersNeeded: Number(this.data.noOfVolunteersNeeded),
     participationCertificateTemplate:
       this.data.participationCertificateTemplate,

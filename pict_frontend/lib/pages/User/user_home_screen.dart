@@ -53,9 +53,10 @@ class HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final events = ref.watch(getAllEvents);
+    final events = ref.watch(getAllEvents);
 
-    // LoggerHelper.info(events.toString());
+    LoggerHelper.info(events.toString());
+    print(_id);
 
     return Scaffold(
       body: SizedBox(
@@ -68,6 +69,30 @@ class HomePageState extends ConsumerState<HomePage> {
                 Column(
                   children: [
                     AppBar(
+                      leading: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.location_on_outlined,
+                              size: 25,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              _location!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.black
+                                        : Colors.white,
+                                  ),
+                            )
+                          ],
+                        ),
+                      ),
                       centerTitle: true,
                       backgroundColor: TColors.primaryGreen,
                       // leading: Icon(Icons.),
@@ -102,7 +127,7 @@ class HomePageState extends ConsumerState<HomePage> {
                     ),
                     ClipPath(
                       child: SizedBox(
-                        height: 150,
+                        height: 100,
                         width: double.infinity,
                         child: Container(
                           decoration: const BoxDecoration(
@@ -117,30 +142,6 @@ class HomePageState extends ConsumerState<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.location_on_outlined,
-                                    size: 35,
-                                  ),
-                                  Text(
-                                    _location!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.black
-                                              : Colors.white,
-                                        ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               Text(
                                 "EcoSaathi",
                                 style: Theme.of(context)
@@ -163,17 +164,17 @@ class HomePageState extends ConsumerState<HomePage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: Text(
                 "Services Categories",
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
-                    .copyWith(color: TColors.black),
+                    .copyWith(color: TColors.black, fontSize: 22),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -365,148 +366,151 @@ class HomePageState extends ConsumerState<HomePage> {
             //   ),
             // )
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.only(left: 20, top: 20, bottom: 0),
               child: Text(
                 "Recommended For You",
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
-                    .copyWith(color: TColors.black),
+                    .copyWith(color: TColors.black, fontSize: 22),
               ),
             ),
 
-            // events.when(
-            //     data: (events) {
-            //       if (events.isEmpty) {
-            //         return const Center(
-            //           child: Text("There are no events!"),
-            //         );
-            //       }
+            Expanded(
+              child: events.when(
+                data: (events) {
+                  if (events.isEmpty) {
+                    return const Center(
+                      child: Text("There are no events!"),
+                    );
+                  }
 
-            //       return ListView.builder(
-            //         itemCount: events!.length,
-            //         itemBuilder: (context, index) {
-            //           Event event = events![index];
-            //           Color color = index % 3 == 0
-            //               ? TColors.primaryYellow
-            //               : index % 3 == 1
-            //                   ? TColors.accentGreen
-            //                   : TColors.accentYellow;
+                  return ListView.builder(
+                    itemCount: events.length,
+                    itemBuilder: (context, index) {
+                      Event event = events[index];
+                      Color color = index % 3 == 0
+                          ? TColors.primaryYellow
+                          : index % 3 == 1
+                              ? TColors.accentGreen
+                              : TColors.accentYellow;
 
-            //           return Padding(
-            //             padding: const EdgeInsets.symmetric(
-            //                 horizontal: 20, vertical: 8),
-            //             child: GestureDetector(
-            //               onTap: () {
-            //                 Navigator.push(
-            //                   context,
-            //                   CupertinoPageRoute(
-            //                     builder: (context) => EventDetailsPage(
-            //                       event: event,
-            //                       userId: _id!,
-            //                       userImage: _userImage!,
-            //                     ),
-            //                   ),
-            //                 );
-            //               },
-            //               child: Container(
-            //                 decoration: BoxDecoration(
-            //                   color: color,
-            //                   borderRadius: BorderRadius.circular(20),
-            //                 ),
-            //                 child: Padding(
-            //                   padding: const EdgeInsets.all(12.0),
-            //                   child: Row(
-            //                     mainAxisAlignment:
-            //                         MainAxisAlignment.spaceAround,
-            //                     children: [
-            //                       Expanded(
-            //                         child: Column(
-            //                           mainAxisAlignment:
-            //                               MainAxisAlignment.center,
-            //                           crossAxisAlignment:
-            //                               CrossAxisAlignment.start,
-            //                           children: [
-            //                             Text(
-            //                               event.eventName.toString(),
-            //                               softWrap: true,
-            //                               // textAlign: TextAlign.center,
-            //                               style: Theme.of(context)
-            //                                   .textTheme
-            //                                   .headlineSmall!
-            //                                   .copyWith(
-            //                                       fontWeight: FontWeight.w400,
-            //                                       color: TColors.black),
-            //                             ),
-            //                             const SizedBox(
-            //                               height: 10,
-            //                             ),
-            //                             event.volunteers!.isNotEmpty
-            //                                 ? Text(
-            //                                     event.volunteers!.length == 1
-            //                                         ? "${event.volunteers!.length} Volunteer"
-            //                                         : "${event.volunteers!.length} Volunteers",
-            //                                     style: Theme.of(context)
-            //                                         .textTheme
-            //                                         .labelLarge!
-            //                                         .copyWith(
-            //                                             color: TColors.black),
-            //                                   )
-            //                                 : const SizedBox.shrink(),
-            //                             const SizedBox(
-            //                               height: 10,
-            //                             ),
-            //                             Text(
-            //                               "${AppConstants.months[event.eventStartDate!.month - 1]} ${event.eventStartDate!.day}"
-            //                                   .toUpperCase(),
-            //                               style: Theme.of(context)
-            //                                   .textTheme
-            //                                   .labelLarge!
-            //                                   .copyWith(color: TColors.black),
-            //                             ),
-            //                             const SizedBox(
-            //                               height: 10,
-            //                             ),
-            //                           ],
-            //                         ),
-            //                       ),
-            //                       Hero(
-            //                         tag: event.id!,
-            //                         child: CircleAvatar(
-            //                           backgroundColor: Colors.white,
-            //                           radius: 60,
-            //                           child: SizedBox(
-            //                             width: 180,
-            //                             height: 180,
-            //                             child: ClipOval(
-            //                               clipBehavior:
-            //                                   Clip.antiAliasWithSaveLayer,
-            //                               child: event.eventPoster == null
-            //                                   ? Image.network(
-            //                                       "${AppConstants.IP}/poster/fallback-poster.png",
-            //                                       fit: BoxFit.cover,
-            //                                     )
-            //                                   : Image.network(
-            //                                       "${AppConstants.IP}/poster/${event.eventPoster}",
-            //                                       fit: BoxFit.cover,
-            //                                     ),
-            //                             ),
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 ),
-            //               ),
-            //             ),
-            //           );
-            //         },
-            //       );
-            //     },
-            //     loading: () => const Center(
-            //           child: CircularProgressIndicator(),
-            //         ),
-            //     error: (error, stackTrace) => Text('Error: $error'))
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 5),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => EventDetailsPage(
+                                  event: event,
+                                  userId: _id!,
+                                  userImage: _userImage!,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: color,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          event.eventName.toString(),
+                                          softWrap: true,
+                                          // textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: TColors.black),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        event.volunteers!.isNotEmpty
+                                            ? Text(
+                                                event.volunteers!.length == 1
+                                                    ? "${event.volunteers!.length} Volunteer"
+                                                    : "${event.volunteers!.length} Volunteers",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelLarge!
+                                                    .copyWith(
+                                                        color: TColors.black),
+                                              )
+                                            : const SizedBox.shrink(),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          "${AppConstants.months[event.eventStartDate!.month - 1]} ${event.eventStartDate!.day}"
+                                              .toUpperCase(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge!
+                                              .copyWith(color: TColors.black),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Hero(
+                                    tag: event.id!,
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      radius: 60,
+                                      child: SizedBox(
+                                        width: 180,
+                                        height: 180,
+                                        child: ClipOval(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          child: event.eventPoster == null
+                                              ? Image.network(
+                                                  "${AppConstants.IP}/poster/fallback-poster.png",
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.network(
+                                                  "${AppConstants.IP}/poster/${event.eventPoster}",
+                                                  fit: BoxFit.cover,
+                                                ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                error: (error, stackTrace) => Text('Error: $error'),
+              ),
+            )
           ],
         ),
       ),
