@@ -38,4 +38,16 @@ Task.prototype.addBulkTasks = async function (tasksToAdd) {
     return "Error inserting bulk tasks.";
   }
 };
+Task.prototype.getTaskById = async function (taskId) {
+  try {
+    const taskData = await taskCollection.findOne({
+      _id: new ObjectID(taskId),
+    });
+    return taskData;
+  } catch (error) {
+    console.error("Error inserting getting tasks points", error);
+    return "Error inserting getting tasks points";
+  }
+};
+
 module.exports = Task;

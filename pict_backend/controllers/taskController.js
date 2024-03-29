@@ -1,6 +1,17 @@
 const Task = require("../models/Task");
+const User = require("../models/User");
 const path = require("path");
-
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const genAI = new GoogleGenerativeAI("AIzaSyCH12f11jfOO7_E3GJnwVXzQb8hbiXTHlU");
+const fs = require("fs");
+function fileToGenerativePart(path, mimeType) {
+  return {
+    inlineData: {
+      data: Buffer.from(fs.readFileSync(path)).toString("base64"),
+      mimeType,
+    },
+  };
+}
 // Controller for handling tasks
 exports.getAllTasks = async function (req, res) {
   try {
@@ -55,13 +66,32 @@ exports.validateTask = async function (req, res) {
         fileName1
       );
       await file.mv(savePath1);
-      req.body.taskImage = fileName1;
+      const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+      const prompt = `Is the image I have provided resembling with this task ${title}, reply in yes or no?`;
+
+      const imageParts = [fileToGenerativePart(savePath1, "image/png")];
+
+      const result = await model.generateContent([prompt, ...imageParts]);
+      const response = await result.response;
+      // console.log(text);
+      const text = response.text().toLowerCase().trim(); // Convert text to lowercase for comparison
+      console.log("Validation response:", text);
+      if (text != "no.") {
+        let user = new User();
+        let task = new Task();
+        const taskData = await task.getTaskById(taskId);
+        const taskPoints = taskData.taskPoints;
+        console.log(taskData);
+        let userData = await user.getUserById(userId);
+        console.log(userData.reward, "dtfgvhbj");
+        userData.reward += taskPoints;
+        let response = await user.updatePoints(userId, userData.reward);
+        console.log(response);
+        res.status(200).json({ result: true });
+      } else {
+        res.status(200).json({ result: false });
+      }
     }
-
-    res.status(200).json({ result: true });
-
-    // let task = new Task();
-    // await task.validateTask(tasksToAdd);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });

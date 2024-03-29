@@ -90,7 +90,7 @@ User.prototype.editProfile = async function ({
 User.prototype.updatePoints = async function (userId, newData) {
   try {
     let updatedUser = await usersCollection.findOneAndUpdate(
-      { _id: userId }, // Filter
+      { _id: new ObjectID(userId) }, // Filter
       { $set: { reward: newData } }
     );
     return updatedUser;
@@ -108,14 +108,13 @@ User.prototype.getCountOfUserRewards = async function (userId) {
 User.prototype.getAllUserImages = async function () {
   try {
     const users = await usersCollection.find().toArray();
-    const userImages = users.map(user => user.userImage);
-    const filteredImages = userImages.filter(image => image);
+    const userImages = users.map((user) => user.userImage);
+    const filteredImages = userImages.filter((image) => image);
     return filteredImages;
   } catch (error) {
     console.error("Error retrieving user images:", error);
     throw error;
   }
 };
-
 
 module.exports = User;
