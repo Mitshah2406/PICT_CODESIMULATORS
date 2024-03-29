@@ -9,19 +9,18 @@ const reportController = require("../controllers/reportController");
 const wastePickupScheduleController = require("../controllers/wastePickupScheduleController");
 const authorityController = require("../controllers/authorityController");
 const biowasteController = require("../controllers/biowasteController");
-const binController = require("../controllers/binController")
-const depotController = require("../controllers/depotController")
-const driverController = require("../controllers/driverController")
-const truckController = require("../controllers/truckController")
+const binController = require("../controllers/binController");
+const depotController = require("../controllers/depotController");
+const driverController = require("../controllers/driverController");
+const truckController = require("../controllers/truckController");
 // ? Authentication module
 
 // Check authorization
 const requireAuth = (req, res, next) => {
   if (!req.session.authority) {
-    // If the doctor is not in session, redirect to the login page
     return res.redirect("/authority/login-page");
   }
-  // If the doctor is authenticated, proceed to the next middleware
+
   next();
 };
 
@@ -33,6 +32,12 @@ router.post("/account/signIn", accountController.signIn);
 
 // Edit Profile Route
 router.post("/editProfile", userController.editProfile);
+
+// ? User API's
+router.post(
+  "/user/getCountOfUserRewards",
+  userController.getCountOfUserRewards
+);
 
 // ? Event Management Module
 
@@ -208,7 +213,7 @@ router.get("/getBlogResources", biowasteController.getBlogResources);
 // login route
 router.get("/authority/login-page", authorityController.loginPage);
 // Home page route
-router.get("/",requireAuth, authorityController.homePage);
+router.get("/", requireAuth, authorityController.homePage);
 // Bio waste routes
 router.get("/biowaste/add-resources-page", biowasteController.addResourcesPage);
 router.get("/biowaste/get-resources-page", biowasteController.getResourcesPage);
@@ -263,6 +268,9 @@ router.post(
   itemlistingContoller.checkIfItemAlreadyExist
 );
 
+// Predict Item price
+router.post("/predictItemPrice",itemlistingContoller.predictItemPrice)
+
 // Reporting Module
 
 //add report for unhygenic place with a attachment
@@ -280,10 +288,10 @@ router.get(
 );
 
 //waste pickup schedule module
-router.post("/pickup/addWastePickupSchedule", wastePickupScheduleController.addWastePickupSchedule);
-
-
-
+router.post(
+  "/pickup/addWastePickupSchedule",
+  wastePickupScheduleController.addWastePickupSchedule
+);
 
 // router.post(
 //   "/pickup/addWastePickupSchedule",
@@ -422,38 +430,58 @@ router.post(
 );
 
 // Bin Module
-router.get('/bin/getAllBins', binController.getAllBins)
-router.post('/bin/addBin', binController.addBin);
-router.get('/bin/getBinLocationById/:binId', binController.getBinLocationById)
-router.get('/bin/getBinFillLevelById/:binId', binController.getBinFillLevelById)
-router.post('/bin/addWaste/:binId', binController.addWaste)
-router.get('/bin/collectWaste/:binId', binController.collectWaste)
-router.get("/bin/getReverseGeoCodedLocationsOfAllBins", binController.getReverseGeoCodedLocationsOfAllBins)
+router.get("/bin/getAllBins", binController.getAllBins);
+router.post("/bin/addBin", binController.addBin);
+router.get("/bin/getBinLocationById/:binId", binController.getBinLocationById);
+router.get(
+  "/bin/getBinFillLevelById/:binId",
+  binController.getBinFillLevelById
+);
+router.post("/bin/addWaste/:binId", binController.addWaste);
+router.get("/bin/collectWaste/:binId", binController.collectWaste);
+router.get(
+  "/bin/getReverseGeoCodedLocationsOfAllBins",
+  binController.getReverseGeoCodedLocationsOfAllBins
+);
 // Depot Module
-router.get('/depot/getAllDepots', depotController.getAllDepots)
-router.post('/depot/addDepot', depotController.addDepot);
-router.get('/depot/getDepotLocationById/:depotId', depotController.getDepotLocationById)
-router.get('/depot/getDepotCapacityById/:depotId', depotController.getDepotCapacityById)
+router.get("/depot/getAllDepots", depotController.getAllDepots);
+router.post("/depot/addDepot", depotController.addDepot);
+router.get(
+  "/depot/getDepotLocationById/:depotId",
+  depotController.getDepotLocationById
+);
+router.get(
+  "/depot/getDepotCapacityById/:depotId",
+  depotController.getDepotCapacityById
+);
 // Driver Module
-router.post('/driver/login', driverController.login)
-router.get("/driver/getTruckId/:driverId", driverController.getTruckId)
-router.post("/driver/setTruckId/:driverId", driverController.setTruckId)
+router.post("/driver/login", driverController.login);
+router.get("/driver/getTruckId/:driverId", driverController.getTruckId);
+router.post("/driver/setTruckId/:driverId", driverController.setTruckId);
 // Truck Module
-router.get('/truck/getAllTrucks', truckController.getAllTrucks);
-router.get('/truck/getTruckById/:truckId', truckController.getTruckById);
-router.post('/truck/addWaste/:truckId', truckController.addWaste);
-router.post('/truck/collectBin/:truckId', truckController.collectBin);
-router.get('/truck/pendingBins/:truckId', truckController.pendingBins);
-router.get('/truck/resetBinsCollectedStatus/:truckId', truckController.resetBinsCollectedStatus);
-router.get('/truck/getPendingBinsWithLocations/:truckId', truckController.getPendingBinsWithLocations);
+router.get("/truck/getAllTrucks", truckController.getAllTrucks);
+router.get("/truck/getTruckById/:truckId", truckController.getTruckById);
+router.post("/truck/addWaste/:truckId", truckController.addWaste);
+router.post("/truck/collectBin/:truckId", truckController.collectBin);
+router.get("/truck/pendingBins/:truckId", truckController.pendingBins);
+router.get(
+  "/truck/resetBinsCollectedStatus/:truckId",
+  truckController.resetBinsCollectedStatus
+);
+router.get(
+  "/truck/getPendingBinsWithLocations/:truckId",
+  truckController.getPendingBinsWithLocations
+);
 
 //route optimization
+router.get("/viewMap", truckController.viewMap);
 router.get("/getRoutes", truckController.getRoutesJson);
-
-router.get("/map", async (req,res)=>{
-  let data = await truckController.getRoutes();
-  res.render("RouteOptimization/map")
-})
+router.get("/getSingleRoute/:index", truckController.getSingleRoute);
+//
+// router.get("/map", async (req, res) => {
+//   let data = await truckController.getRoutes();
+//   res.render("RouteOptimization/map");
+// });
 //404
 
 router.get("*", (req, res) => {

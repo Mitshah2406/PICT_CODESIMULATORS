@@ -260,6 +260,18 @@ class _EventsHomePageState extends ConsumerState<EventsHomePage> {
                     // print("Upcoming Events of this month");
                     // print(events);
 
+                    if (events.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "No Upcoming Events For this Month",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(color: TColors.black),
+                        ),
+                      );
+                    }
+
                     return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: events.length,

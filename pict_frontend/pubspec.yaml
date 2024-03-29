@@ -75,6 +75,7 @@ dependencies:
   camera: ^0.10.5+2
   image: ^4.0.17
   exif: ^3.1.4
+  introduction_screen: ^3.1.14
 
 dev_dependencies:
   flutter_test:

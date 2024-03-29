@@ -4,13 +4,20 @@
   <div class="row justify-content-center">
     <div class="col-lg-12">
       <div class="card border-primary">
-        <div class="card-header  text-white">
-          <h3 class="card-title"><%= result.uploaderName %> :   <%=result.uploaderEmail %></h3>
+        <div class="card-header text-white">
+          <h3 class="card-title">
+            <%= result.uploaderName %> : <%=result.uploaderEmail %>
+          </h3>
         </div>
         <div class="card-body">
           <div class="row">
             <div class="col-md-4">
-              <img src="/poster/<%= result.reportAttachment %>" class="img-fluid rounded" alt="Event Poster" onerror="this.onerror=null;this.src='/poster/fallback-poster.png';">
+              <img
+                src="/poster/<%= result.reportAttachment %>"
+                class="img-fluid rounded"
+                alt="Event Poster"
+                onerror="this.onerror=null;this.src='/poster/fallback-poster.png';"
+              />
             </div>
             <div class="col-md-3">
               <p><strong>Description:</strong></p>
@@ -28,49 +35,52 @@
               <!-- Add other event details here -->
             </div>
           </div>
-          <hr>
+          <hr />
         </div>
       </div>
     </div>
-
   </div>
 </div>
 <div class="row">
   <div class="col-sm-12">
-      <div class="card">
-          <div class="card-header d-flex justify-content-between">
-              <div class="header-title">
-                  <h4 class="card-title">Basic</h4>
-              </div>
-          </div>
-          <div class="card-body">
-              <p>Report</p>
-              <div id="map" style="height: 400px;width: 100%;"></div>
-          </div>
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <div class="header-title">
+          <h4 class="card-title">Basic</h4>
+        </div>
       </div>
+      <div class="card-body">
+        <p>Report</p>
+        <div id="map" style="height: 400px; width: 100%"></div>
+      </div>
+    </div>
   </div>
 </div>
 <script>
   // Initialize and add the map
   function initMap() {
-      // Location coordinates (latitude and longitude)
-      var myLatLng = { lat: 14.502762, lng: 7.946218 };
+    // Location coordinates (latitude and longitude)
+    var myLatLng = { lat: 14.502762, lng: 7.946218 };
 
-      // Create a map object and specify the DOM element for display
-      var map = new google.maps.Map(document.getElementById('map'), {
-          center: myLatLng, // Set the center of the map to the specified location
-          zoom: 10 // Set the initial zoom level
-      });
+    // Create a map object and specify the DOM element for display
+    var map = new google.maps.Map(document.getElementById("map"), {
+      center: myLatLng, // Set the center of the map to the specified location
+      zoom: 10, // Set the initial zoom level
+    });
 
-      // Create a marker and set its position on the map
-      var marker = new google.maps.Marker({
-          position: myLatLng, // Set the marker position to the specified location
-          map: map, // Set the map to display the marker
-          title: 'New York City' // Optional title for the marker
-      });
+    // Create a marker and set its position on the map
+    var marker = new google.maps.Marker({
+      position: myLatLng, // Set the marker position to the specified location
+      map: map, // Set the map to display the marker
+      title: "New York City", // Optional title for the marker
+    });
   }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw7fIXJz5sA9IEcczMJ9FIzK91jvFIsno&callback=initMap" async defer></script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw7fIXJz5sA9IEcczMJ9FIzK91jvFIsno&callback=initMap"
+  async
+  defer
+></script>
 <!-- Include Moment.js library -->
 <script src="/moment.js"></script>
 

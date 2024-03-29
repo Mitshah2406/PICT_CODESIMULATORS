@@ -52,6 +52,7 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
   void openFilterDialog() async {
     await FilterListDialog.display<String>(
       context,
+      // hideSearchField: true,
       headlineText: "Your Filter",
       controlButtons: [ControlButtonType.Reset],
       listData: filterOptions,
@@ -65,6 +66,7 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
       enableOnlySingleSelection: true,
       borderRadius: 20,
       height: 300,
+      // searchPlaceholder: "",
       validateSelectedItem: (list, val) => list!.contains(val),
       onItemSearch: (e, query) {
         return e.toLowerCase().contains(query.toLowerCase());
@@ -207,10 +209,12 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
                       final data = snapshot.data;
                       print(data!.length);
 
-                      if (data!.isEmpty) {
+                      if (data.isEmpty) {
                         return Center(
                           child: Text(
-                            "You haven't added any report yet!",
+                            selectedFilter == null
+                                ? "You haven't added any report yet!"
+                                : "No $selectedFilter reports!",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!

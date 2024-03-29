@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/models/Event.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
+import 'package:pict_frontend/providers/user_notifier.dart';
 import 'package:pict_frontend/providers/theme_notifier.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
@@ -48,6 +49,7 @@ class _UserProfilePageState extends ConsumerState<UserProfilePage> {
 
   late AsyncValue<List<Event>> eventsCount;
   int? completedCount;
+  int? rewardsCount;
 
   @override
   Widget build(BuildContext context) {

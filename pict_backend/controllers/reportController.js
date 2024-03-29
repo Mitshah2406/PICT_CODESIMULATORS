@@ -5,7 +5,7 @@ let User = require("../models/User");
 let path = require("path");
 let moment = require("moment");
 const genAI = new GoogleGenerativeAI("AIzaSyCH12f11jfOO7_E3GJnwVXzQb8hbiXTHlU");
-let fs = require('fs')
+let fs = require("fs");
 function fileToGenerativePart(path, mimeType) {
   return {
     inlineData: {
@@ -35,19 +35,21 @@ exports.addReport = async (req, res) => {
       // For text-and-image input (multimodal), use the gemini-pro-vision model
       const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-      const prompt = "Is this an unhygenic dumpsite? reply it in a yes or no";
+      // const prompt = "Is this an unhygenic dumpsite? reply it in a yes or no";
+      const prompt = "Is this place messy? reply it in a yes or no";
 
-      const imageParts = [
-        fileToGenerativePart(savePath1, "image/png"), 
-      ];
+      const imageParts = [fileToGenerativePart(savePath1, "image/png")];
 
       const result = await model.generateContent([prompt, ...imageParts]);
       const response = await result.response;
-      const text = response.text().toLowerCase(); // Convert text to lowercase for comparison
+      // console.log(text);
+
+      const text = response.text().toLowerCase().trim(); // Convert text to lowercase for comparison
       console.log("Validation response:", text);
+      console.log(text);
 
       // Check the validation response
-      if (text === "no") {
+      if (text == "yes") {
         let user = new User();
         let userData = await user.getUserById(req.body.uploaderId);
         req.body.uploaderEmail = userData.userEmail;
@@ -64,7 +66,7 @@ exports.addReport = async (req, res) => {
         let userData = await user.getUserById(req.body.uploaderId);
         req.body.uploaderEmail = userData.userEmail;
         req.body.uploaderName =
-        userData.userFirstName + " " + userData.userLastName;
+          userData.userFirstName + " " + userData.userLastName;
         req.body.reportStatus = "rejected";
         req.body.message = "rejected by ml";
         let report = new Report(req.body);
@@ -105,8 +107,8 @@ exports.getReportById = async (req, res) => {
 exports.changeReportStatus = async (req, res) => {
   try {
     let { reportId, reportStatus } = req.body;
+    let report = new Report();
     if (reportStatus === "resolved") {
-      let report = new Report();
       let reportData = await report.getReportById(reportId);
       let user = new User();
       let userData = await user.getUserById(reportData.uploaderId);
@@ -121,7 +123,7 @@ exports.changeReportStatus = async (req, res) => {
     }
 
     res.status(200).json(response);
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
   }

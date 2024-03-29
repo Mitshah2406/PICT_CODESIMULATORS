@@ -9,7 +9,7 @@ if (document.querySelectorAll("#apex-basic").length) {
               enabled: !1
           }
       },
-      colors: ["#3a57e8"],
+      colors: ["#1BB040"],
       series: [{
           name: "Desktops",
           data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
@@ -50,7 +50,7 @@ if (document.querySelectorAll("#apex-line-area").length) {
       stroke: {
           curve: "smooth"
       },
-      colors: ["#3a57e8", "#c03221"],
+      colors: ["#1BB040", "#c03221"],
       series: [{
           name: "series1",
           data: [31, 40, 28, 51, 42, 109, 100]
@@ -94,7 +94,7 @@ if (document.querySelectorAll("#apex-column").length) {
           width: 2,
           colors: ["transparent"]
       },
-      colors: ["#3a57e8", "#1aa053", "#c03221"],
+      colors: ["#1BB040", "#1aa053", "#c03221"],
       series: [{
           name: "Net Profit",
           data: [44, 55, 57, 56, 61, 58]
@@ -143,7 +143,7 @@ if (document.querySelectorAll("#apex-bar").length) {
       dataLabels: {
           enabled: !1
       },
-      colors: ["#3a57e8"],
+      colors: ["#1BB040"],
       series: [{
           data: [470, 540, 580, 690, 1100, 1200, 1380]
       }],
@@ -172,7 +172,7 @@ if (document.querySelectorAll("#apex-mixed-chart").length) {
               columnWidth: "50%"
           }
       },
-      colors: ["#c03221", "#1aa053", "#3a57e8"],
+      colors: ["#c03221", "#1aa053", "#1BB040"],
       series: [{
           name: "Facebook",
           type: "column",
@@ -242,7 +242,7 @@ if (document.querySelectorAll("#apex-candlestick-chart").length) {
           height: 350,
           type: "candlestick"
       },
-      colors: ["#3a57e8", "#1aa053"],
+      colors: ["#1BB040", "#1aa053"],
       series: [{
           data: [{
               x: new Date(15387786e5),
@@ -468,7 +468,7 @@ if (document.querySelectorAll("#apex-bubble-chart").length) {
       fill: {
           type: "gradient"
       },
-      colors: ["#3a57e8", "#1aa053", "#1aa053"],
+      colors: ["#1BB040", "#1aa053", "#1aa053"],
       title: {
           text: "3D Bubble Chart"
       },
@@ -501,7 +501,7 @@ if (document.querySelectorAll("#apex-scatter-chart").length) {
               type: "xy"
           }
       },
-      colors: ["#3a57e8", "#c03221", "#1aa053"],
+      colors: ["#1BB040", "#c03221", "#1aa053"],
       series: [{
           name: "SAMPLE A",
           data: [
@@ -615,7 +615,7 @@ if (document.querySelectorAll("#apex-radialbar-chart").length) {
       },
       series: [44, 55, 67, 83],
       labels: ["Apples", "Oranges", "Bananas", "Berries"],
-      colors: ["#3a57e8", "#c03221", "#876cfe", "#1aa053"]
+      colors: ["#1BB040", "#c03221", "#876cfe", "#1aa053"]
   };
   if(typeof ApexCharts !== undefined){
     (chart = new ApexCharts(document.querySelector("#apex-radialbar-chart"), options)).render()
@@ -629,7 +629,7 @@ if (document.querySelectorAll("#apex-pie-chart").length) {
       },
       labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
       series: [44, 55, 13, 43, 22],
-      colors: ["#3a57e8", "#c03221", "#876cfe", "#1aa053", "#c8c8c8"],
+      colors: ["#1BB040", "#c03221", "#876cfe", "#1aa053", "#c8c8c8"],
       legend: {
           position: "bottom"
       }
@@ -752,7 +752,7 @@ if (document.querySelectorAll("#advanced-chart").length) {
               ]
           }
       ],
-      colors: ["#3a57e8", "#c03221", "#1aa053"],
+      colors: ["#1BB040", "#c03221", "#1aa053"],
       chart: {
           height: 450,
           type: 'rangeBar'
@@ -796,7 +796,7 @@ if (document.querySelectorAll("#radar-multiple-chart").length) {
           name: 'Series 3',
           data: [44, 76, 78, 13, 43, 10],
       }],
-      colors: ["#3a57e8", "#c03221", "#1aa053"],
+      colors: ["#1BB040", "#c03221", "#1aa053"],
       chart: {
           height: 310,
           type: 'radar',
