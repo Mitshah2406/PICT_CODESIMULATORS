@@ -1,7 +1,7 @@
 
 window.onload = async function () {
 
-console.log("Inside onload");
+// console.log("Inside onload");
     let allRoutes = await fetch("http://localhost:4000/getRoutes");
     let colorCounter = 0;
     const polylineColors = [
@@ -38,16 +38,40 @@ console.log("Inside onload");
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
  
-
+    const contentString =
+        `<div id="content">` +
+        `<div id="siteNotice">` +
+        `</div>` +
+        `<h1 id="firstHeading" class="firstHeading">Dumping Depot</h1>` +
+        `<div id="bodyContent">` +
+        `<p><b>Depot Address</b>` +
+        `sandstone rock formation in the southern part of the ` +
+        `Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ` +
+        `south west of the nearest large town, Alice Springs; 450&#160;km ` +
+        `(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ` +
+        `features of the Uluru - Kata Tjuta National Park. Uluru is ` +
+        `sacred to the Pitjantjatjara and Yankunytjatjara, the ` +
+        `Aboriginal people of the area. It has many springs, waterholes, ` +
+        `rock caves and ancient paintings. Uluru is listed as a World ` +
+        `Heritage Site.</p>` +
+        `<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">` +
+        "https://en.wikipedia.org/w/index.php?title=Uluru</a>" +
+        `(last visited June 22, 2009).</p>` +
+        `</div>` +
+        `</div>`;
+    const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        ariaLabel: "Uluru",
+    });
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     let stroke_arr =[]
     var infoWindow = new google.maps.InfoWindow();
     routess.truck_routes.forEach( async single_truck_route => {
         colorCounter++
 
-        console.log("COlors counter" + colorCounter);
+        // console.log("COlors counter" + colorCounter);
         let color = polylineColors[colorCounter % polylineColors.length];
-        console.log("Polyline Colors"+color+" single_truck_route: ", single_truck_route);
+        // console.log("Polyline Colors"+color+" single_truck_route: ", single_truck_route);
 
          // Changed color assignment
         // console.log("Single Truck Route: ", single_truck_route);
@@ -58,41 +82,99 @@ console.log("Inside onload");
             // console.log(data);
             var myLatlng;
             var marker;
+            // var binMarker;
             if (i == 0 || i == single_truck_route.length - 1) {
+                const contentString =
+                   `<div>
+                    <h2>Garbage Depot</h2>
+                    <ul>
+                    <li><b>Depot Name</b>: ${data.depotName}</li>
+                    <li><b>Depot Address</b>: ${data.depotLocation.formattedAddress}</li>
+                    <li><b>Depot Location</b>: ${data.depotLocation.lat}, ${data.depotLocation.lon}</li>
+                    </ul>
+                   </div>`;
+                const infowindow = new google.maps.InfoWindow({
+                    content: contentString,
+                    ariaLabel: "Depot",
+                });
                 myLatlng = new google.maps.LatLng(data.depotLocation.lat, data.depotLocation.lon);
                 lat_lng.push(myLatlng);
                 marker = new google.maps.Marker({
                     position: myLatlng,
                     map: map,
-                    title: data.timestamp,
+                   
                     icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/library_maps.png"
                 });
+                marker.addListener("click", () => {
+                    infowindow.open({
+                        anchor: marker,
+                        map,
+                    });
+                });
+         
             } else {
+                const contentString =
+                    `<div>
+                    <h2>Trash Bin</h2>
+                    <ul>
+                   <li> <b>Bin Address </b>: ${data.binLocation.fotmattedAddress}</li>
+                   <li> <b>Bin Location </b>: ${data.binLocation.lat}, ${data.binLocation.lon}</li>
+                   <li> <b>Bin Fill Level </b>: ${data.binFillLevel}</li>
+                    </ul>
+                   </div>`;
+                const infowindow = new google.maps.InfoWindow({
+                    content: contentString,
+                    ariaLabel: "Uluru",
+                });
+            
+
                 myLatlng = new google.maps.LatLng(data.binLocation.lat, data.binLocation.lon);
                 lat_lng.push(myLatlng);
+                const tempMarker = new google.maps.Marker({
+                    position: myLatlng,
+                    map:map,
+                    icon: "/images/dustbin.png",
+                });
+
                 marker = new google.maps.Marker({
                     position: myLatlng,
                     map: map,
-                    title: data.timestamp,
                     icon: "/images/dustbin.png"
                 });
-                //Loop and Draw Path Route between the Points on MAP
+                console.log(marker);
+                marker.addListener("click", () => {
+                    infowindow.open({
+                        anchor: tempMarker,
+                        map,
+                    });
+                });
 
             }
+      
+         
             latlngbounds.extend(marker.position);
-            (function (marker, data) {
-                google.maps.event.addListener(marker, "click", function (e) {
-                    infoWindow.setContent(data.timestamp);
-                    infoWindow.open(map, marker);
-                });
-            })(marker, data);
+            // latlngbounds.extend(binMarker.position);
+            // (function (depotMarker, data) {
+             
+            //     google.maps.event.addListener(depotMarker, "click", function (e) {
+            //         infoWindow.setContent("Clicked depot");
+            //         infoWindow.open(map, depotMarker);
+            //     });
+            // })(depotMarker, data);
+            // (function (binMarker, data) {
+             
+            //     google.maps.event.addListener(binMarker, "click", function (e) {
+            //         infoWindow.setContent("Clicked bin");
+            //         infoWindow.open(map, binMarker);
+            //     });
+            // })(binMarker, data);
 
             // console.log("Lat Lng: ", lat_lng);
             for (var j = 0; j < lat_lng.length; j++) {
                 if ((j + 1) < lat_lng.length) {
                     var src = lat_lng[j];
                     var des = lat_lng[j + 1];
-                    console.log("Source: "+ src + " Destination: "+ des);
+                    // console.log("Source: "+ src + " Destination: "+ des);
                     // path.push(src);
 
                     service.route({
@@ -158,6 +240,93 @@ console.log("Inside onload");
         map.setCenter(latlngbounds.getCenter());
         map.fitBounds(latlngbounds);
     });
-    console.log(stroke_arr);
+
+
+    // Time Line Logic 
+
+
+    // Assuming 'timelineData' is an array containing the timeline data objects
+
+    // Get the container element where you want to append the timeline
+   
+    const container = document.getElementById('timelineContainer');
+
+    // Variable to store the HTML markup
+    let html = '';
+    let timelineData = routess.truck_routes
+    // Loop through the timeline data in pairs of two
+    let count=1;
+    for (let i = 0; i < timelineData.length; i += 2) {
+        // Open a row div
+        html += '<div class="row">';
+
+        // Add the first timeline item
+        html += '<div class="col-md-6">';
+        html += getTimelineItemHtml(timelineData[i]);
+        html += '</div>';
+
+        // Check if there's a second item available
+        if (timelineData[i + 1]) {
+            // Add the second timeline item
+            html += '<div class="col-md-6">';
+            html += getTimelineItemHtml(timelineData[i + 1]);
+            html += '</div>';
+      
+   
+        }
+
+
+        // Close the row div
+        html += '</div>';
+    }
+
+    // Set the HTML content of the container
+    container.innerHTML = html;
+  
+    // Function to generate HTML markup for a timeline item
+    function getTimelineItemHtml(item) {
+    
+        const data = item.map((e,index) => {
+         
+            if(index==0|| index==item.length-1){
+                return `<li>
+                        <div class="timeline-dots timeline-dot1 border-primary text-primary"></div>
+                        <h6 class="float-left mb-1">${e.depotName}</h6>
+                        <small class="float-right mt-1">${e.depotLocation.lat}, ${e.depotLocation.lon}</small>
+                        <div class="d-inline-block w-100">
+                           <p>${e.depotLocation.formattedAddress}</p>
+                        </div>
+                     </li>`;
+            }else{
+
+                return `<li>
+                            <div class="timeline-dots timeline-dot1 border-primary text-primary"></div>
+                            <h6 class="float-left mb-1">${e._id}</h6>
+                            <small class="float-right mt-1">${e.binLocation.lat}, ${e.binLocation.lon}</small>
+                            <div class="d-inline-block w-100">
+                               <p>${e.binLocation.fotmattedAddress}</p>
+                            </div>
+                         </li>`;
+            }
+        }).join(''); 
+        return `
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+               <div div class="header-title" >
+            <h4 class="card-title">Truck</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="iq-timeline0 m-0 d-flex align-items-center justify-content-between position-relative">
+                    <ul class="list-inline p-0 m-0">
+                       ${data}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
+    }
+
 
 }
+

@@ -1,3 +1,4 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +8,7 @@ import 'package:pict_frontend/intro_screen.dart';
 import 'package:pict_frontend/pages/noti_screen.dart';
 import 'package:pict_frontend/pages/splash_screen.dart';
 import 'package:pict_frontend/providers/theme_notifier.dart';
+import 'package:pict_frontend/utils/detector_service.dart';
 import 'package:pict_frontend/utils/firebase/firebase_api.dart';
 import 'package:pict_frontend/utils/theme/theme.dart';
 

@@ -119,7 +119,7 @@ exports.getRoutes = async function () {
       binData
     );
 
-    console.log(dataa.data);
+    // console.log(dataa.data);
     return dataa.data;
   } catch (error) {
     console.log(error);
@@ -128,6 +128,7 @@ exports.getRoutes = async function () {
 
 exports.viewMap = async function (req, res) {
   try {
+ 
     res.render("RouteOptimization/map", { authority: req.session.authority });
   } catch (error) {
     console.log(error);
