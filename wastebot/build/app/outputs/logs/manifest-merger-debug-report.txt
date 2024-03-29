@@ -1,0 +1,127 @@
+-- Merging decision tree log ---
+application
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:2:5-32:19
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.core:core:1.6.0] C:\Users\athar\.gradle\caches\transforms-3\2579a7de00054bf46a8dbc332552f622\transformed\core-1.6.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.6.0] C:\Users\athar\.gradle\caches\transforms-3\2579a7de00054bf46a8dbc332552f622\transformed\core-1.6.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\athar\.gradle\caches\transforms-3\6668cc85eff5929d44d91f927ab7e655\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\athar\.gradle\caches\transforms-3\6668cc85eff5929d44d91f927ab7e655\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.6.0] C:\Users\athar\.gradle\caches\transforms-3\2579a7de00054bf46a8dbc332552f622\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
+	android:name
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml
+manifest
+ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:1:1-44:12
+MERGED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:1:1-44:12
+MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\142c24f2530665bb6deb4123ab140714\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\athar\.gradle\caches\transforms-3\d16d53746166143fe30054cbfe559e31\transformed\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\aa3cbedcef3ee23bf0d03abede347041\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\73e9214f5c1a2878cad8e78e78318741\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\527bb8264fa514a2727756f032c3968f\transformed\jetified-activity-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\9addb396269c3fa35a089f701280c3bf\transformed\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.6.0] C:\Users\athar\.gradle\caches\transforms-3\2579a7de00054bf46a8dbc332552f622\transformed\core-1.6.0\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\athar\.gradle\caches\transforms-3\b93b5f093d1483feda6d6df93d9bbf90\transformed\lifecycle-runtime-2.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\3370393edc609657729ac2492a37f3b4\transformed\jetified-savedstate-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\athar\.gradle\caches\transforms-3\108e25f406ecced09f55eceb8d3ad0dc\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\athar\.gradle\caches\transforms-3\f1c3f56234b634f5187be5722bcbd93c\transformed\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\fcf486669bd3283ac86e13b69736f6ad\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\athar\.gradle\caches\transforms-3\f60403700f351b800f99fbe41d46f246\transformed\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\athar\.gradle\caches\transforms-3\6668cc85eff5929d44d91f927ab7e655\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\athar\.gradle\caches\transforms-3\dada71b7eb51c482d5f3b75ae6e629f5\transformed\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\athar\.gradle\caches\transforms-3\3f96ca76068ab400b494bc7d541ee256\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:17:1-24:12
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+	package
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:1:1-44:12
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:1:1-44:12
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:1:1-44:12
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:1:11-69
+queries
+ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:38:5-43:15
+intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
+ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:39:9-42:18
+action#android.intent.action.PROCESS_TEXT
+ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:40:13-72
+	android:name
+		ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:40:21-70
+data
+ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:41:13-50
+	android:mimeType
+		ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml:41:19-48
+uses-sdk
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml
+MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\142c24f2530665bb6deb4123ab140714\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\142c24f2530665bb6deb4123ab140714\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\athar\.gradle\caches\transforms-3\d16d53746166143fe30054cbfe559e31\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\athar\.gradle\caches\transforms-3\d16d53746166143fe30054cbfe559e31\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\aa3cbedcef3ee23bf0d03abede347041\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\aa3cbedcef3ee23bf0d03abede347041\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\73e9214f5c1a2878cad8e78e78318741\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\73e9214f5c1a2878cad8e78e78318741\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\527bb8264fa514a2727756f032c3968f\transformed\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\527bb8264fa514a2727756f032c3968f\transformed\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\9addb396269c3fa35a089f701280c3bf\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\9addb396269c3fa35a089f701280c3bf\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.6.0] C:\Users\athar\.gradle\caches\transforms-3\2579a7de00054bf46a8dbc332552f622\transformed\core-1.6.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.6.0] C:\Users\athar\.gradle\caches\transforms-3\2579a7de00054bf46a8dbc332552f622\transformed\core-1.6.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\athar\.gradle\caches\transforms-3\b93b5f093d1483feda6d6df93d9bbf90\transformed\lifecycle-runtime-2.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\athar\.gradle\caches\transforms-3\b93b5f093d1483feda6d6df93d9bbf90\transformed\lifecycle-runtime-2.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\3370393edc609657729ac2492a37f3b4\transformed\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\3370393edc609657729ac2492a37f3b4\transformed\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\athar\.gradle\caches\transforms-3\108e25f406ecced09f55eceb8d3ad0dc\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\athar\.gradle\caches\transforms-3\108e25f406ecced09f55eceb8d3ad0dc\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\athar\.gradle\caches\transforms-3\f1c3f56234b634f5187be5722bcbd93c\transformed\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\athar\.gradle\caches\transforms-3\f1c3f56234b634f5187be5722bcbd93c\transformed\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\fcf486669bd3283ac86e13b69736f6ad\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\athar\.gradle\caches\transforms-3\fcf486669bd3283ac86e13b69736f6ad\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\athar\.gradle\caches\transforms-3\f60403700f351b800f99fbe41d46f246\transformed\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\athar\.gradle\caches\transforms-3\f60403700f351b800f99fbe41d46f246\transformed\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\athar\.gradle\caches\transforms-3\6668cc85eff5929d44d91f927ab7e655\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\athar\.gradle\caches\transforms-3\6668cc85eff5929d44d91f927ab7e655\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\athar\.gradle\caches\transforms-3\dada71b7eb51c482d5f3b75ae6e629f5\transformed\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\athar\.gradle\caches\transforms-3\dada71b7eb51c482d5f3b75ae6e629f5\transformed\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\athar\.gradle\caches\transforms-3\3f96ca76068ab400b494bc7d541ee256\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\athar\.gradle\caches\transforms-3\3f96ca76068ab400b494bc7d541ee256\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml
+INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml:6:5-66
+	android:name
+		ADDED from C:\Users\athar\Desktop\PICT_CODESIMULATORS\wastebot\android\app\src\debug\AndroidManifest.xml:6:22-64
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\athar\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
