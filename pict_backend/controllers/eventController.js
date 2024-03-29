@@ -5,9 +5,9 @@ const { ObjectID } = require("mongodb");
 const User = require("../models/User");
 const fs = require("fs");
 const jimp = require("jimp");
-var moment = require('moment');
+var moment = require("moment");
 exports.addEvent = async function (req, res) {
-  console.log("HITT")
+  console.log("HITT");
   try {
     let multipleNames = [];
     console.log(req.files);
@@ -141,31 +141,31 @@ exports.addEvent = async function (req, res) {
     let result = await event.addEvent();
 
     if (result.status == "ok") {
-      
-      axios.post('http://localhost:4000/account/signUp', {
-        accountFirstName: req.body.organizerName,
-        accountLastName: req.body.organizerName,
-        accountEmail: req.body.organizerEmail,
-        accountMobileNo: req.body.organizerNumber,
-        accountPassword: "qwerty",
-        role: "organizer"
-      })
+      axios
+        .post("http://localhost:4000/account/signUp", {
+          accountFirstName: req.body.organizerName,
+          accountLastName: req.body.organizerName,
+          accountEmail: req.body.organizerEmail,
+          accountMobileNo: req.body.organizerNumber,
+          accountPassword: "qwerty",
+          role: "organizer",
+        })
         .then(function (response) {
           console.log(response.data);
 
           // Removed this to handle response on frontend
           // return res.status(200).json({ message: "Event Added Successfully", eventId: result.id });
-          
-          req.flash('success', 'Data added  successfully');
-          return res.redirect('/events/add-events-page');
+
+          req.flash("success", "Data added  successfully");
+          return res.redirect("/events/add-events-page");
         })
         .catch(function (error) {
           console.log(error);
           // Removed to handle response on the frontend
           // return res.status(500).json({ message: "Internal Server Error" });
 
-          req.flash('error', 'Internal server error');
-          return res.redirect('/events/add-events-page');
+          req.flash("error", "Internal server error");
+          return res.redirect("/events/add-events-page");
         });
     }
 
@@ -175,12 +175,10 @@ exports.addEvent = async function (req, res) {
     // Removed to handle response on the frontend
     // return res.status(500).json({ message: "Internal Server Error" });
 
-    req.flash('error', 'Internal server error');
-    return res.redirect('/events/add-events-page');
+    req.flash("error", "Internal server error");
+    return res.redirect("/events/add-events-page");
   }
 };
-
-
 
 exports.deleteEventById = async (req, res) => {
   try {
@@ -453,7 +451,9 @@ exports.markPresent = async (req, res) => {
         }
       } else {
         // Means, The user has already attended the event.
-        return res.status(200).json({ message: "Already Present", status: "ok" });
+        return res
+          .status(200)
+          .json({ message: "Already Present", status: "ok" });
       }
     } else {
       // Means, The user has not registered in the event.
@@ -667,57 +667,76 @@ exports.getUpcomingEventsOfMonth = async function (req, res) {
 };
 
 // Frontend Controller
-exports.viewAllEventsPage= async(req,res)=>{
-try{
-  const events=await new Event().getAllEvents();
-  res.render('Events/viewAllEvents',{events:events, moment:moment,authority: req.session.authority,})
-}catch(err){  
-  console.error(err)
-  res.status(500).send('Error fetching events');
-}
-}
-exports.viewUpcomingEventsPage=async(req,res)=>{
-try{
-    const upcomingEvents = await new Event().getAllUpcomingEvents();
-    res.render('Events/viewUpcomingEvents',{upcomingEvents:upcomingEvents,authority: req.session.authority,moment:moment});
-  }catch(err){
+exports.viewAllEventsPage = async (req, res) => {
+  try {
+    const events = await new Event().getAllEvents();
+    res.render("Events/viewAllEvents", {
+      events: events,
+      moment: moment,
+      authority: req.session.authority,
+    });
+  } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching events");
   }
-}
-exports.viewOngoingEventsPage= async(req,res)=>{
-try{
-    const ongoingEvents = await new Event().getAllOngoingEvents()
-    res.render('Events/viewOngoingEvents',{ongoingEvents:ongoingEvents,authority: req.session.authority,moment:moment})
+};
+exports.viewUpcomingEventsPage = async (req, res) => {
+  try {
+    const upcomingEvents = await new Event().getAllUpcomingEvents();
+    res.render("Events/viewUpcomingEvents", {
+      upcomingEvents: upcomingEvents,
+      authority: req.session.authority,
+      moment: moment,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching events");
   }
-  catch (err) {
+};
+exports.viewOngoingEventsPage = async (req, res) => {
+  try {
+    const ongoingEvents = await new Event().getAllOngoingEvents();
+    res.render("Events/viewOngoingEvents", {
+      ongoingEvents: ongoingEvents,
+      authority: req.session.authority,
+      moment: moment,
+    });
+  } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching ongoing events");
   }
 };
 
-exports.viewCompletedEventsPage= async(req,res)=>{
-try{
-    const completedEvents = await new Event().getAllCompletedEvents()
-    res.render('Events/viewCompletedEvents',{completedEvents:completedEvents,authority: req.session.authority,moment:moment})
-  }
- catch (err) {
+exports.viewCompletedEventsPage = async (req, res) => {
+  try {
+    const completedEvents = await new Event().getAllCompletedEvents();
+    res.render("Events/viewCompletedEvents", {
+      completedEvents: completedEvents,
+      authority: req.session.authority,
+      moment: moment,
+    });
+  } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching completed events");
   }
-
-}
-exports.viewEventsByIdPage=async(req,res)=>{
-try{
-  const eventId= req.params.eventId;
-  const event = await new Event().getEventById(eventId);
-  res.render('Events/viewIndivitualEvents',{result:event,authority: req.session.authority,moment:moment})
-}
-catch(err){
-  console.error(err);
-  res.status(500).send("Error fetching indivitual event")
-}
-}
-exports.addEventsPage=async(req,res)=>{
-res.render('Events/addEvents',{authority: req.session.authority,moment:moment});
-}
+};
+exports.viewEventsByIdPage = async (req, res) => {
+  try {
+    const eventId = req.params.eventId;
+    const event = await new Event().getEventById(eventId);
+    res.render("Events/viewIndivitualEvents", {
+      result: event,
+      authority: req.session.authority,
+      moment: moment,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching indivitual event");
+  }
+};
+exports.addEventsPage = async (req, res) => {
+  res.render("Events/addEvents", {
+    authority: req.session.authority,
+    moment: moment,
+  });
+};

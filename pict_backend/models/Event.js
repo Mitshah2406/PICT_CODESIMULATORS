@@ -21,7 +21,7 @@ Event.prototype.cleanUp = function () {
     eventEndTime: this.data.endTime,
     // isInCollabaration: Boolean(this.data.isInCollabaration),  take this to conditionally show the collab fields on fronted (FOR TAHER)
     collabOrganizationName: this.data.collabOrganizationName,
-    collabOrgEmail: this.data.collabOrgEmail, 
+    collabOrgEmail: this.data.collabOrgEmail,
     eventAttachment: this.data.eventAttachment,
     organizerName: this.data.organizerName,
     organizerEmail: this.data.organizerEmail,
@@ -60,7 +60,7 @@ Event.prototype.deleteEventById = async function (eventId) {
 };
 
 Event.prototype.getAllEvents = async function () {
-  let data = await eventsCollection.find().toArray();
+  let data = await eventsCollection.find({}).toArray();
 
   return data;
 };
@@ -391,9 +391,7 @@ Event.prototype.getCompletedEventsByEmail = async function (email) {
   let data = await eventsCollection
     .find({
       organizerEmail: email,
-      $and: [
-        { eventEndDate: { $lte: new Date() } },
-      ],
+      $and: [{ eventEndDate: { $lte: new Date() } }],
     })
     .toArray();
 
