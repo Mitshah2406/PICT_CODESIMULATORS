@@ -31,6 +31,17 @@
           <hr>
           <div class="row">
             <h3>View Participants</h3>
+            <% if (result.registeredParticipants.length > 0) { %>
+              <% result.registeredParticipants.forEach(function(participant) { %>
+                <div class="col-md-4 mb-3">
+                  <p><strong>UserId:</strong> <%= participant.userId %></p>
+                  <!-- <p><strong>Email:</strong> <%= participant.email %></p> -->
+                  <!-- Add other participant details here -->
+                </div>
+              <% }); %>
+            <% } else { %>
+              <p>No participants registered for this event yet.</p>
+            <% } %>
           </div>
         </div>
       </div>

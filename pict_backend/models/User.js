@@ -105,5 +105,17 @@ User.prototype.getCountOfUserRewards = async function (userId) {
 
   return data.reward;
 };
+User.prototype.getAllUserImages = async function () {
+  try {
+    const users = await usersCollection.find().toArray();
+    const userImages = users.map(user => user.userImage);
+    const filteredImages = userImages.filter(image => image);
+    return filteredImages;
+  } catch (error) {
+    console.error("Error retrieving user images:", error);
+    throw error;
+  }
+};
+
 
 module.exports = User;

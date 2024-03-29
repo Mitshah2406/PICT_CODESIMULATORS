@@ -11,6 +11,7 @@ let Task = function (data) {
   Task.prototype.cleanUp=function(){
     this.data={
         taskTitle: this.data.taskTitle,
+        taskDescription: this.data.taskDescription,
         taskPoints:Number(this.data.taskPoints),
         createdDate: new Date(),
     }

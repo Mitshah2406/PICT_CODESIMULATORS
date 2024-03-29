@@ -26,6 +26,7 @@ exports.getRandomTask = async function (req, res) {
 exports.addBulkTasks = async function (req, res) {
   const tasksToAdd = req.body.tasks; // Assuming tasks are sent in the request body
   try {
+    console.log("Tasks to add:", tasksToAdd);
     let task = new Task();
     await task.addBulkTasks(tasksToAdd);
     res.status(200).json({ message: `${tasksToAdd.length} tasks inserted successfully.` });
