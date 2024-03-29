@@ -1,5 +1,0 @@
-package com.example.wastebot
-
-import io.flutter.embedding.android.FlutterActivity
-
-class MainActivity: FlutterActivity()
