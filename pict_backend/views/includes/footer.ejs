@@ -207,7 +207,59 @@
         });
     }
 </script>
+<script>
+function initAutocomplete() {
+  var input = document.getElementById('locationInput');
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.addListener('place_changed', function () {
+      var place = autocomplete.getPlace();
+      console.log("Place:", place);
+      
+      if (place.geometry && place.geometry.location) {
+          // Extract address components
+          var addressComponents = place.address_components;
+          document.getElementById('address').value = place.formatted_address;
+          addressComponents.forEach(function (component) {
+              if (component.types.includes('locality')) {
+                  console.log("City:", component.long_name);
+                  document.getElementById('city').value = component.long_name;
+              }
+            
+          });
+        }
+        });
+var suggestionsContainer = document.getElementById('suggestionsContainer');
 
+input.addEventListener('input', function () {
+    var inputValue = input.value;
+
+    var service = new google.maps.places.AutocompleteService();
+    service.getPlacePredictions(
+        { input: inputValue },
+        function (predictions, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                displaySuggestions(predictions);
+            }
+        }
+    );
+});
+
+function displaySuggestions(predictions) {
+    suggestionsContainer.innerHTML = '';
+    predictions.forEach(function (prediction) {
+        var suggestion = document.createElement('div');
+        suggestion.classList.add('suggestion');
+        suggestion.textContent = prediction.description;
+        suggestion.addEventListener('click', function () {
+            input.value = prediction.description;
+            suggestionsContainer.innerHTML = '';
+        });
+        suggestionsContainer.appendChild(suggestion);
+    });
+}
+}
+  
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw7fIXJz5sA9IEcczMJ9FIzK91jvFIsno&libraries=places&callback=initAutocomplete"
     async defer></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw7fIXJz5sA9IEcczMJ9FIzK91jvFIsno&callback=initMap"></script>  

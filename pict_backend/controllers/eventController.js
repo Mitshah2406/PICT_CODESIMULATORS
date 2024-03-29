@@ -133,7 +133,7 @@ exports.addEvent = async function (req, res) {
     }
 
     let event = new Event(req.body);
-    // console.log(req.body);
+    console.log(req.body);
     let volunteerResponsibilities =
       req.body.volunteerResponsibilities.split(", ");
     req.body.volunteerResponsibilities = volunteerResponsibilities;
@@ -152,20 +152,29 @@ exports.addEvent = async function (req, res) {
       })
         .then(function (response) {
           console.log(response.data);
+          if(!req.session.authority){
 
-          // Removed this to handle response on frontend
-          // return res.status(200).json({ message: "Event Added Successfully", eventId: result.id });
+            return res.status(200).json({ message: "Event Added Successfully", eventId: result.id });
+          }
+          else{
+            req.flash('success', 'Data added  successfully');
+            return res.redirect('/events/add-events-page');
+            
+          }
           
-          req.flash('success', 'Data added  successfully');
-          return res.redirect('/events/add-events-page');
         })
         .catch(function (error) {
           console.log(error);
-          // Removed to handle response on the frontend
-          // return res.status(500).json({ message: "Internal Server Error" });
+          if(!req.session.authority){
+
+            return res.status(500).json({ message: "Internal Server Error" });
+          }
+        else{
 
           req.flash('error', 'Internal server error');
           return res.redirect('/events/add-events-page');
+        }
+
         });
     }
 
