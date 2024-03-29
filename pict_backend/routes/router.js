@@ -272,7 +272,7 @@ router.post(
 );
 
 // Predict Item price
-router.post("/predictItemPrice",itemlistingContoller.predictItemPrice)
+router.post("/predictItemPrice", itemlistingContoller.predictItemPrice);
 
 // Reporting Module
 
@@ -476,12 +476,12 @@ router.get(
   truckController.getPendingBinsWithLocations
 );
 
-
 // Task routes
 
 router.get("/task/getAllTasks", taskController.getAllTasks);
 router.get("/task/getRandomTask", taskController.getRandomTask);
 router.post("/task/addBulkTasks", taskController.addBulkTasks);
+router.post("/task/validateTask", taskController.validateTask);
 
 //route optimization
 router.get("/viewMap", truckController.viewMap);
@@ -492,8 +492,6 @@ router.get("/getSingleRoute/:index", truckController.getSingleRoute);
 //   let data = await truckController.getRoutes();
 //   res.render("RouteOptimization/map");
 // });
-
-
 
 //404
 

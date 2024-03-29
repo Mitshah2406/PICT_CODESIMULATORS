@@ -1,11 +1,12 @@
 const Task = require("../models/Task");
+const path = require("path");
 
 // Controller for handling tasks
 exports.getAllTasks = async function (req, res) {
   try {
     let task = new Task();
     const tasks = await task.getAllTasks();
-    res.status(200).json(tasks);
+    res.status(200).json({ result: tasks });
   } catch (err) {
     console.log(err);
     res.status(400).json({ error: "Error in getting tasks" });
@@ -16,7 +17,7 @@ exports.getRandomTask = async function (req, res) {
   try {
     let task = new Task();
     const randomTask = await task.getRandomTask();
-    res.status(200).json(randomTask);
+    res.status(200).json({ result: randomTask });
   } catch (err) {
     console.log(err);
     res.status(400).json({ error: "Error in getting random task" });
@@ -29,9 +30,40 @@ exports.addBulkTasks = async function (req, res) {
     console.log("Tasks to add:", tasksToAdd);
     let task = new Task();
     await task.addBulkTasks(tasksToAdd);
-    res.status(200).json({ message: `${tasksToAdd.length} tasks inserted successfully.` });
+    res
+      .status(200)
+      .json({ message: `${tasksToAdd.length} tasks inserted successfully.` });
   } catch (err) {
     console.error("Error inserting bulk tasks:", err);
     res.status(500).json({ error: "Error inserting bulk tasks." });
+  }
+};
+
+exports.validateTask = async function (req, res) {
+  try {
+    const { title, userId, taskId } = req.body;
+    console.log(req.body);
+
+    if (req.files.imagePath) {
+      const file = req.files.imagePath;
+      // console.log(logoFile.name);
+      const fileName1 = new Date().getTime().toString() + "-" + file.name;
+      const savePath1 = path.join(
+        __dirname,
+        "../public/",
+        "taskImages",
+        fileName1
+      );
+      await file.mv(savePath1);
+      req.body.taskImage = fileName1;
+    }
+
+    res.status(200).json({ result: true });
+
+    // let task = new Task();
+    // await task.validateTask(tasksToAdd);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
