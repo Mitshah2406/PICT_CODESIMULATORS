@@ -76,9 +76,11 @@ class HomePageState extends ConsumerState<HomePage> {
                             const Icon(
                               Icons.location_on_outlined,
                               size: 25,
+                              color: TColors.white,
                             ),
                             const SizedBox(width: 5),
                             Text(
+                              maxLines: 1,
                               _location!,
                               style: Theme.of(context)
                                   .textTheme
@@ -127,7 +129,7 @@ class HomePageState extends ConsumerState<HomePage> {
                     ),
                     ClipPath(
                       child: SizedBox(
-                        height: 100,
+                        height: 80,
                         width: double.infinity,
                         child: Container(
                           decoration: const BoxDecoration(
@@ -146,7 +148,7 @@ class HomePageState extends ConsumerState<HomePage> {
                                 "EcoSaathi",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineMedium!
+                                    .headlineLarge!
                                     .copyWith(
                                       color: Theme.of(context).brightness ==
                                               Brightness.dark
