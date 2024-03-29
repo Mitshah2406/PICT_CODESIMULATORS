@@ -46,11 +46,11 @@
     <div class="card">
       <div class="card-header d-flex justify-content-between">
         <div class="header-title">
-          <h4 class="card-title">Basic</h4>
+          <h4 class="card-title">View Report Location</h4>
         </div>
       </div>
       <div class="card-body">
-        <p>Report</p>
+        <p><%= result.location.formattedAddress %></p>
         <div id="map" style="height: 400px; width: 100%"></div>
       </div>
     </div>
@@ -60,8 +60,10 @@
   // Initialize and add the map
   function initMap() {
     // Location coordinates (latitude and longitude)
-    var myLatLng = { lat: 14.502762, lng: 7.946218 };
-
+    var myLatLng = { 
+      lat: <%= result.location.lat %>, // Use latitude from result.location
+      lng: <%= result.location.lon %> // Use longitude from result.location
+    };
     // Create a map object and specify the DOM element for display
     var map = new google.maps.Map(document.getElementById("map"), {
       center: myLatLng, // Set the center of the map to the specified location

@@ -112,6 +112,7 @@ exports.changeReportStatus = async (req, res) => {
       let reportData = await report.getReportById(reportId);
       let user = new User();
       let userData = await user.getUserById(reportData.uploaderId);
+      console.log(userData.reward,"dtfgvhbj")
       userData.reward += 10;
       await user.updatePoints(userData._id, userData.reward);
       response = await report.changeReportStatus(reportId, reportStatus);
@@ -306,9 +307,18 @@ exports.rejectReport = async (req, res) => {
   }
 };
 exports.resolveReport = async (req, res) => {
+  console.log("Yahoo")
   const reportId = req.params.reportId;
   try {
-    const status = await new Report().changeReportStatus(reportId, "resolved");
+
+    let report = new Report();
+    let reportData = await report.getReportById(reportId);
+    let user = new User();
+    let userData = await user.getUserById(reportData.uploaderId);
+    console.log(userData.reward,"dtfgvhbj")
+    userData.reward += 10;
+    await user.updatePoints(userData._id, userData.reward);
+    const status = await report.changeReportStatus(reportId, "resolved");
     if (status == "updated") {
       req.flash("success", "Report status changed  to resolved successfully!");
       return res.redirect("/reports/view-pending-reports");
