@@ -34,7 +34,14 @@ exports.addReport = async (req, res) => {
 
       // For text-and-image input (multimodal), use the gemini-pro-vision model
       const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
-
+      // model.safetySettings(
+      //   Collections.singletonList(
+      //     SafetySetting.newBuilder()
+      //       .setCategory(HarmCategory.HARM_CATEGORY_YOUR_CATEGORY)
+      //       .setThreshold(SafetySetting.HarmBlockThreshold.BLOCK_NONE)
+      //       .build()
+      //   )
+      // );
       // const prompt = "Is this an unhygenic dumpsite? reply it in a yes or no";
       const prompt = "Is this place messy? reply it in a yes or no";
 

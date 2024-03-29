@@ -374,7 +374,7 @@ window.onload = async function () {
     latlngbounds.extend(marker.position);
     (function (marker, data) {
       google.maps.event.addListener(marker, "click", function (e) {
-        infoWindow.setContent(data.timestamp);
+        infoWindow.setContent("Garbage Depot");
         infoWindow.open(map, marker);
       });
     })(marker, data);
@@ -400,7 +400,7 @@ window.onload = async function () {
                 strokeColor: "#AA4A44",
               });
               poly.setPath(path);
-              poly.setOptions({ strokeWeight: 5 });
+              poly.setOptions({ strokeWeight: 2 });
 
               for (
                 var k = 0, len = result.routes[0].overview_path.length;
