@@ -73,8 +73,7 @@ exports.addEvent = async function (req, res) {
         req.body.participationCertificateTemplate = fileName1;
       } else {
         const defaultFileName = "certificate.png";
-        const fileName =
-          new Date().getTime().toString() + "-" + defaultFileName;
+        const fileName =defaultFileName;
 
         const defaultTemplatePath = path.join(
           __dirname,

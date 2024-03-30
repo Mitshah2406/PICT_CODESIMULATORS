@@ -28,7 +28,7 @@ Event.prototype.cleanUp = function () {
     organizerNumber: this.data.organizerNumber,
     whatsAppLink: this.data.whatsAppLink,
     // areVolunteersNeeded: Boolean(this.data.areVolunteersNeeded), take this to conditionally show the volunteers fields on fronted (FOR TAHER)
-    eventAddress: "PICT Campus, Dankiwadi",
+    eventAddress: "PICT Campus, Dhankawadi",
     eventCity: "Pune",
     noOfVolunteersNeeded: Number(this.data.noOfVolunteersNeeded),
     participationCertificateTemplate:
@@ -422,10 +422,10 @@ Event.prototype.getUpcomingEventsOfMonth = async function () {
     currentDate.getMonth() + 1,
     0 // It represents last day of the month i.e 31 march
   );
-
+    console.log( lastDayOfMonth)
   let data = await eventsCollection
     .find({
-      eventStartDate: { $gte: new Date(), $lte: lastDayOfMonth },
+      eventStartDate: { $gte: new Date(), },
     })
     .toArray();
 
