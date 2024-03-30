@@ -6,6 +6,7 @@ import 'package:pict_frontend/pages/Events/event_ticket_page.dart';
 import 'package:pict_frontend/services/event_service.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
+import 'package:slider_button/slider_button.dart';
 // import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../models/Event.dart';
@@ -111,7 +112,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                 height: 470,
                 margin: const EdgeInsets.all(15),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                 decoration: BoxDecoration(
                   color: TColors.accentGreen,
                   borderRadius: BorderRadius.circular(25),
@@ -249,11 +250,47 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                     const SizedBox(
                       height: 10,
                     ),
+                    Spacer(),
                     isExist == null
                         ? const CircularProgressIndicator()
                         : isExist!
-                            ? ElevatedButton(
-                                onPressed: () {
+                            ?
+                            // ? ElevatedButton(
+                            //     onPressed: () {
+                            //       Navigator.of(context).push(
+                            //         MaterialPageRoute(
+                            //           builder: (context) => EventTicketPage(
+                            //               event: event,
+                            //               userId: widget.userId,
+                            //               userImage: widget.userImage),
+                            //         ),
+                            //       );
+                            //     },
+                            //     style: ElevatedButton.styleFrom(
+                            //       elevation: 0,
+                            //       backgroundColor: TColors.buttonPrimary,
+                            //       padding: const EdgeInsets.symmetric(
+                            //         horizontal: 20,
+                            //         vertical: 10,
+                            //       ),
+                            //       shape: RoundedRectangleBorder(
+                            //         borderRadius: BorderRadius.circular(20),
+                            //       ),
+                            //     ),
+                            //     child: const Text("Show Ticket"),
+                            //   )
+                            Center(
+                                child: SliderButton(
+                                backgroundColor: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? TColors.black
+                                    : TColors.white,
+                                // shimmer: ,
+                                buttonColor: TColors.primaryGreen,
+                                baseColor: TColors.primaryGreen,
+
+                                action: () async {
+                                  ///Do something here OnSlide
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) => EventTicketPage(
@@ -263,38 +300,69 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                                     ),
                                   );
                                 },
-                                style: ElevatedButton.styleFrom(
-                                  elevation: 0,
-                                  backgroundColor: TColors.buttonPrimary,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 10,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
+                                label: Text(
+                                  "Show Ticket",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w800,
+                                          color: TColors.primaryGreen),
                                 ),
-                                child: const Text("Show Ticket"),
-                              )
-                            : ElevatedButton(
-                                onPressed: () {
+                                icon: Text(">",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w900,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? TColors.black
+                                                    : TColors.white)),
+                              ))
+                            : Center(
+                                child: SliderButton(
+                                backgroundColor: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? TColors.black
+                                    : TColors.white,
+                                // shimmer: ,
+                                buttonColor: TColors.primaryGreen,
+                                baseColor: TColors.primaryGreen,
+
+                                action: () async {
+                                  ///Do something here OnSlide
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          EventRoleSelectionPage(event: event),
+                                          EventRoleSelectionPage(
+                                        event: event,
+                                      ),
                                     ),
                                   );
                                 },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: TColors.primaryGreen,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
+                                label: Text(
+                                  "Enroll Now",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w800,
+                                          color: TColors.primaryGreen),
                                 ),
-                                child: const Text("Enroll Now"),
-                              )
+                                icon: Text(">",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w900,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? TColors.black
+                                                    : TColors.white)),
+                              ))
                   ],
                 ),
               ),

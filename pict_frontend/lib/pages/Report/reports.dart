@@ -52,7 +52,7 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
   void openFilterDialog() async {
     await FilterListDialog.display<String>(
       context,
-      // hideSearchField: true,
+      hideSearchField: true,
       headlineText: "Your Filter",
       controlButtons: [ControlButtonType.Reset],
       listData: filterOptions,
@@ -64,6 +64,7 @@ class _ReportsPageState extends ConsumerState<ReportsPage> {
       insetPadding: const EdgeInsets.all(20),
       barrierDismissible: true,
       enableOnlySingleSelection: true,
+
       borderRadius: 20,
       height: 300,
       // searchPlaceholder: "",

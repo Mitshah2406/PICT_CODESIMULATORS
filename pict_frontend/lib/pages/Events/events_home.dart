@@ -359,18 +359,13 @@ class _EventsHomePageState extends ConsumerState<EventsHomePage> {
                                       .titleSmall!
                                       .copyWith(color: TColors.black),
                                 ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    print(event.eventStartDate!.month);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 15,
-                                    ),
-                                    backgroundColor: TColors.black,
+                                Spacer(),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 5),
+                                  decoration: BoxDecoration(
+                                    color: TColors.black,
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Text(
                                     "${AppConstants.months[event.eventStartDate!.month - 1]} ${event.eventStartDate!.day}",

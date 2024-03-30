@@ -77,13 +77,8 @@ class _EventListState extends State<EventList> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "There are no events. Hurry up and participate!",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .copyWith(color: Colors.black),
-                  ),
+                  Text("There are no events. Hurry up and participate!",
+                      style: Theme.of(context).textTheme.titleLarge),
                   // const SizedBox(
                   //   height: 10,
                   // ),

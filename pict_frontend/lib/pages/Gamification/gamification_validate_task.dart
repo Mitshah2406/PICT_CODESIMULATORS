@@ -100,9 +100,7 @@ class _ValidateTaskState extends ConsumerState<ValidateTask> {
             children: [
               Text(
                 "Capture a picture to complete your task",
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: TColors.black,
-                    ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(
                 height: 10,
@@ -111,12 +109,15 @@ class _ValidateTaskState extends ConsumerState<ValidateTask> {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: TColors.primaryGreen,
                   ),
                 ),
                 height: 250,
                 width: double.infinity,
                 child: content,
+              ),
+              const SizedBox(
+                height: 10,
               ),
               TextButton(
                 onPressed: () async {
@@ -169,7 +170,7 @@ class _ValidateTaskState extends ConsumerState<ValidateTask> {
                     );
                   }
                 },
-                child: const Text("Submit"),
+                child: const Text("Submit your task"),
               )
             ],
           ),

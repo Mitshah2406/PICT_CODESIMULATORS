@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pict_frontend/utils/constants/app_colors.dart';
 
 class DottedLine extends StatelessWidget {
-  const DottedLine({super.key, this.height = 1, this.color = Colors.black});
+  const DottedLine({super.key, this.height = 1});
   final double height;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,10 @@ class DottedLine extends StatelessWidget {
               width: dashWidth,
               height: dashHeight,
               child: DecoratedBox(
-                decoration: BoxDecoration(color: color),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? TColors.white
+                        : TColors.black),
               ),
             );
           }),
