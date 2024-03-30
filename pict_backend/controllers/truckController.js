@@ -128,7 +128,32 @@ exports.getRoutes = async function () {
 
 exports.viewMap = async function (req, res) {
   try {
- 
+    const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
+    const accessToken = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY'; // Replace with your actual Facebook access token
+
+    const data = {
+      messaging_product: 'whatsapp',
+      to: '919653288604',
+      type: 'text',
+      text: {
+        body: `Hi Mit, The Garbage Pickup Truck 🚛 has departed from the Garbage Collection Center. It will reach your location in *20 minutes*. Please keep your garbage bin  🗑️ ready for collection. \nThank you!`,
+
+      },
+    };
+
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    };
+
+    axios.post(url, data, { headers })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error.response.data);
+      });
+
     res.render("RouteOptimization/map", { authority: req.session.authority });
   } catch (error) {
     console.log(error);

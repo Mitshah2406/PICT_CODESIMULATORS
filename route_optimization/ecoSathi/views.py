@@ -44,7 +44,7 @@ def getRouteData(request):
      data['fill_levels']= fill_levels
      data['distance_matrix']=create_distance_matrix(distance_matrix_data)
      
-     data["truck_capacities"] = [10, 10, 10,10]
+     data["truck_capacities"] = [3,3,3,4]
      data["num_trucks"] = 4
      data["garbage_depot"] = 0
      print("niche")

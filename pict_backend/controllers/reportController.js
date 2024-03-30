@@ -4,6 +4,7 @@ let Report = require("../models/Report");
 let User = require("../models/User");
 let path = require("path");
 let moment = require("moment");
+let axios = require("axios");
 const genAI = new GoogleGenerativeAI("AIzaSyCH12f11jfOO7_E3GJnwVXzQb8hbiXTHlU");
 let fs = require("fs");
 function fileToGenerativePart(path, mimeType) {
@@ -18,6 +19,8 @@ exports.addReport = async (req, res) => {
   try {
     // console.log(req.body);
 
+    const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
+    const accessToken = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY'; // Replace with your actual Facebook access token
     if (req.files.reportAttachment) {
       const reportAttachment = req.files.reportAttachment;
       // console.log(logoFile.name);
@@ -68,6 +71,28 @@ exports.addReport = async (req, res) => {
         console.log(data);
         let report = new Report(data);
         let response = await report.addReport();
+        const whatsapp = {
+          messaging_product: 'whatsapp',
+          to: '919653288604',
+          type: 'text',
+          text: {
+            body: `Hi Mit!!, Your report has been *successfully* submitted. We will get back to you soon. \nThank you!`,
+
+          },
+        };
+
+        const headers = {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        };
+
+        axios.post(url, whatsapp, { headers })
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error(error.response.data);
+          });
         res.status(200).json({ result: response });
       } else {
         let user = new User();
@@ -79,11 +104,36 @@ exports.addReport = async (req, res) => {
         req.body.message = "rejected by ml";
         let report = new Report(req.body);
         let response = await report.addReport();
+
+
+        const data = {
+          messaging_product: 'whatsapp',
+          to: '919653288604',
+          type: 'text',
+          text: {
+            body: `Hi Mit!!, Your report has been *rejected by the AI*. Please try again with a valid report. \nThank you!`,
+
+          },
+        };
+
+        const headers = {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        };
+
+        axios.post(url, data, { headers })
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error(error.response.data);
+          });
         res.status(200).json({ result: response });
       }
     } else {
       res.status(400).json({ error: "No report attachment provided" });
     }
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -124,6 +174,30 @@ exports.changeReportStatus = async (req, res) => {
       userData.reward += 10;
       await user.updatePoints(userData._id, userData.reward);
       response = await report.changeReportStatus(reportId, reportStatus);
+      const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
+      const accessToken = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY';
+      const data = {
+        messaging_product: 'whatsapp',
+        to: '919653288604',
+        type: 'text',
+        text: {
+          body: `Hi Mit!!, Your report has been *resolved* successfully. You have been awarded 10 points for your contribution\n Total Reward Point Balance: *${userData.reward}*. \nThank you!`,
+
+        },
+      };
+
+      const headers = {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      };
+
+      axios.post(url, data, { headers })
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error(error.response.data);
+        });
     } else {
       if (reportStatus === "rejected") {
         req.body.message = "rejected by Authority";
