@@ -20,6 +20,7 @@ User.prototype.cleanUp = function () {
     eventsRegisteredIn: [],
     certificates: [],
     favoriteItems: [],
+    tasks: [],
     taskCompleted: Number(0),
     certificateReceived: Number(0),
     reward: Number(0),
@@ -115,6 +116,63 @@ User.prototype.getAllUserImages = async function () {
     console.error("Error retrieving user images:", error);
     throw error;
   }
+};
+
+User.prototype.completedTask = async function (userId, taskId) {
+  try {
+    let data = await usersCollection.findOneAndUpdate(
+      { _id: new ObjectID(userId) },
+      {
+        $push: {
+          tasks: {
+            taskId: new ObjectID(taskId),
+            registeredDate: new Date(),
+          },
+        },
+      }
+    );
+
+    return "ok";
+  } catch (error) {
+    console.error("Error retrieving user images:", error);
+    throw error;
+  }
+};
+
+User.prototype.getCompletedTaskOfUsers = async function (userId) {
+  let data = await usersCollection
+    .aggregate([
+      {
+        $match: {
+          _id: new ObjectID(userId),
+        },
+      },
+      {
+        $unwind: "$tasks",
+      },
+      {
+        $lookup: {
+          from: "tasks",
+          localField: "tasks.taskId",
+          foreignField: "_id",
+          as: "taskData",
+        },
+      },
+      {
+        $unwind: "$taskData",
+      },
+      {
+        $group: {
+          _id: new ObjectID(userId),
+          tasks: {
+            $addToSet: "$taskData",
+          },
+        },
+      },
+    ])
+    .toArray();
+
+  return data;
 };
 
 module.exports = User;

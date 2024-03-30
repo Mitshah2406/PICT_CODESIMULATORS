@@ -7,6 +7,7 @@ import 'package:pict_frontend/pages/Biowaste/blogs.dart';
 import 'package:pict_frontend/pages/Biowaste/videos.dart';
 import 'package:pict_frontend/pages/ChatBot/chatbot.dart';
 import 'package:pict_frontend/pages/Events/event_details.dart';
+import 'package:pict_frontend/pages/Recycler/recycleChatbot.dart';
 import 'package:pict_frontend/providers/event_notifier.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
@@ -81,7 +82,7 @@ class HomePageState extends ConsumerState<HomePage> {
                             const SizedBox(width: 5),
                             Text(
                               maxLines: 1,
-                              _location!,
+                              "Pune Dhankawadi",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!
@@ -290,12 +291,12 @@ class HomePageState extends ConsumerState<HomePage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   CupertinoPageRoute(
-                      //     builder: (context) => const ChatBot(),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => const RecyclerChatbot(),
+                        ),
+                      );
                     },
                     child: Column(
                       children: [
@@ -307,7 +308,7 @@ class HomePageState extends ConsumerState<HomePage> {
                             border: Border.all(color: TColors.black),
                           ),
                           child: Image.asset(
-                            "assets/images/market.png",
+                            "assets/images/recycle.png",
                             scale: 2,
                           ),
                         ),
@@ -315,7 +316,7 @@ class HomePageState extends ConsumerState<HomePage> {
                           height: 2,
                         ),
                         Text(
-                          "Market",
+                          "Reuse",
                           style:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     color: TColors.darkGrey,

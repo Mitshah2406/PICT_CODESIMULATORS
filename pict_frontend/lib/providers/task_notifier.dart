@@ -20,6 +20,12 @@ class TaskNotifier extends StateNotifier<List<Task>> {
 
     return response;
   }
+
+  Future<List<Task>> getUserCompletedTasks(String userId) async {
+    final response = await TaskServices.getUserCompletedTasks(userId);
+
+    return response;
+  }
 }
 
 final taskNotifier = StateNotifierProvider<TaskNotifier, List<Task>>(

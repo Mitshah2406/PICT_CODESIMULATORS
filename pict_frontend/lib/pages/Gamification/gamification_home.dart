@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pict_frontend/models/Task.dart';
+import 'package:pict_frontend/pages/Gamification/gamification_validate_task.dart';
 import 'package:pict_frontend/providers/task_notifier.dart';
 import 'package:pict_frontend/utils/constants/app_colors.dart';
 import 'package:pict_frontend/utils/constants/app_constants.dart';
@@ -31,25 +32,6 @@ class _GamificationHomePageState extends ConsumerState<GamificationHomePage> {
     });
   }
 
-  File? _selectedImage;
-
-  void _takePicture() async {
-    final ImagePicker imagePicker = ImagePicker();
-
-    final pickedImage =
-        await imagePicker.pickImage(source: ImageSource.camera, maxHeight: 600);
-
-    if (pickedImage == null) {
-      return;
-    }
-
-    File fileImage = File(pickedImage.path);
-
-    setState(() {
-      _selectedImage = fileImage;
-    });
-  }
-
   @override
   void initState() {
     _id = "";
@@ -59,35 +41,15 @@ class _GamificationHomePageState extends ConsumerState<GamificationHomePage> {
     super.initState();
   }
 
+  late Future<List<Task>> completedTasks;
+
   @override
   Widget build(BuildContext context) {
     Future<List<Task>> tasks = ref.read(taskNotifier.notifier).getRandomTask();
-
-    Widget content = TextButton.icon(
-      onPressed: _takePicture,
-      icon: const Icon(
-        Icons.camera,
-        color: TColors.primaryGreen,
-      ),
-      label: Text(
-        "Take Image",
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .copyWith(color: TColors.primaryGreen),
-      ),
-    );
-
-    if (_selectedImage != null) {
-      content = GestureDetector(
-        onTap: _takePicture,
-        child: Image.file(
-          _selectedImage!,
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: double.infinity,
-        ),
-      );
+    completedTasks = Future.value([]);
+    if (_id != '') {
+      completedTasks =
+          ref.read(taskNotifier.notifier).getUserCompletedTasks(_id.toString());
     }
 
     return Scaffold(
@@ -220,7 +182,7 @@ class _GamificationHomePageState extends ConsumerState<GamificationHomePage> {
                       width: 10,
                     ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           width: 145,
@@ -230,7 +192,25 @@ class _GamificationHomePageState extends ConsumerState<GamificationHomePage> {
                             color: TColors.white,
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Image.asset("assets/images/badge.png"),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                // left: 2,
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/badge.png",
+                                      scale: 2,
+                                    ),
+                                    Image.asset(
+                                      "assets/images/week_badge.png",
+                                      scale: 2,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 15,
@@ -261,23 +241,73 @@ class _GamificationHomePageState extends ConsumerState<GamificationHomePage> {
                                 ),
                               ),
                               Expanded(
-                                child: ListView.builder(
-                                  itemCount: 10,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return ListTile(
-                                      title: const Text(
-                                        overflow: TextOverflow.ellipsis,
-                                        "Hello Taskssss",
-                                      ),
-                                      trailing: Image.asset(
-                                        "assets/images/villager.png",
-                                        scale: 2,
-                                      ),
+                                child: FutureBuilder(
+                                  future: completedTasks,
+                                  builder: (context,
+                                      AsyncSnapshot<List<Task>> snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                      if (snapshot.hasError) {
+                                        return Center(
+                                          child: Text(
+                                            '${snapshot.error} occurred',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge!
+                                                .copyWith(color: TColors.black),
+                                          ),
+                                        );
+                                      } else if (snapshot.hasData) {
+                                        final List<Task> data = snapshot.data!;
+
+                                        if (data.isEmpty) {
+                                          return Center(
+                                            child: Text(
+                                              "No Completed task!",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge!
+                                                  .copyWith(
+                                                      color: TColors.black),
+                                            ),
+                                          );
+                                        }
+
+                                        return ListView.builder(
+                                          itemCount: data.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            Task task = data[
+                                                index]; // Get the task at the current index
+
+                                            return ListTile(
+                                              title: Text(
+                                                task.taskTitle.toString(),
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(
+                                                      color:
+                                                          TColors.primaryGreen,
+                                                    ),
+                                              ),
+                                              // trailing: Image.asset(
+                                              //   "assets/images/task.jpg",
+                                              //   scale: 2,
+                                              // ),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    }
+
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
                                     );
                                   },
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -396,66 +426,12 @@ class _GamificationHomePageState extends ConsumerState<GamificationHomePage> {
                                             ),
                                             ElevatedButton(
                                               onPressed: () {
-                                                showModalBottomSheet(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return Column(
-                                                      children: [
-                                                        Text(
-                                                          "Capture a picture to complete your task",
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .titleLarge!
-                                                                  .copyWith(
-                                                                    color: TColors
-                                                                        .black,
-                                                                  ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .primary,
-                                                            ),
-                                                          ),
-                                                          height: 180,
-                                                          width: 200,
-                                                          child: content,
-                                                        ),
-                                                        TextButton(
-                                                          onPressed: () async {
-                                                            final res = await ref
-                                                                .read(taskNotifier
-                                                                    .notifier)
-                                                                .validateTask(
-                                                                    task.taskTitle
-                                                                        .toString(),
-                                                                    _selectedImage!
-                                                                        .path,
-                                                                    _id
-                                                                        .toString(),
-                                                                    task.id
-                                                                        .toString());
-
-                                                            print(res);
-                                                          },
-                                                          child: const Text(
-                                                              "Submit"),
-                                                        )
-                                                      ],
-                                                    );
-                                                  },
-                                                );
+                                                Navigator.push(context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) {
+                                                  return ValidateTask(
+                                                      task: task);
+                                                }));
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 elevation: 0,

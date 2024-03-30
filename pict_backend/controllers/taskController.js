@@ -87,6 +87,9 @@ exports.validateTask = async function (req, res) {
         userData.reward += taskPoints;
         let response = await user.updatePoints(userId, userData.reward);
         console.log(response);
+
+        await user.completedTask(userId, taskId);
+
         res.status(200).json({ result: true });
       } else {
         res.status(200).json({ result: false });

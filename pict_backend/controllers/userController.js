@@ -85,3 +85,16 @@ exports.getAllUserImages = async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+exports.getCompletedTaskOfUsers = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    let user = new User();
+
+    let data = await user.getCompletedTaskOfUsers(userId);
+    return res.status(200).json({ result: data });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
