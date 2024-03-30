@@ -150,8 +150,8 @@ class _EventTicketPageState extends State<EventTicketPage> {
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: TColors.black),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                             const SizedBox(
                               height: 20,
@@ -169,8 +169,8 @@ class _EventTicketPageState extends State<EventTicketPage> {
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: TColors.black),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ],
                         ),
@@ -196,8 +196,8 @@ class _EventTicketPageState extends State<EventTicketPage> {
                                     .textTheme
                                     .bodyLarge!
                                     .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: TColors.black),
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
                               const SizedBox(
                                 height: 20,
@@ -215,8 +215,8 @@ class _EventTicketPageState extends State<EventTicketPage> {
                                     .textTheme
                                     .bodyLarge!
                                     .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: TColors.black),
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
                             ],
                           ),
@@ -268,7 +268,9 @@ class _EventTicketPageState extends State<EventTicketPage> {
                   SizedBox(
                     height: 80,
                     child: SfBarcodeGenerator(
-                      barColor: TColors.black,
+                      barColor: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                       value: _id,
                       showValue: true,
                       textStyle: const TextStyle(
@@ -280,8 +282,10 @@ class _EventTicketPageState extends State<EventTicketPage> {
                   const Spacer(),
                   Text(
                     "Scan the barcode at entry gate.",
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: TColors.darkerGrey, fontWeight: FontWeight.w400),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontWeight: FontWeight.w400),
                   )
                 ],
               ),

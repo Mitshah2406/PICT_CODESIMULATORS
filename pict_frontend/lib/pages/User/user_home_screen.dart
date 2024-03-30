@@ -70,32 +70,18 @@ class HomePageState extends ConsumerState<HomePage> {
                 Column(
                   children: [
                     AppBar(
-                      leading: Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.location_on_outlined,
-                              size: 25,
-                              color: TColors.white,
+                      automaticallyImplyLeading: false,
+                      title: Text(
+                        maxLines: 1,
+                        "Dhankawadi",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.black
+                                  : Colors.white,
                             ),
-                            const SizedBox(width: 5),
-                            Text(
-                              maxLines: 1,
-                              "Pune Dhankawadi",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.black
-                                        : Colors.white,
-                                  ),
-                            )
-                          ],
-                        ),
                       ),
+
                       centerTitle: true,
                       backgroundColor: TColors.primaryGreen,
                       // leading: Icon(Icons.),
@@ -173,7 +159,7 @@ class HomePageState extends ConsumerState<HomePage> {
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
-                    .copyWith(color: TColors.black, fontSize: 22),
+                    .copyWith(fontSize: 22),
               ),
             ),
             Padding(
@@ -197,7 +183,11 @@ class HomePageState extends ConsumerState<HomePage> {
                           width: 70,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: TColors.black),
+                            border: Border.all(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? TColors.white
+                                    : TColors.black),
                           ),
                           child: Image.asset(
                             "assets/images/videos.png",
@@ -233,7 +223,11 @@ class HomePageState extends ConsumerState<HomePage> {
                           width: 70,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: TColors.black),
+                            border: Border.all(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? TColors.white
+                                    : TColors.black),
                           ),
                           child: Image.asset(
                             "assets/images/blogs.png",
@@ -269,7 +263,11 @@ class HomePageState extends ConsumerState<HomePage> {
                           width: 70,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: TColors.black),
+                            border: Border.all(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? TColors.white
+                                    : TColors.black),
                           ),
                           child: Image.asset(
                             "assets/images/bot.png",
@@ -305,7 +303,11 @@ class HomePageState extends ConsumerState<HomePage> {
                           width: 70,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: TColors.black),
+                            border: Border.all(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? TColors.white
+                                    : TColors.black),
                           ),
                           child: Image.asset(
                             "assets/images/recycle.png",
@@ -375,7 +377,7 @@ class HomePageState extends ConsumerState<HomePage> {
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
-                    .copyWith(color: TColors.black, fontSize: 22),
+                    .copyWith(fontSize: 22),
               ),
             ),
 

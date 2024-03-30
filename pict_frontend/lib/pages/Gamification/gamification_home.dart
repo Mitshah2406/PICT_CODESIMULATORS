@@ -185,7 +185,7 @@ class _GamificationHomePageState extends ConsumerState<GamificationHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: 145,
+                          width: 120,
                           height: 60,
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
@@ -215,55 +215,44 @@ class _GamificationHomePageState extends ConsumerState<GamificationHomePage> {
                         const SizedBox(
                           height: 15,
                         ),
-                        Container(
-                          width: 145,
-                          height: 170,
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: TColors.white,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Text(
-                                  "Tasks",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                        color: TColors.darkerGrey,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
+                        SizedBox(
+                          width: 120,
+                          child: Container(
+                            height: 170,
+                            width: 145,
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              color: TColors.white,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    "Tasks",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          color: TColors.darkerGrey,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: FutureBuilder(
-                                  future: completedTasks,
-                                  builder: (context,
-                                      AsyncSnapshot<List<Task>> snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.done) {
-                                      if (snapshot.hasError) {
-                                        return Center(
-                                          child: Text(
-                                            '${snapshot.error} occurred',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(color: TColors.black),
-                                          ),
-                                        );
-                                      } else if (snapshot.hasData) {
-                                        final List<Task> data = snapshot.data!;
-
-                                        if (data.isEmpty) {
+                                Expanded(
+                                  child: FutureBuilder(
+                                    future: completedTasks,
+                                    builder: (context,
+                                        AsyncSnapshot<List<Task>> snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        if (snapshot.hasError) {
                                           return Center(
                                             child: Text(
-                                              "No Completed task!",
+                                              '${snapshot.error} occurred',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyLarge!
@@ -271,44 +260,61 @@ class _GamificationHomePageState extends ConsumerState<GamificationHomePage> {
                                                       color: TColors.black),
                                             ),
                                           );
-                                        }
+                                        } else if (snapshot.hasData) {
+                                          final List<Task> data =
+                                              snapshot.data!;
 
-                                        return ListView.builder(
-                                          itemCount: data.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            Task task = data[
-                                                index]; // Get the task at the current index
-
-                                            return ListTile(
-                                              title: Text(
-                                                task.taskTitle.toString(),
-                                                overflow: TextOverflow.ellipsis,
+                                          if (data.isEmpty) {
+                                            return Center(
+                                              child: Text(
+                                                "No Completed task!",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyLarge!
                                                     .copyWith(
-                                                      color:
-                                                          TColors.primaryGreen,
-                                                    ),
+                                                        color: TColors.black),
                                               ),
-                                              // trailing: Image.asset(
-                                              //   "assets/images/task.jpg",
-                                              //   scale: 2,
-                                              // ),
                                             );
-                                          },
-                                        );
-                                      }
-                                    }
+                                          }
 
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
+                                          return ListView.builder(
+                                            itemCount: data.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              Task task = data[
+                                                  index]; // Get the task at the current index
+
+                                              return ListTile(
+                                                title: Text(
+                                                  task.taskTitle.toString(),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge!
+                                                      .copyWith(
+                                                        color: TColors
+                                                            .primaryGreen,
+                                                      ),
+                                                ),
+                                                // trailing: Image.asset(
+                                                //   "assets/images/task.jpg",
+                                                //   scale: 2,
+                                                // ),
+                                              );
+                                            },
+                                          );
+                                        }
+                                      }
+
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -323,8 +329,8 @@ class _GamificationHomePageState extends ConsumerState<GamificationHomePage> {
                 "Your Today's Task",
                 style: Theme.of(context)
                     .textTheme
-                    .displaySmall!
-                    .copyWith(color: TColors.darkerGrey, fontSize: 30),
+                    .displayMedium!
+                    .copyWith(fontSize: 30, fontWeight: FontWeight.w700),
               ),
               const SizedBox(
                 height: 10,

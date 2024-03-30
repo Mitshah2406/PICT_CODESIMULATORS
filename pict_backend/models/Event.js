@@ -423,9 +423,12 @@ Event.prototype.getUpcomingEventsOfMonth = async function () {
     0 // It represents last day of the month i.e 31 march
   );
 
+  console.log("bc");
+  console.log(lastDayOfMonth);
+
   let data = await eventsCollection
     .find({
-      eventStartDate: { $gte: new Date(), $lte: lastDayOfMonth },
+      eventStartDate: { $gte: new Date() },
     })
     .toArray();
 

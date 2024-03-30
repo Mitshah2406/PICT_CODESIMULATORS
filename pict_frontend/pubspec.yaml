@@ -76,6 +76,8 @@ dependencies:
   image: ^4.0.17
   exif: ^3.1.4
   introduction_screen: ^3.1.14
+  slider_button: ^2.1.0
+  flutter_localization: ^0.2.0
 
 dev_dependencies:
   flutter_test:

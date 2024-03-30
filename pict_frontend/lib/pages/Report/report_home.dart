@@ -176,188 +176,187 @@ class _ReportPageState extends ConsumerState<ReportPage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
               height: 40,
             ),
             Text(
               "Need To Report!",
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    color: TColors.black,
-                  ),
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(),
             ),
             const SizedBox(
               height: 20,
             ),
-            Image.asset(
-              alignment: Alignment.center,
-              "assets/images/report.png",
-              width: 280,
-            ),
-            const SizedBox(
-              height: 100,
-            ),
-            Divider(
-              color: Colors.grey.shade500,
-              endIndent: 10,
-              indent: 10,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                          // isDismissible: true,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.white,
-                          context: context,
-                          builder: (BuildContext context) {
-                            return SingleChildScrollView(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 18, vertical: 8),
-                              child: Form(
-                                key: _formKey,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextFormField(
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "Please provide description";
-                                        }
-                                      },
-                                      maxLines: null,
-                                      keyboardType: TextInputType.multiline,
-                                      controller: _descriptionController,
-                                      decoration: InputDecoration(
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 15),
-                                        labelText: "Enter description",
-                                        labelStyle: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.grey.shade600),
-                                      ),
-                                      style: const TextStyle(
-                                        color: TColors.black,
-                                        fontSize: 16,
-                                      ),
-                                      maxLength: 50,
-                                    ),
-                                    Text(
-                                      "Camera photo",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall!
-                                          .copyWith(
-                                            color: TColors.black,
-                                          ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    ImageInput(
-                                      image: (image) {
-                                        _selectedImage = image;
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      "Location",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall!
-                                          .copyWith(
-                                            color: TColors.black,
-                                          ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                    LocationInput(
-                                      onSelectLocation: (pickedLocation) {
-                                        location = pickedLocation;
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Center(
-                                      child: ElevatedButton.icon(
-                                        onPressed: _addReport,
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: TColors.primaryGreen,
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 15,
-                                            vertical: 10,
-                                          ),
-                                        ),
-                                        label: Text(
-                                          // isLoading
-                                          // ? "Validating Report..."
-                                          "Submit Report",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                color: TColors.white,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                        ),
-                                        icon: const Icon(Icons.report),
-                                      ),
-                                    )
-                                  ],
-                                ),
+            GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  // isDismissible: true,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.white,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 8),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please provide description";
+                                }
+                              },
+                              maxLines: null,
+                              keyboardType: TextInputType.multiline,
+                              controller: _descriptionController,
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 15),
+                                labelText: "Enter description",
+                                labelStyle: TextStyle(
+                                    fontSize: 14, color: Colors.grey.shade600),
                               ),
-                            );
-                          },
-                        );
+                              style: const TextStyle(
+                                color: TColors.black,
+                                fontSize: 16,
+                              ),
+                              maxLength: 50,
+                            ),
+                            Text(
+                              "Camera photo",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall!
+                                  .copyWith(
+                                    color: TColors.black,
+                                  ),
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            ImageInput(
+                              image: (image) {
+                                _selectedImage = image;
+                              },
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Location",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall!
+                                  .copyWith(
+                                    color: TColors.black,
+                                  ),
+                              textAlign: TextAlign.left,
+                            ),
+                            LocationInput(
+                              onSelectLocation: (pickedLocation) {
+                                location = pickedLocation;
+                              },
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Center(
+                              child: ElevatedButton.icon(
+                                onPressed: _addReport,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: TColors.primaryGreen,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                    vertical: 10,
+                                  ),
+                                ),
+                                label: Text(
+                                  // isLoading
+                                  // ? "Validating Report..."
+                                  "Submit Report",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        color: TColors.white,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                ),
+                                icon: const Icon(Icons.report),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
 
-                        // Navigator.push(context,
-                        //     CupertinoPageRoute(builder: (BuildContext context) {
-                        //   return const AddReportPage();
-                        // }));
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        width: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        child: Image.asset(
-                          "assets/images/report_icon.png",
-                          scale: 3,
-                        ),
-                      ),
-                    ),
-                    const Spacer(
-                      flex: 1,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(5),
-                      width: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: Colors.grey),
-                      ),
-                      child: Image.asset(
-                        "assets/images/robot.png",
-                        scale: 3,
-                      ),
-                    ),
-                  ],
-                ),
+                // Navigator.push(context,
+                //     CupertinoPageRoute(builder: (BuildContext context) {
+                //   return const AddReportPage();
+                // }));
+              },
+              child: Image.asset(
+                alignment: Alignment.center,
+                "assets/images/report.png",
+                width: 280,
               ),
-            )
+            ),
+            // const SizedBox(
+            //   height: 100,
+            // ),
+            // Divider(
+            //   color: Colors.grey.shade500,
+            //   endIndent: 10,
+            //   indent: 10,
+            // ),
+            // Expanded(
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 50),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       // crossAxisAlignment: CrossAxisAlignment.center,
+            //       children: [
+            //         GestureDetector(
+
+            //           child: Container(
+            //             padding: const EdgeInsets.all(5),
+            //             width: 60,
+            //             decoration: BoxDecoration(
+            //               borderRadius: BorderRadius.circular(50),
+            //               border: Border.all(color: Colors.grey),
+            //             ),
+            //             child: Image.asset(
+            //               "assets/images/report_icon.png",
+            //               scale: 3,
+            //             ),
+            //           ),
+            //         ),
+            //         // const Spacer(
+            //         //   flex: 1,
+            //         // ),
+            //         // Container(
+            //         //   padding: const EdgeInsets.all(5),
+            //         //   width: 60,
+            //         //   decoration: BoxDecoration(
+            //         //     borderRadius: BorderRadius.circular(50),
+            //         //     border: Border.all(color: Colors.grey),
+            //         //   ),
+            //         //   child: Image.asset(
+            //         //     "assets/images/robot.png",
+            //         //     scale: 3,
+            //         //   ),
+            //         // ),
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
