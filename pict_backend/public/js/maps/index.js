@@ -38,46 +38,7 @@ window.onload = async function () {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
   };
 
-  const contentString = (
-    <div id="content">
-      {" "}
-      +<div id="siteNotice"> +</div> +
-      <h1 id="firstHeading" class="firstHeading">
-        Dumping Depot
-      </h1>{" "}
-      +
-      <div id="bodyContent">
-        {" "}
-        +
-        <p>
-          <b>Depot Address</b> + `sandstone rock formation in the southern part
-          of the ` + `Northern Territory, central Australia. It lies 335&#160;km
-          (208&#160;mi) ` + `south west of the nearest large town, Alice
-          Springs; 450&#160;km ` + `(280&#160;mi) by road. Kata Tjuta and Uluru
-          are the two major ` + `features of the Uluru - Kata Tjuta National
-          Park. Uluru is ` + `sacred to the Pitjantjatjara and Yankunytjatjara,
-          the ` + `Aboriginal people of the area. It has many springs,
-          waterholes, ` + `rock caves and ancient paintings. Uluru is listed as
-          a World ` + Heritage Site.
-        </p>{" "}
-        +
-        <p>
-          Attribution: Uluru,{" "}
-          <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">
-            {" "}
-            + "https://en.wikipedia.org/w/index.php?title=Uluru
-          </a>
-          " + (last visited June 22, 2009).
-        </p>{" "}
-        +
-      </div>{" "}
-      +
-    </div>
-  );
-  const infowindow = new google.maps.InfoWindow({
-    content: contentString,
-    ariaLabel: "Uluru",
-  });
+
   var map = new google.maps.Map(document.getElementById("map"), mapOptions);
   let stroke_arr = [];
   var infoWindow = new google.maps.InfoWindow();
@@ -298,8 +259,43 @@ window.onload = async function () {
 
   // Function to generate HTML markup for a timeline item
   function getTimelineItemHtml(item) {
+    if(item.length==2){
+      // return `<li>
+      //                 <div class="timeline-dots timeline-dot1 border-primary text-primary"></div>
+      //                 <h6 class="float-left mb-1">${item[0].depotName}</h6>
+      //                 <small class="float-right mt-1">${item[0].depotLocation.lat}, ${item[0].depotLocation.lon}</small>
+      //                 <div class="d-inline-block w-100">
+      //                    <p>${item[0].depotLocation.formattedAddress}</p>
+      //                    <p>Truck will not depart.</p>
+      //                 </div>
+      //              </li>`;
+     return `<div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <div div class="header-title" >
+            <h4 class="card-title">Truck</h4>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="iq-timeline0 m-0 d-flex align-items-center justify-content-between position-relative">
+            <ul class="list-inline p-0 m-0">
+              <li>
+                              <div class="timeline-dots timeline-dot1 border-primary text-primary"></div>
+                              <h6 class="float-left mb-1">${item[0].depotName}</h6>
+                              <small class="float-right mt-1">${item[0].depotLocation.lat}, ${item[0].depotLocation.lon}</small>
+                              <div class="d-inline-block w-100">
+                                 <p>${item[0].depotLocation.formattedAddress}</p>
+                                 <p>Truck will not depart.</p>
+                              </div>
+                           </li>
+            </ul>
+          </div>
+        </div>
+      </div>`
+    }else{
     const data = item
       .map((e, index) => {
+
+    
         if (index == 0 || index == item.length - 1) {
           return `<li>
                           <div class="timeline-dots timeline-dot1 border-primary text-primary"></div>
@@ -309,6 +305,7 @@ window.onload = async function () {
                              <p>${e.depotLocation.formattedAddress}</p>
                           </div>
                        </li>`;
+                       
         } else {
           return `<li>
                               <div class="timeline-dots timeline-dot1 border-primary text-primary"></div>
@@ -318,9 +315,9 @@ window.onload = async function () {
                                  <p>${e.binLocation.fotmattedAddress}</p>
                               </div>
                            </li>`;
-        }
-      })
-      .join("");
+          }
+        })
+        .join("");
     return `
           <div class="card">
               <div class="card-header d-flex justify-content-between">
@@ -337,5 +334,8 @@ window.onload = async function () {
               </div>
           </div>
       `;
-  }
-};
+    }
+
+  
+}
+}

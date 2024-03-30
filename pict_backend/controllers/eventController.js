@@ -338,7 +338,32 @@ exports.registerEvent = async (req, res) => {
     let event = new Event();
     let user = new User();
     let result = await event.registerEvent(userId, eventId, registeringAs);
+    let newEvent = await event.getEventById(eventId);
+    const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
+    const accessToken = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY'; // Replace with your actual Facebook access token
 
+    const data = {
+      messaging_product: 'whatsapp',
+      to: '919653288604',
+      type: 'text',
+      text: {
+        body: `Hi, You have been successfully registered in the event. Here's the link to the event *${newEvent.eventName}*`,
+
+      },
+    };
+
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    };
+
+    axios.post(url, data, { headers })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error.response.data);
+      });
     return res.status(200).json({ result });
   } catch (e) {
     console.log(e);
@@ -448,8 +473,33 @@ exports.markPresent = async (req, res) => {
 
         // Add the user, in the presentParticipants
         let result = await event.markPresent(userId, eventId);
+        const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
+        const accessToken = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY'; // Replace with your actual Facebook access token
 
+        const data = {
+          messaging_product: 'whatsapp',
+          to: '919653288604',
+          type: 'text',
+          text: {
+            body: `Hi Mit, You have been marked present in the event ${eventDoc.eventName}. Here's your certificate for the event. *Link* - http://localhost:3000/certificates/${eventDoc.participationCertificateTemplate}`,
+            
+          },
+        };
+
+        const headers = {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        };
+
+        axios.post(url, data, { headers })
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error(error.response.data);
+          });
         if (result == "ok") {
+
           return res
             .status(200)
             .json({ message: "Present Marked Successfully", status: "ok" });
