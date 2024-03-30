@@ -14,6 +14,7 @@ const depotController = require("../controllers/depotController");
 const driverController = require("../controllers/driverController");
 const truckController = require("../controllers/truckController");
 const taskController = require("../controllers/taskController");
+const whatsappController = require("../controllers/whatsappController");
 // ? Authentication module
 
 // Check authorization
@@ -484,6 +485,9 @@ router.get("/task/getRandomTask", taskController.getRandomTask);
 router.post("/task/addBulkTasks", taskController.addBulkTasks);
 router.post("/task/validateTask", taskController.validateTask);
 
+// Whatsapp Bot
+router.post("/whatsapp/littered",whatsappController.sendLittered)
+
 //route optimization
 router.get("/viewMap", truckController.viewMap);
 router.get("/getRoutes", truckController.getRoutesJson);
@@ -493,6 +497,7 @@ router.get("/getSingleRoute/:index", truckController.getSingleRoute);
 //   let data = await truckController.getRoutes();
 //   res.render("RouteOptimization/map");
 // });
+
 
 //404
 
