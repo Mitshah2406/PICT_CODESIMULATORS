@@ -160,7 +160,7 @@ class _ValidateTaskState extends ConsumerState<ValidateTask> {
                     );
                   } else {
                     Fluttertoast.showToast(
-                      msg: "Task is not completed",
+                      msg: "The task is not validated",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,

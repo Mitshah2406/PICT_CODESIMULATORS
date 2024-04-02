@@ -4,7 +4,7 @@ exports.sendLittered = async (req, res) => {
     console.log("HITT")
     const message = req.body.message;
     const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
-    const accessToken = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY'; // Replace with your actual Facebook access token
+    const accessToken = '<YOUR_WHATSAPP_TOKEN'; // Replace with your actual Facebook access token
 
 const data = {
   messaging_product: 'whatsapp',

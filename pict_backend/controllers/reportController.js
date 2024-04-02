@@ -20,7 +20,7 @@ exports.addReport = async (req, res) => {
     // console.log(req.body);
 
     const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
-    const accessToken = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY'; // Replace with your actual Facebook access token
+    const accessToken = '<YOUR_WHATSAPP_TOKEN'; // Replace with your actual Facebook access token
     if (req.files.reportAttachment) {
       const reportAttachment = req.files.reportAttachment;
       // console.log(logoFile.name);
@@ -175,7 +175,7 @@ exports.changeReportStatus = async (req, res) => {
       await user.updatePoints(userData._id, userData.reward);
       response = await report.changeReportStatus(reportId, reportStatus);
       const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
-      const accessToken = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY';
+      const accessToken = '<YOUR_WHATSAPP_TOKEN';
       const data = {
         messaging_product: 'whatsapp',
         to: '919653288604',
