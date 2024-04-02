@@ -7,7 +7,7 @@ import requests
 
 
 urlForWhatsappBot = 'http://192.168.154.85:4000/whatsapp/littered'
-# accessTokenForWhatsappBot = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY'
+# accessTokenForWhatsappBot = ''
 # headersForWhatsappBot = {
 #   'Authorization': f'Bearer {accessTokenForWhatsappBot}',
 #   'Content-Type': 'application/json',
