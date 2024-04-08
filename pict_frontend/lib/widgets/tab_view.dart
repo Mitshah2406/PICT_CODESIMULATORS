@@ -46,7 +46,7 @@ class _TabViewState extends State<TabView> {
                     ),
                     child: Center(
                       child: Text(
-                        "UPCOMING",
+                        "Ongoing ",
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
                               color: widget.selected == 0
                                   ? TColors.primaryGreen
