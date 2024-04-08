@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pict_frontend/firebase_options.dart';
 import 'package:pict_frontend/intro_screen.dart';
 // import 'package:pict_frontend/localizations/locales.dart';
-import 'package:pict_frontend/pages/noti_screen.dart';
+import 'package:pict_frontend/pages/noti_screen.dart'; 
 import 'package:pict_frontend/pages/splash_screen.dart';
 import 'package:pict_frontend/providers/theme_notifier.dart';
 import 'package:pict_frontend/utils/detector_service.dart';
@@ -25,7 +25,7 @@ void main() async {
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();

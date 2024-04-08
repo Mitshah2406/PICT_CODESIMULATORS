@@ -48,7 +48,7 @@ class _EventsHomePageState extends ConsumerState<EventsHomePage> {
     final allUpcomingEvent = ref.watch(getAllUpcomingEvents).value;
     print("allUpcomingEvent");
     print(allUpcomingEvent);
-    final upcomingEventOfMonth = ref.watch(getUpcomingEventsOfMonth);
+    final upcomingEventOfMonth = ref.watch(getAllEvents);
 
     if (_id != '') {
       setState(() {
@@ -359,7 +359,7 @@ class _EventsHomePageState extends ConsumerState<EventsHomePage> {
                                       .titleSmall!
                                       .copyWith(color: TColors.black),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15, vertical: 5),

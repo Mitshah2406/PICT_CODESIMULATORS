@@ -73,8 +73,7 @@ exports.addEvent = async function (req, res) {
         req.body.participationCertificateTemplate = fileName1;
       } else {
         const defaultFileName = "certificate.png";
-        const fileName =
-          new Date().getTime().toString() + "-" + defaultFileName;
+        const fileName =defaultFileName;
 
         const defaultTemplatePath = path.join(
           __dirname,
@@ -340,7 +339,7 @@ exports.registerEvent = async (req, res) => {
     let result = await event.registerEvent(userId, eventId, registeringAs);
     let newEvent = await event.getEventById(eventId);
     const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
-    const accessToken = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY'; // Replace with your actual Facebook access token
+    const accessToken = '<YOUR_WHATSAPP_TOKEN'; // Replace with your actual Facebook access token
 
     const data = {
       messaging_product: 'whatsapp',
@@ -474,7 +473,7 @@ exports.markPresent = async (req, res) => {
         // Add the user, in the presentParticipants
         let result = await event.markPresent(userId, eventId);
         const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
-        const accessToken = 'EAAMZAoiJPdIsBO3q6A50mxF8uLGCbWMny1L8CeJ6aUdmSYxpkcJgZBwTCbTRWULv6ie0C1jYgk6PB3fKSxZBuBFdcIQhLMsZCZAvSn0JibGZBZBsFyvmrnl59WhpKPsjzqTNMcrSbygyZBEyY5z5OEBbLKs1JbUY2w8jHKEAea7ZAI9JcMZCZCCZBLdaT5zrdl6C9y372QXlPQgbDbaHcwc62yNY'; // Replace with your actual Facebook access token
+        const accessToken = '<YOUR_WHATSAPP_TOKEN'; // Replace with your actual Facebook access token
 
         const data = {
           messaging_product: 'whatsapp',
@@ -505,10 +504,34 @@ exports.markPresent = async (req, res) => {
             .json({ message: "Present Marked Successfully", status: "ok" });
         }
       } else {
-        // Means, The user has already attended the event.
+        const url = 'https://graph.facebook.com/v18.0/144528362069356/messages';
+        const accessToken = '<YOUR_WHATSAPP_TOKEN'; // Replace with your actual Facebook access token
+
+        const data = {
+          messaging_product: 'whatsapp',
+          to: '919653288604',
+          type: 'text',
+          text: {
+            body: `Hi Mit, You have been marked present in the event ${eventDoc.eventName}. Here's your certificate for the event. You can claim your certificate through our app.`,
+
+          },
+        };
+
+        const headers = {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        };
+
+        axios.post(url, data, { headers })
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error(error.response.data);
+          });
         return res
           .status(200)
-          .json({ message: "Already Present", status: "ok" });
+          .json({ message: "Present Marked Successfully.", status: "ok" });
       }
     } else {
       // Means, The user has not registered in the event.
