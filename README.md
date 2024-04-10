@@ -3,6 +3,11 @@
 
 ## ```EcoSaathi``` - A Waste Management Project
 
+# Route Optimization Module
+
+<img width="1257" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/4790a3f6-5079-4f6d-b0b7-db266df250e7">
+
+
 # All these Node, flutter and django server need to be run simultaneously on same network.
 
 ## Backend
