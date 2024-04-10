@@ -28,9 +28,9 @@ Organizers scan the barcode on the user's registration ticket to confirm attenda
 
 Some Screenshots from the user's side:
 
-<img width="300" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/30176094-9ec7-436f-95d0-6706b25465ab">
-<img width="300" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/c6a84203-2b55-4dbe-bdc3-6c5fa8e6a8bb">
-<img width="300" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/47e3bbec-a408-43ae-b5ac-c0616c7638d9">
+<img width="250" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/30176094-9ec7-436f-95d0-6706b25465ab">
+<img width="250" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/c6a84203-2b55-4dbe-bdc3-6c5fa8e6a8bb">
+<img width="250" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/47e3bbec-a408-43ae-b5ac-c0616c7638d9">
 
 # Littering Detection Module 
 
