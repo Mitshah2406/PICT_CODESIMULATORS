@@ -3,7 +3,7 @@
 
 ## ```EcoSaathi``` - A Waste Management Project
 
-
+# All these Node, flutter and django server need to be run simultaneously on same network.
 
 ## Backend
 
@@ -14,6 +14,8 @@ npm start
 ```
 
 ## Frontend
+
+## update IP address in utils/constants/app_constants.dart and also relevant API Keys
 
 ```bash
 cd ./pict_frontend
