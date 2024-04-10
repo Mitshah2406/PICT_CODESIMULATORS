@@ -33,8 +33,18 @@ Some Screenshots from user side:
 
 <img width="355" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/47e3bbec-a408-43ae-b5ac-c0616c7638d9">
 
+# Littering Detection Module 
 
-## Notification (Alert Module) 
+This module was to detect any random person littering on streets. It is detected using CCTV Footage. 
+For demonstration purposes we have created sample dataset and operated. So as soon as the person litters, the model detects it and identifies the person 
+and sends him/her a whatsapp notification that you have been caught littering and are fined X amount.
+
+## Demonstration Link
+
+https://youtu.be/bjuEkIFkxkw
+
+
+# Notification (Alert Module) 
 
 Used Meta Developers Whatsapp API for sending timely ntofications and alerts on various events
 
