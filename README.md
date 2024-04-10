@@ -3,14 +3,14 @@
 
 ## ```EcoSaathi``` - A Waste Management Project
 
-# Route Optimization Module using Capacitated Vehicle Routing Problem
+# Route Optimization using Capacitated Vehicle Routing Problem
 
 Optimizing Garbage Collection Routes for the pickup trucks using Google Maps API, Capacitated Vehicle Routing Problem, Distance Matrix API, Directions API, Geocoding API
 
-## Showing Optimized Route For 4 trucks using 13 bins spread accross the city 
+## Showing Optimized Route For 4 trucks using 13 bins spread across the city 
 <img width="1257" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/4790a3f6-5079-4f6d-b0b7-db266df250e7">
 
-## Each Icon also have a pin with details of the location such as depot or bin
+## Each icon also has a pin with details of the location such as garbage depot or bin
 <img width="1253" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/24c180e4-39d1-4a7d-803d-90015000f58f">
 
 ## The Route of each truck
@@ -18,15 +18,15 @@ Optimizing Garbage Collection Routes for the pickup trucks using Google Maps API
 
 # Events Module 
 
-This module is for organizing social cause events and drives and motivate people towards waste disposal.
-The public can register as
+This module aims to coordinate social cause events and initiatives, inspiring individuals to engage actively in waste disposal efforts.
+The user can register as
 1) Participants
 2) Volunteers
-For which they get a certificate of contribution towards social cause that is generated dynamically.
+Participants receive dynamically generated certificates recognizing their contributions to the social cause initiative.
 
-The organizers scan the barcode of the user's registeration ticket to mark him present at the event. At the same time, the certificate is generated dynamically for the user and a whatsapp notification is sent to the user.
+Organizers scan the barcode on the user's registration ticket to confirm attendance at the event. Simultaneously, a dynamic certificate is generated for the user, and a WhatsApp notification is promptly dispatched to inform them.
 
-Some Screenshots from user side:
+Some Screenshots from the user's side:
 <img width="356" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/30176094-9ec7-436f-95d0-6706b25465ab">
 
 <img width="360" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/c6a84203-2b55-4dbe-bdc3-6c5fa8e6a8bb">
