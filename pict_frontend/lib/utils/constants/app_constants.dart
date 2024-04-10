@@ -25,5 +25,5 @@ class AppConstants {
 
   static String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
-  static const apiKey = "AIzaSyDkSgyeo_gOT2GtjSQLu7QqW-zWoq0frjI";
+  static const apiKey = "API_KEY";
 }
