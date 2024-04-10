@@ -27,31 +27,26 @@ Participants receive dynamically generated certificates recognizing their contri
 Organizers scan the barcode on the user's registration ticket to confirm attendance at the event. Simultaneously, a dynamic certificate is generated for the user, and a WhatsApp notification is promptly dispatched to inform them.
 
 Some Screenshots from the user's side:
-<img width="356" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/30176094-9ec7-436f-95d0-6706b25465ab">
 
-<img width="360" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/c6a84203-2b55-4dbe-bdc3-6c5fa8e6a8bb">
-
-<img width="355" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/47e3bbec-a408-43ae-b5ac-c0616c7638d9">
+<img width="300" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/30176094-9ec7-436f-95d0-6706b25465ab">
+<img width="300" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/c6a84203-2b55-4dbe-bdc3-6c5fa8e6a8bb">
+<img width="300" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/47e3bbec-a408-43ae-b5ac-c0616c7638d9">
 
 # Littering Detection Module 
 
-This module was to detect any random person littering on streets. It is detected using CCTV Footage. 
-For demonstration purposes we have created sample dataset and operated. So as soon as the person litters, the model detects it and identifies the person 
-and sends him/her a whatsapp notification that you have been caught littering and are fined X amount.
+This module is designed to detect any individual littering on the streets using CCTV footage. For demonstration purposes, we have created a sample dataset and operated it. When a person is observed littering, the model promptly detects the act, identifies the individual, and sends them a WhatsApp notification informing them that they have been caught littering and are being fined X amount.
 
-## Demonstration Link
-
-https://youtu.be/bjuEkIFkxkw
+Demonstration Link: https://youtu.be/bjuEkIFkxkw
 
 
 # Notification (Alert Module) 
 
-Used Meta Developers Whatsapp API for sending timely ntofications and alerts on various events
+Used Meta Developers' Whatsapp API for sending timely notfications and alerts for various activities
 
 <img width="581" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/1e3c3d27-c822-4050-81d8-376dae66c4ba">
 
 
-# All these Node, flutter and django server need to be run simultaneously on same network.
+# The Node, flutter and django servers need to be run simultaneously on the same network!
 
 ## Backend
 
