@@ -1,5 +1,5 @@
-# PICT_CODESIMULATORS
-## PICT International Techfiesta Hackathon Winning Project
+# PICT CODESIMULATORS
+## PICT International Techfiesta Hackathon Winning Project 🥇
 
 ## ```EcoSaathi``` - A Waste Management Project
 
