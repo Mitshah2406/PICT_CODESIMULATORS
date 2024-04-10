@@ -36,6 +36,8 @@ Some Screenshots from the user's side:
 
 This module is designed to detect any individual littering on the streets using CCTV footage. For demonstration purposes, we have created a sample dataset and operated it. When a person is observed littering, the model promptly detects the act, identifies the individual, and sends them a WhatsApp notification informing them that they have been caught littering and are being fined X amount.
 
+Additionally, we utilized a YOLOv8 model trained on the Taco Trash dataset, which enables the detection of the specific type of litter. We intend to impose fines on individuals based on the type of litter discarded. For instance, if a cigarette butt is thrown, the user will receive a fine of 10k,etc
+
 Demonstration Link: https://youtu.be/bjuEkIFkxkw
 
 
