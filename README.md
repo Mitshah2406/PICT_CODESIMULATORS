@@ -1,7 +1,15 @@
 # PICT_CODESIMULATORS
-## International Hackathon Winning Project
+## PICT International Techfiesta Hackathon Winning Project
 
-## Project Name ```EcoSaathi``` A Waste Management System
+## ```EcoSaathi``` - A Waste Management Project
+
+
+
+
+
+
+
+
 ## Backend
 
 ```bash
