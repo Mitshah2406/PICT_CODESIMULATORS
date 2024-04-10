@@ -28,6 +28,7 @@ This module aims to coordinate social cause events and initiatives, inspiring in
 The user can register as
 1) Participants
 2) Volunteers
+   
 Participants receive dynamically generated certificates recognizing their contributions to the social cause initiative.
 
 Organizers scan the barcode on the user's registration ticket to confirm attendance at the event. Simultaneously, a dynamic certificate is generated for the user, and a WhatsApp notification is promptly dispatched to inform them.
@@ -66,7 +67,7 @@ npm start
 
 ## Frontend
 
-## update IP address in utils/constants/app_constants.dart and also relevant API Keys
+## update IP address in utils/constants/app_constants.dart and also add relevant API Keys
 
 ```bash
 cd ./pict_frontend
