@@ -14,7 +14,7 @@ urlForWhatsappBot = 'http://192.168.154.85:4000/whatsapp/littered'
 # }
 # API endpoint and headers
 url = "https://api.ultralytics.com/v1/predict/Wd9MMxoHRZweJGklcmNc"
-headers = {"x-api-key": "95d217892627ba6c818b50e45993a7368f1876e127"}
+headers = {"x-api-key": ""}
 data = {"size": 640, "confidence": 0.5, "iou": 0.5}
 
 # Load known faces and their encodings
