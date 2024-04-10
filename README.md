@@ -10,10 +10,11 @@
 <img width="1257" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/4790a3f6-5079-4f6d-b0b7-db266df250e7">
 
 ## Each Icon also have a pin with details of the location such as depot or bin
-<img width="1255" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/85c98f41-c4c4-4d8e-9534-43cb2ff87d68">
+<img width="1253" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/24c180e4-39d1-4a7d-803d-90015000f58f">
 
 ## The Route of each truck
-<img width="1253" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/24c180e4-39d1-4a7d-803d-90015000f58f">
+<img width="1255" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/85c98f41-c4c4-4d8e-9534-43cb2ff87d68">
+
 
 
 
