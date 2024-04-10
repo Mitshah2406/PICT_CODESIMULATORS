@@ -5,6 +5,7 @@
 
 # Route Optimization Module using Capacitated Vehicle Routing Problem
 
+Optimizing Garbage Collection Routes for the pickup trucks using Google Maps API, Capacitated Vehicle Routing Problem, Distance Matrix API, Directions API, Geocoding API
 
 ## Showing Optimized Route For 4 trucks using 13 bins spread accross the city 
 <img width="1257" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/4790a3f6-5079-4f6d-b0b7-db266df250e7">
