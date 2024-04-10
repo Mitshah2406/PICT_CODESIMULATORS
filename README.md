@@ -5,7 +5,7 @@
 
 # Bin Fill Level Detection using Computer Vision
 
-The system is also capable of identifying whether a garbage bin is full or not. This information is gathered through IoT-based sensors installed in the bins. Once detected, the data is promptly transmitted to the authorities. With this real-time data, authorities can efficiently manage waste collection by dispatching trucks accordingly, optimizing their routes based on the status of the bins.
+The system is capable of identifying whether a garbage bin has trash or not. This information is gathered through IoT-based sensors installed in the bins. Once detected, the data is promptly transmitted to the authorities. With this real-time data, authorities can efficiently manage waste collection by dispatching trucks accordingly, optimizing their routes based on the status of the bins.
 
 <img width="1257" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/117341727/671921ba-0726-4b86-83ee-866488c0ba7c">
 
