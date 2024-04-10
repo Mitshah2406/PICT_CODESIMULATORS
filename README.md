@@ -3,6 +3,11 @@
 
 ## ```EcoSaathi``` - A Waste Management Project
 
+# Bin Fill Level Detection using Computer Vision
+
+The system is also capable of identifying whether a garbage bin is full or not. This information is gathered through IoT-based sensors installed in the bins. Once detected, the data is promptly transmitted to the authorities. With this real-time data, authorities can efficiently manage waste collection by dispatching trucks accordingly, optimizing their routes based on the status of the bins.
+
+
 # Route Optimization using Capacitated Vehicle Routing Problem
 
 Optimizing Garbage Collection Routes for the pickup trucks using Google Maps API, Capacitated Vehicle Routing Problem, Distance Matrix API, Directions API, Geocoding API
@@ -32,7 +37,7 @@ Some Screenshots from the user's side:
 <img width="250" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/c6a84203-2b55-4dbe-bdc3-6c5fa8e6a8bb">
 <img width="250" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/47e3bbec-a408-43ae-b5ac-c0616c7638d9">
 
-# Littering Detection Module 
+# Litterbug Detector using Computer Vision
 
 This module is designed to detect any individual littering on the streets using CCTV footage. For demonstration purposes, we have created a sample dataset and operated it. When a person is observed littering, the model promptly detects the act, identifies the individual, and sends them a WhatsApp notification informing them that they have been caught littering and are being fined X amount.
 
