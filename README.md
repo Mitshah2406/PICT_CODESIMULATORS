@@ -17,7 +17,11 @@ Optimizing Garbage Collection Routes for the pickup trucks using Google Maps API
 <img width="1255" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/85c98f41-c4c4-4d8e-9534-43cb2ff87d68">
 
 
+## Notification (Alert Module) 
 
+Used Meta Developers Whatsapp API for sending timely ntofications and alerts on various events
+
+<img width="581" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/1e3c3d27-c822-4050-81d8-376dae66c4ba">
 
 
 # All these Node, flutter and django server need to be run simultaneously on same network.
