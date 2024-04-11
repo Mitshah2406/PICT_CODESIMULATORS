@@ -54,11 +54,11 @@ Used Meta Developers' Whatsapp API for sending timely notfications and alerts fo
 
 <img width="581" alt="image" src="https://github.com/Mitshah2406/PICT_CODESIMULATORS/assets/84562856/1e3c3d27-c822-4050-81d8-376dae66c4ba">
 
-#WasteBot
+# WasteBot
 
 Used the Gemini API to create a chatbot to help the users with any queries regarding waste disposal,segregation,etc. Get straightforward answers without the fuss, and make your waste management hassle-free with WasteBot.
 
-#ReuseIt!
+# ReuseIt!
 
 The Users have to type in any item they want to reuse and our RAG model generates a list of possible things we could make from it!  Each suggestion comes with clear instructions to help you breathe new life into old items. Let's reimagine waste together with ReuseIt.
 
