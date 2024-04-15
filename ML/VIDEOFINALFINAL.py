@@ -13,6 +13,7 @@ urlForWhatsappBot = 'http://192.168.154.85:4000/whatsapp/littered'
 #   'Content-Type': 'application/json',
 # }
 # API endpoint and headers
+#Add ultralytics url below after training your model! We used the yolov8 on the tacotrash dataset
 url = ""
 headers = {"x-api-key": ""}
 data = {"size": 640, "confidence": 0.5, "iou": 0.5}
