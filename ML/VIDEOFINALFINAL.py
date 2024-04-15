@@ -13,7 +13,7 @@ urlForWhatsappBot = 'http://192.168.154.85:4000/whatsapp/littered'
 #   'Content-Type': 'application/json',
 # }
 # API endpoint and headers
-url = "https://api.ultralytics.com/v1/predict/Wd9MMxoHRZweJGklcmNc"
+url = ""
 headers = {"x-api-key": ""}
 data = {"size": 640, "confidence": 0.5, "iou": 0.5}
 
